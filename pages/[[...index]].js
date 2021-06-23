@@ -4,11 +4,21 @@ import * as auth from "../server/utils/auth";
 import Database from "server/services/database";
 import * as templates from "shared/components/templates";
 import { getSubdomain } from "shared/utils/url";
+import useData from "shared/hooks/useData";
+import { useRouter } from "next/router";
+import { Alert } from "@chakra-ui/react";
 
 const isDev = process.env.NODE_ENV === "development";
 
 export const getServerSideProps = async (ctx) => {
   try {
+    if (ctx.query.edit) {
+      return {
+        props: {
+          portfolio: null,
+        },
+      };
+    }
     const db = await Database({ token: null });
     const subdomain = isDev
       ? ctx.query.subdomain
@@ -39,6 +49,15 @@ const getTemplateComponent = (template) => {
 };
 
 const Home = ({ portfolio }) => {
+  const draft = useData();
+  const router = useRouter();
+
+  console.log(router.query);
+
+  if (router.query.edit && draft) {
+    portfolio = draft;
+  }
+
   const Template = getTemplateComponent(portfolio?.template);
 
   if (portfolio && Template) {

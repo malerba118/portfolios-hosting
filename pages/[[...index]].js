@@ -52,8 +52,6 @@ const Home = ({ portfolio }) => {
   const draft = useData();
   const router = useRouter();
 
-  console.log(router.query);
-
   if (router.query.edit && draft) {
     portfolio = draft;
   }
@@ -63,7 +61,7 @@ const Home = ({ portfolio }) => {
   if (portfolio && Template) {
     return <Template portfolio={portfolio} />;
   }
-  return <h1>Not Found</h1>;
+  return <h1>Not Foundd</h1>;
 };
 
 export default Home;

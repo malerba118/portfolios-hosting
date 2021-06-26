@@ -52,16 +52,19 @@ const Home = ({ portfolio }) => {
   const draft = useData();
   const router = useRouter();
 
-  if (router.query.edit && draft) {
+  if (router.query.edit) {
     portfolio = draft;
+    if (!portfolio) {
+      return null;
+    }
   }
 
   const Template = getTemplateComponent(portfolio?.template);
 
   if (portfolio && Template) {
-    return <Template portfolio={portfolio} />;
+    return <Template key={Math.random()} portfolio={portfolio} />;
   }
-  return <h1>Not Foundd</h1>;
+  return <h1>Not Found</h1>;
 };
 
 export default Home;

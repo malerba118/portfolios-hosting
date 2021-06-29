@@ -1,5 +1,5 @@
 import React from "react";
-
+import { ChakraProvider } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 const App = dynamic(() => import("./App"), { ssr: false });
 
@@ -33,8 +33,11 @@ const App = dynamic(() => import("./App"), { ssr: false });
 // };
 
 const Template = ({ portfolio }) => {
-  const { about, projects } = portfolio.content;
-  return <App word={about.firstName} />;
+  return (
+    <ChakraProvider>
+      <App portfolio={portfolio} />
+    </ChakraProvider>
+  );
 };
 
 export default Template;

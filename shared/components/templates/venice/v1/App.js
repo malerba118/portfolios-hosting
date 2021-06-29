@@ -1,5 +1,6 @@
 import React, { Suspense, useEffect, useRef } from "react";
 import { Canvas } from "react-three-fiber";
+import { Box, Heading, Image, Badge, Wrap } from "@chakra-ui/react";
 import { OrbitControls, Environment, Plane, Reflector } from "drei";
 import gsap from "gsap";
 import Text from "./Text";
@@ -80,31 +81,79 @@ const Pavement = () => {
 };
 
 export default function App(props) {
+  const { about, projects } = props.portfolio.content;
+
+  const text = about.firstName.replace(/\s/g, "").toUpperCase();
   return (
-    <Canvas
-      style={{ height: "100vh" }}
-      colorManagement
-      camera={{ fov: 30, position: [0, 90, 180] }}
-    >
-      <color attach="background" args={["#ebcfba"]} />
-      <directionalLight position={[-40, 20, 20]} color="#c59cf1" />
-      <directionalLight
-        position={[10.5, 20, 10]}
-        intensity={1.5}
-        color="#e78f48"
-      />
-      <ambientLight color="#8d69cb" />
-      <Suspense fallback={null}>
-        <Pavement />
-        <Environment preset="night" />
-        <Magic
-          text={props.word.replace(/\s/g, "").toUpperCase()}
-          start={Math.PI * 1.18}
-          count={11}
-          radius={25}
+    <Box>
+      <Canvas
+        style={{ height: "70vh" }}
+        colorManagement
+        camera={{ fov: 20, position: [0, 90, 180] }}
+      >
+        <color attach="background" args={["#ebcfba"]} />
+        <directionalLight position={[-40, 20, 20]} color="#c59cf1" />
+        <directionalLight
+          position={[10.5, 20, 10]}
+          intensity={1.5}
+          color="#e78f48"
         />
-      </Suspense>
-      <OrbitControls />
-    </Canvas>
+        <ambientLight color="#8d69cb" />
+        <Suspense fallback={null}>
+          <Pavement />
+          <Environment preset="night" />
+          <Magic text={text} start={Math.PI * 1.18} count={11} radius={25} />
+        </Suspense>
+        <OrbitControls />
+      </Canvas>
+      <Box p={8}>
+        <Heading fontSize="2xl">
+          {about.firstName} {about.lastName}
+        </Heading>
+        <Heading fontSize="lg">{about.title}</Heading>
+      </Box>
+      <Box p={8} py={0}>
+        <Heading fontSize="xl" mb="4">
+          Projects
+        </Heading>
+        <Wrap spacing={4}>
+          {projects.map((proj) => (
+            <Project project={proj} />
+          ))}
+        </Wrap>
+      </Box>
+    </Box>
+  );
+}
+
+function Project({ project }) {
+  return (
+    <Box
+      maxW="sm"
+      borderWidth="1px"
+      borderRadius="lg"
+      overflow="hidden"
+      w="300px"
+    >
+      <Image
+        h="200px"
+        w="300px"
+        objectFit="cover"
+        objectPosition="0px -4px"
+        src={project.images.items[0]?.url || "https://picsum.photos/400"}
+      />
+      <Box p="4">
+        <Box
+          mt="1"
+          fontWeight="semibold"
+          as="h4"
+          lineHeight="tight"
+          isTruncated
+        >
+          {project.name}
+        </Box>
+        <Box> {project.summary}</Box>
+      </Box>
+    </Box>
   );
 }

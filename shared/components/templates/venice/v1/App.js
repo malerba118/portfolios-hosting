@@ -118,7 +118,7 @@ export default function App(props) {
         </Heading>
         <Wrap spacing={4}>
           {projects.map((proj) => (
-            <Project project={proj} />
+            <Project key={proj.id} project={proj} />
           ))}
         </Wrap>
       </Box>
@@ -139,8 +139,11 @@ function Project({ project }) {
         h="200px"
         w="300px"
         objectFit="cover"
-        objectPosition="0px -4px"
-        src={project.images.items[0]?.url || "https://picsum.photos/400"}
+        src={
+          project.images.items[0]?.processedUrl ||
+          project.images.items[0]?.rawUrl ||
+          "https://picsum.photos/400"
+        }
       />
       <Box p="4">
         <Box

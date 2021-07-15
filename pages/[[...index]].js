@@ -26,10 +26,11 @@ export const getServerSideProps = async (ctx) => {
     let portfolio;
     if (subdomain) {
       portfolio = await db.portfolios.getBySubdomain(subdomain);
+      console.log(subdomain);
     }
     return {
       props: {
-        portfolio: portfolio.draft,
+        portfolio: portfolio.published,
       },
     };
   } catch (err) {

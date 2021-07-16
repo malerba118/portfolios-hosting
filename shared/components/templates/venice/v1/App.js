@@ -1,128 +1,133 @@
-import React, { Suspense, useEffect, useRef } from "react";
-import { Canvas } from "react-three-fiber";
-import { Box, Heading, Image, Badge, Wrap } from "@chakra-ui/react";
-import { OrbitControls, Environment, Plane, Reflector } from "drei";
-import gsap from "gsap";
-import Text from "./Text";
+import React, { Suspense, useState, useEffect, useRef } from "react";
+import {
+  Box,
+  ChakraProvider,
+  Heading,
+  Image,
+  Wrap,
+  useBreakpointValue,
+  Alert,
+} from "@chakra-ui/react";
+import { Canvas } from "@react-three/fiber";
+import {
+  Html,
+  Environment,
+  useGLTF,
+  ContactShadows,
+  OrbitControls,
+} from "@react-three/drei";
+import { Router, Switch, Route, Link } from "react-router-dom";
+import { AnimateSharedLayout, motion, useSpring } from "framer-motion";
+import Model from "./Laptop";
+import Landing from "./Landing";
+import Page from "./Page";
+import { createBrowserHistory } from "history";
 
-const { PI, sin, cos } = Math;
-
-const Letter = ({ i, count, radius, l }) => {
-  const $ref = useRef();
-
-  return (
-    <group ref={$ref} rotation={[0, 0, 0]}>
-      <Text
-        hAlign="center"
-        position={[
-          radius * sin((i / count) * PI * 2),
-          -0.8,
-          radius * cos((i / count) * PI * 2),
-        ]}
-        rotation={[0, (i / count) * PI * 2, 0]}
-        i={i}
-        children={l}
-      />
-    </group>
-  );
-};
-
-const Magic = ({ text, count, radius, start = 0, position }) => {
-  const $ref = useRef();
-  useEffect(() => {
-    gsap.to($ref.current.rotation, {
-      duration: 6,
-      y: PI * 1.3 + PI * 2,
-      repeat: -1,
-      ease: "power3.inOut",
-    });
-  });
-  return (
-    <group
-      ref={$ref}
-      position={position}
-      rotation={[0, PI * 1.3, 0]}
-      scale={[-1, 1, 1]}
-    >
-      {text.split("").map((l, i) => (
-        <Letter key={`1${i}`} l={l} radius={radius} i={i} count={count} />
-      ))}
-    </group>
-  );
-};
-
-const Pavement = () => {
-  return (
-    <>
-      <Plane
-        rotation-x={-PI * 0.5}
-        position={[0, -7.9, 0]}
-        args={[200, 200]}
-        receiveShadow
-      >
-        <meshBasicMaterial
-          color={"#ffcda3"}
-          attach="material"
-          transparent={true}
-          opacity={0.4}
-        />
-      </Plane>
-      <Reflector
-        clipBias={0.1}
-        textureWidth={1024}
-        textureHeight={1024}
-        position={[0, -8, 0]}
-        rotation={[-PI * 0.5, 0, 0]}
-      >
-        <planeBufferGeometry args={[200, 200]} />
-      </Reflector>
-    </>
-  );
-};
+const history = createBrowserHistory();
 
 export default function App(props) {
   const { about, projects } = props.portfolio.content;
+  // const [expanded, setExpanded] = useState(false);
+  const [location, setLocation] = useState();
+  // const scaleShim = useBreakpointValue({
+  //   xs: -1,
+  //   sm: 0,
+  //   md: 1,
+  //   lg: 2,
+  //   xl: 3,
+  //   base: 0,
+  // });
 
-  const text = about.firstName.replace(/\s/g, "").toUpperCase();
+  const expanded = [
+    "/about",
+    "/projects",
+    "/work",
+    "/education",
+    "/contact",
+  ].includes(location?.pathname);
+
+  useEffect(() => {
+    return history.listen(() => {
+      setLocation(history.location);
+    });
+  }, []);
+
+  // console.log(scaleShim);
+
   return (
-    <Box>
-      <Canvas
-        style={{ height: "70vh" }}
-        colorManagement
-        camera={{ fov: 20, position: [0, 90, 180] }}
-      >
-        <color attach="background" args={["#ebcfba"]} />
-        <directionalLight position={[-40, 20, 20]} color="#c59cf1" />
-        <directionalLight
-          position={[10.5, 20, 10]}
-          intensity={1.5}
-          color="#e78f48"
-        />
-        <ambientLight color="#8d69cb" />
-        <Suspense fallback={null}>
-          <Pavement />
-          <Environment preset="night" />
-          <Magic text={text} start={Math.PI * 1.18} count={11} radius={25} />
-        </Suspense>
-        <OrbitControls />
-      </Canvas>
-      <Box p={8}>
-        <Heading fontSize="2xl">
-          {about.firstName} {about.lastName}
-        </Heading>
-        <Heading fontSize="lg">{about.title}</Heading>
+    <Router history={history}>
+      <Box>
+        <motion.div
+          style={{ height: "100vh", background: "#252525" }}
+          animate={{ opacity: expanded ? 0 : 1 }}
+          transition={{ delay: 0.26 }}
+        >
+          <Canvas dpr={[1, 2]} camera={{ position: [0, -16, -16], fov: 35 }}>
+            <pointLight position={[10, 10, 10]} intensity={1.5} />
+            <Suspense fallback={null}>
+              <group rotation={[0, Math.PI, 0]}>
+                <Model
+                  scale={expanded ? 1.5 : 1}
+                  rotationY={expanded ? Math.PI / 4 : 0}
+                >
+                  <ChakraProvider>
+                    <Router history={history}>
+                      <Landing
+                        portfolio={props.portfolio}
+                        // onExpand={() => history.push()}
+                      />
+                    </Router>
+                  </ChakraProvider>
+                </Model>
+              </group>
+              <Environment preset="city" />
+            </Suspense>
+            <ContactShadows
+              rotation-x={Math.PI / 2}
+              position={[0, -4.5, 0]}
+              opacity={1}
+              width={20}
+              height={20}
+              blur={2}
+              far={4.5}
+            />
+            <OrbitControls
+              enablePan={false}
+              enableZoom={false}
+              minPolarAngle={Math.PI / 2}
+              maxPolarAngle={Math.PI / 2}
+            />
+          </Canvas>
+        </motion.div>
+        <motion.div
+          initial={false}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: expanded ? 10000 : -1,
+            overflow: "auto",
+          }}
+          animate={{ opacity: expanded ? 1 : 0 }}
+          transition={{ delay: 0.26, duration: 0.4 }}
+        >
+          {location?.pathname === "/about" && (
+            <Page id="about" title="About"></Page>
+          )}
+          {location?.pathname === "/projects" && (
+            <Page id="projects" title="Projects"></Page>
+          )}
+          {location?.pathname === "/work" && (
+            <Page id="work" title="Work"></Page>
+          )}
+          {location?.pathname === "/education" && (
+            <Page id="education" title="Education"></Page>
+          )}
+          {location?.pathname === "/contact" && (
+            <Page id="contact" title="Contact"></Page>
+          )}
+        </motion.div>
       </Box>
-      <Box p={8} py={0}>
-        <Heading fontSize="xl" mb="4">
-          Projects
-        </Heading>
-        <Wrap spacing={4}>
-          {projects.map((proj) => (
-            <Project key={proj.id} project={proj} />
-          ))}
-        </Wrap>
-      </Box>
-    </Box>
+    </Router>
   );
 }
 
@@ -155,7 +160,7 @@ function Project({ project }) {
         >
           {project.name}
         </Box>
-        <Box> {project.summary}</Box>
+        <Box>{project.summary}</Box>
       </Box>
     </Box>
   );

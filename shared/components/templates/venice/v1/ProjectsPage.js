@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import Page from "./Page";
-import { Box, Text, Heading, HStack, Flex, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Heading,
+  HStack,
+  Flex,
+  Stack,
+  useBreakpoint,
+} from "@chakra-ui/react";
 import { Grid, GridItem } from "./Grid";
 import Media from "./Media";
 import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
@@ -12,7 +20,7 @@ const Label = ({ side, title, subtitle }) => {
   if (side === "left") {
     return (
       <ScrollReveal>
-        <Flex w={300} flexDirection="column" align="flex-start">
+        <Flex w={270} flexDirection="column" align="flex-start">
           <Entrance
             key={0}
             delay={0.4}
@@ -24,8 +32,8 @@ const Label = ({ side, title, subtitle }) => {
               {title}
             </Heading>
           </Entrance>
-          <Entrance key={1} width={300} initialX={300}>
-            <Box w={300} h="1px" bg="black" />
+          <Entrance key={1} width={270} initialX={270}>
+            <Box w={270} h="1px" bg="black" />
           </Entrance>
           <Entrance
             key={2}
@@ -44,7 +52,7 @@ const Label = ({ side, title, subtitle }) => {
   } else {
     return (
       <ScrollReveal>
-        <Flex w={300} flexDirection="column" align="flex-end">
+        <Flex w={270} flexDirection="column" align="flex-end">
           <Entrance
             key={0}
             delay={0.4}
@@ -56,8 +64,8 @@ const Label = ({ side, title, subtitle }) => {
               {title}
             </Heading>
           </Entrance>
-          <Entrance key={1} width={300} initialX={-300}>
-            <Box w={300} h="1px" bg="black" />
+          <Entrance key={1} width={270} initialX={-270}>
+            <Box w={270} h="1px" bg="black" />
           </Entrance>
           <Entrance
             key={2}
@@ -80,23 +88,30 @@ const ProjectCard = ({ project, isSelected, onSelect, labelSide }) => {
   const media = project.images.items[0];
   return (
     <HStack
-      spacing={4}
+      spacing={[0, 4]}
       onClick={() => onSelect(project.id)}
       bg="white"
-      h="100vh"
+      h="calc(100vh - 64px)"
       w="100%"
+      flexWrap="wrap"
       justifyContent={labelSide === "left" ? "flex-end" : "flex-start"}
+      overflow="hidden"
     >
       {labelSide === "left" && (
         <>
-          <Box pos="relative" w={300}>
+          <Box pos="relative" w={270} h="50px">
             <Label
               side="left"
               title={project.name}
               subtitle={project.summary}
             />
           </Box>
-          <ScrollReveal h="100%" minWidth={300} w="50%">
+          <ScrollReveal
+            h={["calc(100% - 50px)", "100%"]}
+            minW={["100%", 0]}
+            maxW={["100%", 800]}
+            flex={1}
+          >
             <MotionImage
               width="100%"
               height="100%"
@@ -108,7 +123,12 @@ const ProjectCard = ({ project, isSelected, onSelect, labelSide }) => {
       )}
       {labelSide === "right" && (
         <>
-          <ScrollReveal h="100%" minWidth={300} w="50%">
+          <ScrollReveal
+            h={["calc(100% - 50px)", "100%"]}
+            minW={["100%", 0]}
+            maxW={["100%", 800]}
+            flex={1}
+          >
             <MotionImage
               width="100%"
               height="100%"
@@ -116,7 +136,7 @@ const ProjectCard = ({ project, isSelected, onSelect, labelSide }) => {
               src={media.processedUrl || media.rawUrl}
             />
           </ScrollReveal>
-          <Box pos="relative" w={300}>
+          <Box pos="relative" w={270} h="50px">
             <Label
               side="right"
               title={project.name}

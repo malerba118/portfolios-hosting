@@ -14,12 +14,7 @@ import { AnimatePresence } from "framer-motion";
 const Page = ({ id, title, onClose, children }) => {
   return (
     <AnimatePresence>
-      <MotionBox
-        initial={{ y: -200, opacity: 0 }}
-        animate={{ y: 0, opacity: 1, transition: transitions.two(1) }}
-        h="100vh"
-        position="relative"
-      >
+      <MotionBox h="100vh" position="relative" bg="white">
         <Flex p={8} pb={0} justify="space-between">
           <Heading fontSize="5xl">{title}</Heading>
           <Link to="/">

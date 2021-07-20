@@ -25,13 +25,26 @@ import { createBrowserHistory } from "history";
 import theme from "./theme";
 import ProjectsPage from "./ProjectsPage";
 import useFonts from "../../../../hooks/useFonts";
+import { transitions } from "./components/animation";
 
 const history = createBrowserHistory();
 
+const useLocation = () => {
+  const [location, setLocation] = useState(history.location);
+
+  useEffect(() => {
+    return history.listen(() => {
+      setLocation(history.location);
+    });
+  }, []);
+
+  return location;
+};
+
 export default function App(props) {
   const { about, projects } = props.portfolio.content;
+  const location = useLocation();
   // const [expanded, setExpanded] = useState(false);
-  const [location, setLocation] = useState();
   // const scaleShim = useBreakpointValue({
   //   xs: -1,
   //   sm: 0,
@@ -51,12 +64,6 @@ export default function App(props) {
 
   const fonts = useFonts(["Archivo", "Karla"]);
 
-  useEffect(() => {
-    return history.listen(() => {
-      setLocation(history.location);
-    });
-  }, []);
-
   if (fonts.isLoading) {
     return null;
   }
@@ -66,8 +73,10 @@ export default function App(props) {
       <Box>
         <motion.div
           style={{ height: "100vh", background: "#252525" }}
-          animate={{ opacity: expanded ? 0 : 1 }}
-          transition={{ delay: 0.26 }}
+          animate={{
+            opacity: expanded ? 0 : 1,
+            transition: transitions.two(0.6),
+          }}
         >
           <Canvas dpr={[1, 2]} camera={{ position: [0, -16, -16], fov: 35 }}>
             <pointLight position={[10, 10, 10]} intensity={1.5} />

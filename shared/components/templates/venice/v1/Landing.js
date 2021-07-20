@@ -7,7 +7,12 @@ export default function Landing(props) {
   const { about, projects } = props.portfolio.content;
 
   return (
-    <Box position="absolute" inset={0} bg="white">
+    <Box
+      position="absolute"
+      inset={0}
+      bg="white"
+      // bgGradient="linear(to-r, #ffafbd, #ffc3a0)"
+    >
       <Flex
         h="100%"
         p={8}
@@ -17,18 +22,25 @@ export default function Landing(props) {
         justify="center"
         pb={4}
       >
-        <Avatar size="lg" src="https://picsum.photos/id/200/300/300" />
-        <Heading onClick={props.onExpand} fontSize="4xl" mt={1}>
+        <Avatar size="xl" src="https://picsum.photos/id/209/300/300" />
+        <Heading
+          fontWeight={600}
+          color="gray.900"
+          onClick={props.onExpand}
+          fontSize="7xl"
+          mt={1}
+        >
           {about.firstName} {about.lastName}
         </Heading>
-        <Heading color="gray.700" onClick={props.onExpand} fontSize="2xl">
+        <Heading color="gray.700" onClick={props.onExpand} fontSize="4xl">
           {about.title}
         </Heading>
         <HStack
+          textTransform="uppercase"
           spacing={6}
-          p={4}
+          p={6}
           fontSize="xl"
-          color="purple.600"
+          color="pink.500"
           fontWeight="600"
         >
           <Link as={ReactRouterLink} to="/about">

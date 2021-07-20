@@ -22,6 +22,9 @@ import Model from "./Laptop";
 import Landing from "./Landing";
 import Page from "./Page";
 import { createBrowserHistory } from "history";
+import theme from "./theme";
+import ProjectsPage from "./ProjectsPage";
+import useFonts from "../../../../hooks/useFonts";
 
 const history = createBrowserHistory();
 
@@ -46,13 +49,17 @@ export default function App(props) {
     "/contact",
   ].includes(location?.pathname);
 
+  const fonts = useFonts(["Archivo", "Karla"]);
+
   useEffect(() => {
     return history.listen(() => {
       setLocation(history.location);
     });
   }, []);
 
-  // console.log(scaleShim);
+  if (fonts.isLoading) {
+    return null;
+  }
 
   return (
     <Router history={history}>
@@ -70,7 +77,7 @@ export default function App(props) {
                   scale={expanded ? 1.5 : 1}
                   rotationY={expanded ? Math.PI / 4 : 0}
                 >
-                  <ChakraProvider>
+                  <ChakraProvider theme={theme}>
                     <Router history={history}>
                       <Landing
                         portfolio={props.portfolio}
@@ -114,7 +121,7 @@ export default function App(props) {
             <Page id="about" title="About"></Page>
           )}
           {location?.pathname === "/projects" && (
-            <Page id="projects" title="Projects"></Page>
+            <ProjectsPage projects={projects} />
           )}
           {location?.pathname === "/work" && (
             <Page id="work" title="Work"></Page>

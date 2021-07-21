@@ -8,6 +8,7 @@ import {
   Flex,
   Stack,
   useBreakpoint,
+  useEventListener,
 } from "@chakra-ui/react";
 import { Grid, GridItem } from "./Grid";
 import Media from "./Media";
@@ -15,6 +16,7 @@ import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
 import MotionImage from "./components/MotionImage";
 import ScrollReveal from "./components/ScrollReveal";
 import Entrance from "./components/Entrance";
+import { MotionBox, transitions } from "./components/animation";
 
 const Label = ({ side, title, subtitle }) => {
   if (side === "left") {
@@ -84,12 +86,48 @@ const Label = ({ side, title, subtitle }) => {
   }
 };
 
-const ProjectCard = ({ project, isSelected, onSelect, labelSide }) => {
+const ProjectPage = ({ project }) => {
+  const media = project.images.items[0];
+  return (
+    <MotionBox
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0, transition: transitions.two(0.6) }}
+      exit={{ opacity: 0 }}
+      position="absolute"
+      inset={0}
+      bg="white"
+    >
+      <MotionImage
+        src={media.processedUrl || media.rawUrl}
+        width="100%"
+        height="380"
+        initialScale={1}
+        initialOpacity={1}
+      />
+      <Stack p={8}>
+        <Entrance initialY={40} initialOpacity={0}>
+          <Heading fontSize="3xl">{project.name}</Heading>
+        </Entrance>
+        <Entrance initialY={30} initialOpacity={0} delay={0.1}>
+          <Heading color="gray.700" fontSize="lg">
+            {project.summary}
+          </Heading>
+        </Entrance>
+        <Entrance initialY={12} initialOpacity={0} delay={0.45}>
+          <Text color="gray.700" fontSize="md">
+            {project.description}
+          </Text>
+        </Entrance>
+      </Stack>
+    </MotionBox>
+  );
+};
+
+const ProjectCard = ({ project, onSelect, labelSide }) => {
   const media = project.images.items[0];
   return (
     <HStack
       spacing={[0, 4]}
-      onClick={() => onSelect(project.id)}
       bg="white"
       h="calc(100vh - 64px)"
       w="100%"
@@ -113,9 +151,11 @@ const ProjectCard = ({ project, isSelected, onSelect, labelSide }) => {
             flex={1}
           >
             <MotionImage
+              onClick={() => onSelect(project.id)}
+              cursor="pointer"
               width="100%"
               height="100%"
-              initialScale={0.8}
+              initialScale={0.9}
               src={media.processedUrl || media.rawUrl}
             />
           </ScrollReveal>
@@ -130,9 +170,11 @@ const ProjectCard = ({ project, isSelected, onSelect, labelSide }) => {
             flex={1}
           >
             <MotionImage
+              onClick={() => onSelect(project.id)}
+              cursor="pointer"
               width="100%"
               height="100%"
-              initialScale={0.8}
+              initialScale={0.9}
               src={media.processedUrl || media.rawUrl}
             />
           </ScrollReveal>
@@ -154,19 +196,30 @@ const ProjectsPage = ({ projects }) => {
 
   const selectedProject = projects.find((p) => p.id === selected);
 
+  useEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      setSelected(null);
+    }
+  });
+
   return (
     <AnimateSharedLayout type="switch">
       <Page id="projects" title="Projects">
-        <Stack spacing={8} p={8}>
-          {projects.map((project, i) => (
-            <ProjectCard
-              labelSide={i % 2 === 0 ? "left" : "right"}
-              isSelected={selected === project.id}
-              onSelect={setSelected}
-              project={project}
-            />
-          ))}
-        </Stack>
+        <AnimatePresence>
+          {!selected && (
+            <Stack spacing={8} p={8}>
+              {projects.map((project, i) => (
+                <ProjectCard
+                  labelSide={i % 2 === 0 ? "left" : "right"}
+                  isSelected={selected === project.id}
+                  onSelect={setSelected}
+                  project={project}
+                />
+              ))}
+            </Stack>
+          )}
+          {selected && <ProjectPage project={selectedProject} />}
+        </AnimatePresence>
       </Page>
     </AnimateSharedLayout>
   );

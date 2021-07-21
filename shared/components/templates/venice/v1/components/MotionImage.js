@@ -4,36 +4,46 @@ import { motion } from "framer-motion";
 import {
   transitions,
   MotionImage as CMotionImage,
-  MotionBox
+  MotionBox,
 } from "./animation";
 
-const MotionImage = ({ src, height, width, initialScale = 1 }) => {
+const MotionImage = ({
+  src,
+  height,
+  width,
+  initialScale = 1,
+  initialOpacity = 0,
+  onClick,
+  cursor,
+}) => {
   const [status, setStatus] = useState("loading");
 
   return (
     <MotionBox
+      cursor={cursor}
+      onClick={onClick}
       overflow="hidden"
       height={height}
       width={width}
-      initial={{ scale: initialScale, opacity: 0 }}
+      initial={{ scale: initialScale, opacity: initialOpacity }}
       animate={{
         scale: status !== "loading" ? 1 : initialScale,
-        opacity: 1,
-        transition: transitions.two(0.9)
+        opacity: status !== "loading" ? 1 : initialOpacity,
+        transition: transitions.two(0.9),
       }}
     >
       <CMotionImage
         h="100%"
         w="100%"
         objectFit="cover"
-        initial={{ scale: (1 / initialScale) * 1.4 }}
+        initial={{ scale: (1 / initialScale) * 1.25 }}
         animate={{
-          scale: status !== "loading" ? 1 : (1 / initialScale) * 1.4,
-          transition: transitions.two(0.9)
+          scale: status !== "loading" ? 1 : (1 / initialScale) * 1.25,
+          transition: transitions.two(0.9),
         }}
         whileHover={{
           scale: 1.06,
-          transition: transitions.two(0.5)
+          transition: transitions.two(0.5),
         }}
         src={src}
         onLoad={() => setStatus("loaded")}

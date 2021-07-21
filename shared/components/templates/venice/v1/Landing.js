@@ -36,10 +36,10 @@ export default function Landing(props) {
           {about.title}
         </Heading>
         <HStack
-          textTransform="uppercase"
+          // textTransform="uppercase"
           spacing={6}
           p={6}
-          fontSize="xl"
+          fontSize="2xl"
           color="pink.500"
           fontWeight="600"
         >

@@ -15,7 +15,7 @@ const Page = ({ id, title, onClose, children }) => {
   return (
     <AnimatePresence>
       <MotionBox h="100vh" position="relative" bg="white">
-        <Flex p={8} pb={0} justify="space-between">
+        <Flex p={8} pb={0} justify="space-between" align="center">
           <Heading fontSize="5xl">{title}</Heading>
           <Link to="/">
             <CloseButton />

@@ -20,6 +20,7 @@ export default function Landing(props) {
         direction="column"
         align="center"
         justify="center"
+        textAlign="center"
         pb={4}
       >
         <Avatar size="xl" src="https://picsum.photos/id/209/300/300" />

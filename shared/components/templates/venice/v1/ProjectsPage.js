@@ -21,7 +21,7 @@ import { MotionBox, transitions } from "./components/animation";
 const Label = ({ side, title, subtitle }) => {
   if (side === "left") {
     return (
-      <ScrollReveal>
+      <ScrollReveal persist>
         <Flex w={270} flexDirection="column" align="flex-start">
           <Entrance
             key={0}
@@ -53,7 +53,7 @@ const Label = ({ side, title, subtitle }) => {
     );
   } else {
     return (
-      <ScrollReveal>
+      <ScrollReveal persist>
         <Flex w={270} flexDirection="column" align="flex-end">
           <Entrance
             key={0}
@@ -90,18 +90,19 @@ const ProjectPage = ({ project }) => {
   const media = project.images.items[0];
   return (
     <MotionBox
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 0 }}
       animate={{ opacity: 1, y: 0, transition: transitions.two(0.6) }}
       exit={{ opacity: 0 }}
       position="absolute"
       inset={0}
+      h="100%"
       bg="white"
     >
       <MotionImage
         src={media.processedUrl || media.rawUrl}
         width="100%"
         height="380"
-        initialScale={1}
+        initialScale={1.03}
         initialOpacity={1}
       />
       <Stack p={8}>
@@ -127,7 +128,7 @@ const ProjectCard = ({ project, onSelect, labelSide }) => {
   const media = project.images.items[0];
   return (
     <HStack
-      spacing={[0, 4]}
+      spacing={[0, 0, 4]}
       bg="white"
       h="calc(100vh - 64px)"
       w="100%"
@@ -145,9 +146,10 @@ const ProjectCard = ({ project, onSelect, labelSide }) => {
             />
           </Box>
           <ScrollReveal
-            h={["calc(100% - 50px)", "100%"]}
-            minW={["100%", 0]}
-            maxW={["100%", 800]}
+            persist
+            h={["calc(100% - 50px)", "calc(100% - 50px)", "100%"]}
+            minW={["100%", "100%", 0]}
+            maxW={["100%", "100%", 800]}
             flex={1}
           >
             <MotionImage
@@ -164,9 +166,10 @@ const ProjectCard = ({ project, onSelect, labelSide }) => {
       {labelSide === "right" && (
         <>
           <ScrollReveal
-            h={["calc(100% - 50px)", "100%"]}
-            minW={["100%", 0]}
-            maxW={["100%", 800]}
+            persist
+            h={["calc(100% - 50px)", "calc(100% - 50px)", "100%"]}
+            minW={["100%", "100%", 0]}
+            maxW={["100%", "100%", 800]}
             flex={1}
           >
             <MotionImage

@@ -213,6 +213,7 @@ const ProjectsPage = ({ projects }) => {
             <Stack spacing={8} p={8}>
               {projects.map((project, i) => (
                 <ProjectCard
+                  key={project.id}
                   labelSide={i % 2 === 0 ? "left" : "right"}
                   isSelected={selected === project.id}
                   onSelect={setSelected}

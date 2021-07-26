@@ -17,6 +17,7 @@ import MotionImage from "./components/MotionImage";
 import ScrollReveal from "./components/ScrollReveal";
 import Entrance from "./components/Entrance";
 import { MotionBox, transitions } from "./components/animation";
+import DateViewer from "./components/DateViewer";
 
 const Label = ({ side, title, subtitle }) => {
   if (side === "left") {
@@ -99,7 +100,11 @@ const ProjectPage = ({ project }) => {
       bg="white"
     >
       <MotionImage
-        src={media.processedUrl || media.rawUrl}
+        src={
+          media?.processedUrl ||
+          media?.rawUrl ||
+          "https://picsum.photos/id/250/500/500"
+        }
         width="100%"
         height="380"
         initialScale={1.03}
@@ -142,7 +147,12 @@ const ProjectCard = ({ project, onSelect, labelSide }) => {
             <Label
               side="left"
               title={project.name}
-              subtitle={project.summary}
+              subtitle={
+                <DateViewer
+                  startDate={project.startDate}
+                  endDate={project.endDate}
+                />
+              }
             />
           </Box>
           <ScrollReveal
@@ -158,7 +168,11 @@ const ProjectCard = ({ project, onSelect, labelSide }) => {
               width="100%"
               height="100%"
               initialScale={0.9}
-              src={media.processedUrl || media.rawUrl}
+              src={
+                media?.processedUrl ||
+                media?.rawUrl ||
+                "https://picsum.photos/id/250/500/500"
+              }
             />
           </ScrollReveal>
         </>
@@ -178,14 +192,23 @@ const ProjectCard = ({ project, onSelect, labelSide }) => {
               width="100%"
               height="100%"
               initialScale={0.9}
-              src={media.processedUrl || media.rawUrl}
+              src={
+                media?.processedUrl ||
+                media?.rawUrl ||
+                "https://picsum.photos/id/250/500/500"
+              }
             />
           </ScrollReveal>
           <Box pos="relative" w={270} h="50px">
             <Label
               side="right"
               title={project.name}
-              subtitle={project.summary}
+              subtitle={
+                <DateViewer
+                  startDate={project.startDate}
+                  endDate={project.endDate}
+                />
+              }
             />
           </Box>
         </>

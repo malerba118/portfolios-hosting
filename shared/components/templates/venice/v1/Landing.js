@@ -31,7 +31,7 @@ export default function Landing(props) {
           fontSize="7xl"
           mt={1}
         >
-          {about.firstName} {about.lastName}
+          {about.firstName || "First"} {about.lastName || "Last"}
         </Heading>
         <Heading color="gray.700" onClick={props.onExpand} fontSize="4xl">
           {about.title}

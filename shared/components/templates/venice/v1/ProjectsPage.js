@@ -18,6 +18,7 @@ import ScrollReveal from "./components/ScrollReveal";
 import Entrance from "./components/Entrance";
 import { MotionBox, transitions } from "./components/animation";
 import DateViewer from "./components/DateViewer";
+import RichtextViewer from "shared/components/RichtextViewer";
 
 const Label = ({ side, title, subtitle }) => {
   if (side === "left") {
@@ -120,9 +121,7 @@ const ProjectPage = ({ project }) => {
           </Heading>
         </Entrance>
         <Entrance initialY={12} initialOpacity={0} delay={0.45}>
-          <Text color="gray.700" fontSize="md">
-            {project.description}
-          </Text>
+          <RichtextViewer value={project.description} />
         </Entrance>
       </Stack>
     </MotionBox>

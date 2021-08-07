@@ -39,7 +39,7 @@ export default function Landing(props) {
         <HStack
           // textTransform="uppercase"
           spacing={6}
-          p={6}
+          p={4}
           fontSize="2xl"
           color="pink.500"
           fontWeight="600"
@@ -49,12 +49,6 @@ export default function Landing(props) {
           </Link>
           <Link as={ReactRouterLink} to="/projects">
             Projects
-          </Link>
-          <Link as={ReactRouterLink} to="/work">
-            Work
-          </Link>
-          <Link as={ReactRouterLink} to="/education">
-            Education
           </Link>
           <Link as={ReactRouterLink} to="/contact">
             Contact

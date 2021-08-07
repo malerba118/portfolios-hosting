@@ -23,6 +23,7 @@ import Landing from "./Landing";
 import Page from "./Page";
 import { createBrowserHistory } from "history";
 import theme from "./theme";
+import AboutPage from "./AboutPage";
 import ProjectsPage from "./ProjectsPage";
 import useFonts from "../../../../hooks/useFonts";
 import { transitions } from "./components/animation";
@@ -42,7 +43,7 @@ const useLocation = () => {
 };
 
 export default function App(props) {
-  const { about, projects } = props.portfolio.content;
+  const { about, projects, contact } = props.portfolio.content;
   const location = useLocation();
   // const [expanded, setExpanded] = useState(false);
   // const scaleShim = useBreakpointValue({
@@ -126,17 +127,9 @@ export default function App(props) {
           animate={{ opacity: expanded ? 1 : 0 }}
           transition={{ delay: 0.26, duration: 0.4 }}
         >
-          {location?.pathname === "/about" && (
-            <Page id="about" title="About"></Page>
-          )}
+          {location?.pathname === "/about" && <AboutPage about={about} />}
           {location?.pathname === "/projects" && (
             <ProjectsPage projects={projects} />
-          )}
-          {location?.pathname === "/work" && (
-            <Page id="work" title="Work"></Page>
-          )}
-          {location?.pathname === "/education" && (
-            <Page id="education" title="Education"></Page>
           )}
           {location?.pathname === "/contact" && (
             <Page id="contact" title="Contact"></Page>
@@ -144,40 +137,5 @@ export default function App(props) {
         </motion.div>
       </Box>
     </Router>
-  );
-}
-
-function Project({ project }) {
-  return (
-    <Box
-      maxW="sm"
-      borderWidth="1px"
-      borderRadius="lg"
-      overflow="hidden"
-      w="300px"
-    >
-      <Image
-        h="200px"
-        w="300px"
-        objectFit="cover"
-        src={
-          project.images.items[0]?.processedUrl ||
-          project.images.items[0]?.rawUrl ||
-          "https://picsum.photos/400"
-        }
-      />
-      <Box p="4">
-        <Box
-          mt="1"
-          fontWeight="semibold"
-          as="h4"
-          lineHeight="tight"
-          isTruncated
-        >
-          {project.name}
-        </Box>
-        <Box>{project.summary}</Box>
-      </Box>
-    </Box>
   );
 }

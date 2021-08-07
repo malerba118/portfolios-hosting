@@ -15,6 +15,7 @@ const MotionImage = ({
   initialOpacity = 0,
   onClick,
   cursor,
+  ...otherProps
 }) => {
   const [status, setStatus] = useState("loading");
 
@@ -31,6 +32,7 @@ const MotionImage = ({
         opacity: status !== "loading" ? 1 : initialOpacity,
         transition: transitions.two(0.9),
       }}
+      {...otherProps}
     >
       <CMotionImage
         h="100%"

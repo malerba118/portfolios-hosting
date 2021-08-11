@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import nookies from "nookies";
 import * as auth from "../server/utils/auth";
 import Database from "server/services/database";
-import * as templates from "shared/components/templates";
+import * as templates from "shared/templates";
 import { getSubdomain } from "shared/utils/url";
 import useData from "shared/hooks/useData";
 import { useRouter } from "next/router";
-import { Alert } from "@chakra-ui/react";
+import { getPreviewablePortfolio } from "shared/utils/data";
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -16,6 +16,16 @@ export const getServerSideProps = async (ctx) => {
       return {
         props: {
           portfolio: null,
+        },
+      };
+    }
+    if (ctx.query.template && ctx.query.version) {
+      return {
+        props: {
+          portfolio: getPreviewablePortfolio({
+            name: ctx.query.template,
+            version: ctx.query.version,
+          }),
         },
       };
     }

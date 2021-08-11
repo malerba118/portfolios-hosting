@@ -1,5 +1,4 @@
-import React, { Suspense, useEffect, useRef } from "react";
-import { Canvas } from "react-three-fiber";
+import React from "react";
 import { Box, Heading, Avatar, Flex, HStack, Link } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 

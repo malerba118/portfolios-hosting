@@ -13,11 +13,11 @@ import {
 import { Grid, GridItem } from "./Grid";
 import Media from "./Media";
 import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
-import MotionImage from "./components/MotionImage";
-import ScrollReveal from "./components/ScrollReveal";
-import Entrance from "./components/Entrance";
-import { MotionBox, transitions } from "./components/animation";
-import DateViewer from "./components/DateViewer";
+import MotionImage from "shared/components/MotionImage";
+import ScrollReveal from "shared/components/ScrollReveal";
+import Entrance from "shared/components/Entrance";
+import { MotionBox, transitions } from "shared/components/animation";
+import DateViewer from "shared/components/DateViewer";
 import RichtextViewer from "shared/components/RichtextViewer";
 
 const Label = ({ side, title, subtitle }) => {

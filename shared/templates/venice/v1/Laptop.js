@@ -1,15 +1,8 @@
 import * as THREE from "three";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import {
-  Html,
-  Environment,
-  useGLTF,
-  ContactShadows,
-  OrbitControls,
-} from "@react-three/drei";
-import { AnimateSharedLayout, motion, useSpring } from "framer-motion";
-import Landing from "./Landing";
+import { Html, Environment, useGLTF } from "@react-three/drei";
+import { useSpring } from "framer-motion";
 import styles from "./Laptop.module.css";
 
 export default function Model({

@@ -1,0 +1,81 @@
+import React, { useEffect, useState } from "react";
+import { Box, Image as CImage } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import {
+  transitions,
+  MotionImage as CMotionImage,
+  MotionBox,
+  useAnimation,
+} from "shared/components/animation";
+
+const variants = {
+  container: {
+    loading: {
+      height: "100%",
+      y: 0,
+    },
+    loaded: {
+      height: 300,
+      y: -180,
+      transition: {
+        when: "afterChildren",
+        ...transitions.one(0.9),
+      },
+    },
+  },
+  image: {
+    loading: {
+      scale: 1.5,
+      opacity: -1,
+    },
+    loaded: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        ...transitions.one(2),
+      },
+    },
+  },
+};
+
+const ImageReveal = ({
+  src,
+  height,
+  width = "100%",
+  onClick,
+  cursor,
+  onAnimation,
+  ...otherProps
+}) => {
+  const [status, setStatus] = useState("loading");
+  const controls = useAnimation("about-image");
+
+  useEffect(() => {
+    const animation = controls.start(status);
+    onAnimation?.({ variant: status, animation });
+  }, [status]);
+
+  return (
+    <MotionBox
+      cursor={cursor}
+      onClick={onClick}
+      overflow="hidden"
+      width={width}
+      variants={variants.container}
+      animate={controls}
+      {...otherProps}
+    >
+      <CMotionImage
+        h="100%"
+        w="100%"
+        objectFit="cover"
+        variants={variants.image}
+        src={src}
+        onLoad={() => setStatus("loaded")}
+        onError={() => setStatus("errored")}
+      />
+    </MotionBox>
+  );
+};
+
+export default ImageReveal;

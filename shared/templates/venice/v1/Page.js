@@ -7,8 +7,8 @@ import {
   Heading,
   HStack,
 } from "@chakra-ui/react";
-import { Link, useLocation } from "react-router-dom";
-import { MotionBox, transitions } from "./components/animation";
+import { Link } from "react-router-dom";
+import { MotionBox } from "shared/components/animation";
 import { AnimatePresence } from "framer-motion";
 
 const Page = ({ id, title, onClose, children }) => {

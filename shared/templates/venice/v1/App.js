@@ -16,17 +16,17 @@ import {
   ContactShadows,
   OrbitControls,
 } from "@react-three/drei";
-import { Router, Switch, Route, Link } from "react-router-dom";
-import { AnimateSharedLayout, motion, useSpring } from "framer-motion";
+import { Router } from "react-router-dom";
+import { motion } from "framer-motion";
 import Model from "./Laptop";
 import Landing from "./Landing";
-import Page from "./Page";
 import { createBrowserHistory } from "history";
 import theme from "./theme";
 import AboutPage from "./AboutPage";
 import ProjectsPage from "./ProjectsPage";
-import useFonts from "../../../../hooks/useFonts";
-import { transitions } from "./components/animation";
+import ContactPage from "./ContactPage";
+import useFonts from "shared/hooks/useFonts";
+import { transitions } from "shared/components/animation";
 
 const history = createBrowserHistory();
 
@@ -45,15 +45,6 @@ const useLocation = () => {
 export default function App(props) {
   const { about, projects, contact } = props.portfolio.content;
   const location = useLocation();
-  // const [expanded, setExpanded] = useState(false);
-  // const scaleShim = useBreakpointValue({
-  //   xs: -1,
-  //   sm: 0,
-  //   md: 1,
-  //   lg: 2,
-  //   xl: 3,
-  //   base: 0,
-  // });
 
   const expanded = [
     "/about",
@@ -131,9 +122,7 @@ export default function App(props) {
           {location?.pathname === "/projects" && (
             <ProjectsPage projects={projects} />
           )}
-          {location?.pathname === "/contact" && (
-            <Page id="contact" title="Contact"></Page>
-          )}
+          {location?.pathname === "/contact" && <ContactPage />}
         </motion.div>
       </Box>
     </Router>

@@ -1,24 +1,8 @@
 import React, { useState } from "react";
 import Page from "./Page";
-import {
-  Box,
-  Text,
-  Heading,
-  HStack,
-  Flex,
-  Stack,
-  useBreakpoint,
-  useEventListener,
-  Center,
-} from "@chakra-ui/react";
-import { Grid, GridItem } from "./Grid";
-import Media from "./Media";
-import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
-import MotionImage from "./components/MotionImage";
-import ScrollReveal from "./components/ScrollReveal";
-import Entrance from "./components/Entrance";
-import { MotionBox, transitions } from "./components/animation";
-import DateViewer from "./components/DateViewer";
+import { Box, Heading, Stack, Center } from "@chakra-ui/react";
+import MotionImage from "shared/components/MotionImage";
+import Entrance from "shared/components/Entrance";
 import RichtextViewer from "shared/components/RichtextViewer";
 
 const AboutPage = ({ about }) => {

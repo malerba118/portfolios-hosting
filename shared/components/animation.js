@@ -1,11 +1,19 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { motion, animationControls as animationControls_ } from "framer-motion";
-import { Box, Image, Stack, Flex, useLatestRef } from "@chakra-ui/react";
+import {
+  Box,
+  Image,
+  Stack,
+  Flex,
+  Heading,
+  useLatestRef,
+} from "@chakra-ui/react";
 
 export const MotionBox = motion(Box);
 export const MotionImage = motion(Image);
 export const MotionStack = motion(Stack);
 export const MotionFlex = motion(Flex);
+export const MotionHeading = motion(Heading);
 
 export const transitions = {
   one: (duration = 0.6) => ({

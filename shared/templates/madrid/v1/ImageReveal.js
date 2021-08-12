@@ -12,14 +12,12 @@ const variants = {
   container: {
     loading: {
       height: "100%",
-      y: 0,
     },
     loaded: {
-      height: 300,
-      y: -180,
+      height: "75%",
       transition: {
         when: "afterChildren",
-        ...transitions.one(0.9),
+        ...transitions.one(0.8),
       },
     },
   },
@@ -57,6 +55,7 @@ const ImageReveal = ({
 
   return (
     <MotionBox
+      position="relative"
       cursor={cursor}
       onClick={onClick}
       overflow="hidden"

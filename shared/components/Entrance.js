@@ -21,14 +21,14 @@ const Entrance = ({
         x: initialX,
         y: initialY,
         opacity: initialOpacity,
-        rotate: initialRotation
+        rotate: initialRotation,
       }}
       animate={{
         x: 0,
         y: 0,
         opacity: 1,
         rotate: 0,
-        transition: { duration: 0.6, delay }
+        transition: { duration: 0.6, delay },
       }}
     >
       {children}

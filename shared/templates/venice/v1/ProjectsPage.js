@@ -101,11 +101,7 @@ const ProjectPage = ({ project }) => {
       bg="white"
     >
       <MotionImage
-        src={
-          media?.processedUrl ||
-          media?.rawUrl ||
-          "https://picsum.photos/id/250/500/500"
-        }
+        src={media?.processedUrl || media?.rawUrl || "/image-unavailable.svg"}
         width="100%"
         height="380"
         initialScale={1.03}
@@ -168,9 +164,7 @@ const ProjectCard = ({ project, onSelect, labelSide }) => {
               height="100%"
               initialScale={0.9}
               src={
-                media?.processedUrl ||
-                media?.rawUrl ||
-                "https://picsum.photos/id/250/500/500"
+                media?.processedUrl || media?.rawUrl || "/image-unavailable.svg"
               }
             />
           </ScrollReveal>
@@ -192,9 +186,7 @@ const ProjectCard = ({ project, onSelect, labelSide }) => {
               height="100%"
               initialScale={0.9}
               src={
-                media?.processedUrl ||
-                media?.rawUrl ||
-                "https://picsum.photos/id/250/500/500"
+                media?.processedUrl || media?.rawUrl || "/image-unavailable.svg"
               }
             />
           </ScrollReveal>

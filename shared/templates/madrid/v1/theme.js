@@ -2,13 +2,13 @@ import { extendTheme } from "@chakra-ui/react";
 
 const theme = extendTheme({
   fonts: {
-    heading: "Karla",
-    body: "Karla",
+    heading: "Lato",
+    body: "Source Sans Pro",
   },
   styles: {
     global: {
       body: {
-        bg: "gray.50",
+        bg: "#f7f7f7",
       },
     },
   },

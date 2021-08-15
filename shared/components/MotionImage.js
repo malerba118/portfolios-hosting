@@ -8,7 +8,7 @@ import {
 } from "./animation";
 
 const MotionImage = ({
-  src,
+  src = "/image-unavailable.svg",
   height,
   width,
   initialScale = 1,

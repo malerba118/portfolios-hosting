@@ -1,3 +1,6 @@
+import { types } from "mobx-state-tree";
+import { nanoid } from "nanoid";
+
 export const getPreviewablePortfolio = ({ name, version }) => {
   return {
     template: {
@@ -122,4 +125,92 @@ export const getPreviewablePortfolio = ({ name, version }) => {
       },
     },
   };
+};
+
+// SCHEMAS
+// All percentages
+export const Crop = types.model("Crop", {
+  unit: types.string,
+  x: types.number,
+  y: types.number,
+  width: types.number,
+  height: types.number,
+});
+
+export const Media = types.model("Media", {
+  id: types.string,
+  rawUrl: types.maybeNull(types.string),
+  processedUrl: types.maybeNull(types.string),
+  crop: types.maybeNull(Crop),
+  zoom: types.maybeNull(types.number),
+  width: types.maybeNull(types.number),
+  height: types.maybeNull(types.number),
+});
+
+export const Medias = types.model("Medias", {
+  items: types.array(Media),
+});
+
+export const Template = types.model("Template", {
+  name: types.string,
+  version: types.string,
+});
+
+export const _About = types.model("About", {
+  firstName: types.optional(types.string, ""),
+  lastName: types.optional(types.string, ""),
+  title: types.optional(types.string, ""),
+  summary: types.optional(types.string, ""),
+  description: types.optional(types.string, ""),
+  images: types.optional(Medias, { items: [] }),
+});
+
+const About = types.snapshotProcessor(_About, {
+  preProcessor(snapshot) {
+    return {
+      ...snapshot,
+      firstName: snapshot.firstName || "First",
+      lastName: snapshot.lastName || "Last",
+    };
+  },
+});
+
+export const Contact = types.model("Contact", {
+  email: types.optional(types.string, ""),
+  phone: types.optional(types.string, ""),
+});
+
+export const _Project = types.model("Project", {
+  id: types.string,
+  name: types.optional(types.string, ""),
+  summary: types.optional(types.string, ""),
+  description: types.optional(types.string, ""),
+  images: types.optional(Medias, { items: [] }),
+  startDate: types.optional(types.maybeNull(types.Date), null),
+  endDate: types.optional(types.maybeNull(types.Date), null),
+});
+
+const Project = types.snapshotProcessor(_Project, {
+  preProcessor(snapshot) {
+    return {
+      ...snapshot,
+      name: snapshot.name || "Untitled Project",
+    };
+  },
+});
+
+export const Content = types.model("Content", {
+  about: types.optional(About, {}),
+  contact: types.optional(Contact, {}),
+  projects: types.optional(types.array(Project), []),
+});
+
+export const PortfolioData = types.model("PortfolioData", {
+  content: types.optional(Content, {}),
+  template: Template,
+});
+
+export const processPortfolio = (portfolio) => {
+  if (!portfolio) return portfolio;
+  return PortfolioData.create(portfolio).toJSON();
 };

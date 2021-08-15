@@ -6,7 +6,7 @@ import * as templates from "shared/templates";
 import { getSubdomain } from "shared/utils/url";
 import useData from "shared/hooks/useData";
 import { useRouter } from "next/router";
-import { getPreviewablePortfolio } from "shared/utils/data";
+import { getPreviewablePortfolio, processPortfolio } from "shared/utils/data";
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -39,7 +39,7 @@ export const getServerSideProps = async (ctx) => {
     }
     return {
       props: {
-        portfolio: portfolio.published,
+        portfolio: processPortfolio(portfolio.published),
       },
     };
   } catch (err) {
@@ -63,7 +63,7 @@ const Home = ({ portfolio }) => {
   const router = useRouter();
 
   if (router.query.edit) {
-    portfolio = draft;
+    portfolio = processPortfolio(draft);
     if (!portfolio) {
       return null;
     }

@@ -25,6 +25,7 @@ import useFonts from "../../../hooks/useFonts";
 import Entrance from "shared/components/Entrance";
 import MotionImage from "shared/components/MotionImage";
 import RichtextViewer from "shared/components/RichtextViewer";
+import Divider from "shared/components/Divider";
 
 const variants = {
   nav: {
@@ -114,15 +115,20 @@ export default function App(props) {
           </MotionBox>
         </Flex>
       </Box>
-      <MotionBox
+      <MotionStack
         initial="hidden"
         variants={variants.main}
         animate={animations.content}
+        py={24}
+        position="relative"
       >
-        <Box className="about" py={3}>
+        <Flex w="100%" justify="center" position="absolute" top={"0"}>
+          <Divider color="black" />
+        </Flex>
+        <Box className="about">
           <About about={about} />
         </Box>
-        <Box className="projects" py={3}>
+        <Box className="projects">
           <Stack margin="0 auto" maxWidth="900" spacing={4}>
             <Heading fontSize="xl">
               Here's a few projects I've worked on
@@ -134,7 +140,7 @@ export default function App(props) {
             </SimpleGrid>
           </Stack>
         </Box>
-      </MotionBox>
+      </MotionStack>
     </Router>
   );
 }

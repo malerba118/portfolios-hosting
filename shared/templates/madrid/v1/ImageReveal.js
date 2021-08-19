@@ -42,7 +42,6 @@ const ImageReveal = ({
   width = "100%",
   onClick,
   cursor,
-  onAnimation,
   ...otherProps
 }) => {
   const [status, setStatus] = useState("loading");
@@ -50,7 +49,6 @@ const ImageReveal = ({
 
   useEffect(() => {
     const animation = controls.start(status);
-    onAnimation?.({ variant: status, animation });
   }, [status]);
 
   return (
@@ -62,6 +60,7 @@ const ImageReveal = ({
       width={width}
       variants={variants.container}
       animate={controls}
+      bg="primary.100"
       {...otherProps}
     >
       <CMotionImage

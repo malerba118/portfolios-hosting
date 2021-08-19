@@ -50,7 +50,7 @@ const MotionImage = ({
         src={src}
         onLoad={() => setStatus("loaded")}
         onError={() => setStatus("errored")}
-        bg="gray.100"
+        bg="primary.100"
       />
     </MotionBox>
   );

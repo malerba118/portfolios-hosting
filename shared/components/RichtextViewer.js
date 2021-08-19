@@ -70,7 +70,11 @@ const Element = ({ attributes, children, element }) => {
     case "numbered-list":
       return <OrderedList {...attributes}>{children}</OrderedList>;
     default:
-      return <Text {...attributes}>{children}</Text>;
+      return (
+        <Text size="md" {...attributes}>
+          {children}
+        </Text>
+      );
   }
 };
 

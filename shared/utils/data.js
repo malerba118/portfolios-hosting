@@ -156,6 +156,12 @@ export const Template = types.model("Template", {
   version: types.string,
 });
 
+export const Theme = types.model("Theme", {
+  headingFont: types.optional(types.string, "Lato"),
+  paragraphFont: types.optional(types.string, "Karla"),
+  palette: types.optional(types.string, "offwhite"),
+});
+
 export const _About = types.model("About", {
   firstName: types.optional(types.string, ""),
   lastName: types.optional(types.string, ""),
@@ -208,6 +214,7 @@ export const Content = types.model("Content", {
 export const PortfolioData = types.model("PortfolioData", {
   content: types.optional(Content, {}),
   template: Template,
+  theme: Theme,
 });
 
 export const processPortfolio = (portfolio) => {

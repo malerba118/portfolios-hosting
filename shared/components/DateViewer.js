@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Box, Flex, HStack } from "@chakra-ui/react";
+import { Box, Text, HStack } from "@chakra-ui/react";
 
 const months = [
   "Jan",

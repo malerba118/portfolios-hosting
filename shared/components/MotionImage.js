@@ -15,6 +15,7 @@ const MotionImage = ({
   initialOpacity = 0,
   onClick,
   cursor,
+  bg = "primary.100",
   ...otherProps
 }) => {
   const [status, setStatus] = useState("loading");
@@ -50,7 +51,7 @@ const MotionImage = ({
         src={src}
         onLoad={() => setStatus("loaded")}
         onError={() => setStatus("errored")}
-        bg="primary.100"
+        bg={bg}
       />
     </MotionBox>
   );

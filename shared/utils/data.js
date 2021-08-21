@@ -7,6 +7,11 @@ export const getPreviewablePortfolio = ({ name, version }) => {
       name,
       version,
     },
+    theme: {
+      headingFont: "Lato",
+      paragraphFont: "Karla",
+      palette: "desert",
+    },
     content: {
       about: {
         title: "Software Engineer",

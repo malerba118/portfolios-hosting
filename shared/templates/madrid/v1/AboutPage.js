@@ -1,16 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Heading,
-  Flex,
-  Text,
-  HStack,
-  SimpleGrid,
-  Stack,
-  calc,
-  Center,
-} from "@chakra-ui/react";
-import { AnimatePresence } from "framer-motion";
+import { Box, Heading, Flex } from "@chakra-ui/react";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import ImageReveal from "./ImageReveal";
 import { MotionBox } from "shared/components/animation";
@@ -74,7 +63,7 @@ const AboutPage = ({ portfolio }) => {
             Hi, I'm
           </Heading>
           <Heading
-            size="2xl"
+            size="4xl"
             textTransform="uppercase"
             color="white"
             textShadow="2px 4px 0px var(--chakra-colors-primary-200), 4px 8px 0px var(--chakra-colors-primary-300)"
@@ -85,7 +74,9 @@ const AboutPage = ({ portfolio }) => {
         </MotionBox>
       </ParallaxLayer>
       <ParallaxLayer offset={1} speed={0.15}>
-        <RichtextViewer value={about.description} />
+        <Box maxWidth="900" margin="0 auto">
+          <RichtextViewer value={about.description} />
+        </Box>
       </ParallaxLayer>
     </Parallax>
   );

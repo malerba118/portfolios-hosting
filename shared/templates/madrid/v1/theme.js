@@ -49,6 +49,14 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
             color: "primary.700",
             fontSize: "6xl",
           },
+          "3xl": {
+            color: "primary.700",
+            fontSize: "7xl",
+          },
+          "4xl": {
+            color: "primary.700",
+            fontSize: "8xl",
+          },
         },
       },
       Text: {

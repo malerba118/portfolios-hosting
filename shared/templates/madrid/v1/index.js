@@ -8,7 +8,7 @@ import { palettes } from "shared/utils/colors";
 const App = dynamic(() => import("./App"), { ssr: false });
 
 const Template = ({ portfolio }) => {
-  const [theme] = useState(() => makeTheme(portfolio.theme));
+  const [theme] = useState(() => makeTheme(portfolio.templateSettings));
 
   return (
     <ChakraProvider theme={theme}>

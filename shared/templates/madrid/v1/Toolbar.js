@@ -14,6 +14,7 @@ const Toolbar = ({ animate, variants, portfolio }) => {
       variants={variants}
       justify="space-between"
       h="128px"
+      minH="128px"
       px={16}
       align="center"
       color="gray.600"

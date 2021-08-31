@@ -1,17 +1,9 @@
 import { types } from "mobx-state-tree";
 import { nanoid } from "nanoid";
 
-export const getPreviewablePortfolio = ({ name, version }) => {
-  return {
-    template: {
-      name,
-      version,
-    },
-    theme: {
-      headingFont: "Lato",
-      paragraphFont: "Karla",
-      palette: "desert",
-    },
+export const getPreviewablePortfolio = ({ name }) => {
+  return processPortfolio({
+    template: name,
     content: {
       about: {
         title: "Software Engineer",
@@ -41,6 +33,7 @@ export const getPreviewablePortfolio = ({ name, version }) => {
             },
           ],
         },
+        resume: null,
       },
       projects: [
         {
@@ -129,7 +122,38 @@ export const getPreviewablePortfolio = ({ name, version }) => {
         phone: "915-867-5309",
       },
     },
-  };
+  });
+};
+
+export const templates = {
+  venice: {
+    label: "Venice",
+    defaults: {
+      headingFont: "Ubuntu",
+      paragraphFont: "Ubuntu",
+      palette: "ocean",
+    },
+    versions: [
+      {
+        label: "Version 1",
+        value: "v1",
+      },
+    ],
+  },
+  madrid: {
+    label: "Madrid",
+    defaults: {
+      headingFont: "Montserrat",
+      paragraphFont: "Lato",
+      palette: "desert",
+    },
+    versions: [
+      {
+        label: "Version 1",
+        value: "v1",
+      },
+    ],
+  },
 };
 
 // SCHEMAS
@@ -156,15 +180,9 @@ export const Medias = types.model("Medias", {
   items: types.array(Media),
 });
 
-export const Template = types.model("Template", {
+const Resume = types.model("Resume", {
   name: types.string,
-  version: types.string,
-});
-
-export const Theme = types.model("Theme", {
-  headingFont: types.optional(types.string, "Lato"),
-  paragraphFont: types.optional(types.string, "Karla"),
-  palette: types.optional(types.string, "offwhite"),
+  url: types.string,
 });
 
 export const _About = types.model("About", {
@@ -174,14 +192,15 @@ export const _About = types.model("About", {
   summary: types.optional(types.string, ""),
   description: types.optional(types.string, ""),
   images: types.optional(Medias, { items: [] }),
+  resume: types.maybeNull(Resume),
 });
 
 const About = types.snapshotProcessor(_About, {
   preProcessor(snapshot) {
     return {
       ...snapshot,
-      firstName: snapshot.firstName || "First",
-      lastName: snapshot.lastName || "Last",
+      firstName: snapshot.firstName || "Firstname",
+      lastName: snapshot.lastName || "Lastname",
     };
   },
 });
@@ -216,10 +235,38 @@ export const Content = types.model("Content", {
   projects: types.optional(types.array(Project), []),
 });
 
-export const PortfolioData = types.model("PortfolioData", {
+const TemplateSettings = types.model("TemplateSettings", {
+  version: types.maybe(types.string),
+  headingFont: types.string,
+  paragraphFont: types.string,
+  palette: types.string,
+});
+
+const TemplateSettingsMap = types.model("TemplateSettingsMap", {
+  madrid: types.optional(TemplateSettings, templates.madrid.defaults),
+  venice: types.optional(TemplateSettings, templates.venice.defaults),
+});
+
+export const _PortfolioData = types.model("PortfolioData", {
   content: types.optional(Content, {}),
-  template: Template,
-  theme: Theme,
+  template: types.optional(types.string, "madrid"),
+  templateSettingsMap: types.optional(TemplateSettingsMap, {}),
+});
+
+const PortfolioData = types.snapshotProcessor(_PortfolioData, {
+  postProcessor(snapshot) {
+    const activeTemplate = snapshot.template;
+    // Use version sepecified in template or else use last version in version array
+    return {
+      ...snapshot,
+      templateSettings: {
+        ...snapshot.templateSettingsMap[activeTemplate],
+        version:
+          snapshot.templateSettingsMap[activeTemplate].version ||
+          templates[activeTemplate].versions.slice().pop().value,
+      },
+    };
+  },
 });
 
 export const processPortfolio = (portfolio) => {

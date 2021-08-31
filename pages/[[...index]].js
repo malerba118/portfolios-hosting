@@ -50,10 +50,10 @@ export const getServerSideProps = async (ctx) => {
   }
 };
 
-const getTemplateComponent = (template) => {
-  const templateVersions = templates[template?.name];
+const getTemplateComponent = ({ name, version }) => {
+  const templateVersions = templates[name];
   if (!templateVersions) return null;
-  const TemplateComponent = templateVersions[template?.version];
+  const TemplateComponent = templateVersions[version];
   if (!TemplateComponent) return null;
   return TemplateComponent;
 };
@@ -69,9 +69,13 @@ const Home = ({ portfolio }) => {
     }
   }
 
-  const Template = getTemplateComponent(portfolio?.template);
+  const Template = getTemplateComponent({
+    name: portfolio?.template,
+    version: portfolio?.templateSettings.version,
+  });
 
   if (portfolio && Template) {
+    // force remount when updating
     return <Template key={Math.random()} portfolio={portfolio} />;
   }
   return <h1>Not Found</h1>;

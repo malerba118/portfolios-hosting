@@ -48,8 +48,8 @@ const App = (props) => {
   };
 
   const fonts = useFonts([
-    props.portfolio.theme.headingFont,
-    props.portfolio.theme.paragraphFont,
+    props.portfolio.templateSettings.headingFont,
+    props.portfolio.templateSettings.paragraphFont,
   ]);
 
   if (fonts.isLoading) {

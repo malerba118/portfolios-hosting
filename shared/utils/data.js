@@ -157,6 +157,16 @@ export const templates = {
 };
 
 // SCHEMAS
+
+const hideable = (model) =>
+  types.optional(
+    types.model(model.name, {
+      hidden: types.optional(types.boolean, false),
+      value: model,
+    }),
+    {}
+  );
+
 // All percentages
 export const Crop = types.model("Crop", {
   unit: types.string,
@@ -206,8 +216,8 @@ const About = types.snapshotProcessor(_About, {
 });
 
 export const Contact = types.model("Contact", {
-  email: types.optional(types.string, ""),
-  phone: types.optional(types.string, ""),
+  email: hideable(types.optional(types.string, "")),
+  phone: hideable(types.optional(types.string, "")),
 });
 
 export const _Project = types.model("Project", {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Heading, Flex } from "@chakra-ui/react";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
-import ImageReveal from "./ImageReveal";
 import { MotionBox } from "shared/components/animation";
 import MotionImage from "shared/components/MotionImage";
 import RichtextViewer from "shared/components/RichtextViewer";

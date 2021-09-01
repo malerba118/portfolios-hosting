@@ -19,12 +19,11 @@ export const getServerSideProps = async (ctx) => {
         },
       };
     }
-    if (ctx.query.template && ctx.query.version) {
+    if (ctx.query.template) {
       return {
         props: {
           portfolio: getPreviewablePortfolio({
             name: ctx.query.template,
-            version: ctx.query.version,
           }),
         },
       };
@@ -50,12 +49,9 @@ export const getServerSideProps = async (ctx) => {
   }
 };
 
-const getTemplateComponent = ({ name, version }) => {
-  const templateVersions = templates[name];
-  if (!templateVersions) return null;
-  const TemplateComponent = templateVersions[version];
-  if (!TemplateComponent) return null;
-  return TemplateComponent;
+const getTemplateComponent = ({ name }) => {
+  const TemplateComponent = templates[name];
+  return TemplateComponent || null;
 };
 
 const Home = ({ portfolio }) => {
@@ -71,7 +67,6 @@ const Home = ({ portfolio }) => {
 
   const Template = getTemplateComponent({
     name: portfolio?.template,
-    version: portfolio?.templateSettings.version,
   });
 
   if (portfolio && Template) {

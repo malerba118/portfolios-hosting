@@ -1,4 +1,4 @@
-import * as venice from "./venice";
-import * as madrid from "./madrid";
+import venice from "./venice";
+import madrid from "./madrid";
 
 export { venice, madrid };

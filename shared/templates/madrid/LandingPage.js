@@ -1,15 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Heading,
-  Flex,
-  Text,
-  HStack,
-  SimpleGrid,
-  Stack,
-  calc,
-  Center,
-} from "@chakra-ui/react";
+import { Box, Heading, Flex, Text, Center } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import ImageReveal from "./ImageReveal";

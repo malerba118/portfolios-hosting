@@ -133,12 +133,6 @@ export const templates = {
       paragraphFont: "Ubuntu",
       palette: "ocean",
     },
-    versions: [
-      {
-        label: "Version 1",
-        value: "v1",
-      },
-    ],
   },
   madrid: {
     label: "Madrid",
@@ -147,17 +141,10 @@ export const templates = {
       paragraphFont: "Lato",
       palette: "desert",
     },
-    versions: [
-      {
-        label: "Version 1",
-        value: "v1",
-      },
-    ],
   },
 };
 
 // SCHEMAS
-
 const hideable = (model) =>
   types.optional(
     types.model(model.name, {
@@ -246,7 +233,6 @@ export const Content = types.model("Content", {
 });
 
 const TemplateSettings = types.model("TemplateSettings", {
-  version: types.maybe(types.string),
   headingFont: types.string,
   paragraphFont: types.string,
   palette: types.string,
@@ -265,16 +251,9 @@ export const _PortfolioData = types.model("PortfolioData", {
 
 const PortfolioData = types.snapshotProcessor(_PortfolioData, {
   postProcessor(snapshot) {
-    const activeTemplate = snapshot.template;
-    // Use version sepecified in template or else use last version in version array
     return {
       ...snapshot,
-      templateSettings: {
-        ...snapshot.templateSettingsMap[activeTemplate],
-        version:
-          snapshot.templateSettingsMap[activeTemplate].version ||
-          templates[activeTemplate].versions.slice().pop().value,
-      },
+      templateSettings: snapshot.templateSettingsMap[snapshot.template],
     };
   },
 });

@@ -118,8 +118,14 @@ export const getPreviewablePortfolio = ({ name }) => {
         },
       ],
       contact: {
-        email: "austin.malerba@gmail.com",
-        phone: "915-867-5309",
+        email: {
+          hidden: false,
+          value: "austin.malerba@gmail.com",
+        },
+        phone: {
+          hidden: false,
+          value: "915-867-5309",
+        },
       },
     },
   });

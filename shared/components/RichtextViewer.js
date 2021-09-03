@@ -47,7 +47,13 @@ const Element = ({ attributes, children, element }) => {
   switch (element.type) {
     case "link":
       return (
-        <Link color="blue.500" as={"a"} {...attributes} href={element.url}>
+        <Link
+          color="blue.500"
+          as={"a"}
+          size="lg"
+          {...attributes}
+          href={element.url}
+        >
           {children}
         </Link>
       );
@@ -55,23 +61,27 @@ const Element = ({ attributes, children, element }) => {
       return <UnorderedList {...attributes}>{children}</UnorderedList>;
     case "heading-one":
       return (
-        <Heading size="md" {...attributes}>
+        <Heading size="lg" {...attributes}>
           {children}
         </Heading>
       );
     case "heading-two":
       return (
-        <Heading size="sm" {...attributes}>
+        <Heading size="md" {...attributes}>
           {children}
         </Heading>
       );
     case "list-item":
-      return <li {...attributes}>{children}</li>;
+      return (
+        <Text as="li" size="xl" {...attributes}>
+          {children}
+        </Text>
+      );
     case "numbered-list":
       return <OrderedList {...attributes}>{children}</OrderedList>;
     default:
       return (
-        <Text size="md" {...attributes}>
+        <Text size="xl" {...attributes}>
           {children}
         </Text>
       );

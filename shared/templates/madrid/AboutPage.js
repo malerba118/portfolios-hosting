@@ -36,16 +36,15 @@ const AboutPage = ({ portfolio }) => {
       <ParallaxLayer offset={0} speed={0.4}>
         <Flex flexDirection="column" pos="absolute" inset={0} bg="primary.50">
           <Toolbar portfolio={portfolio} />
-          <Flex flex={1}>
-            <MotionImage
-              width={{ base: "100%" }}
-              height={{ base: "100%" }}
-              src={media?.processedUrl || media?.rawUrl}
-            />
-          </Flex>
+          <MotionImage
+            width={"100%"}
+            hoverScale={1}
+            flex={1}
+            src={media?.processedUrl || media?.rawUrl}
+          />
         </Flex>
       </ParallaxLayer>
-      <ParallaxLayer speed={-0.1}>
+      <ParallaxLayer speed={0} style={{ zIndex: 1, pointerEvents: "none" }}>
         <MotionBox
           initial="hidden"
           pos="absolute"
@@ -72,8 +71,13 @@ const AboutPage = ({ portfolio }) => {
           </Heading>
         </MotionBox>
       </ParallaxLayer>
-      <ParallaxLayer offset={1} speed={0.15}>
-        <Box maxWidth="900" margin="0 auto">
+      <ParallaxLayer
+        factor={1}
+        offset={1}
+        speed={0.2}
+        style={{ overflow: "auto" }}
+      >
+        <Box p={16} maxWidth="900" margin="0 auto">
           <RichtextViewer value={about.description} />
         </Box>
       </ParallaxLayer>

@@ -13,6 +13,7 @@ const MotionImage = ({
   width,
   initialScale = 1,
   initialOpacity = 0,
+  hoverScale = 1.05,
   onClick,
   cursor,
   bg = "primary.100",
@@ -45,7 +46,7 @@ const MotionImage = ({
           transition: transitions.two(0.9),
         }}
         whileHover={{
-          scale: 1.06,
+          scale: hoverScale,
           transition: transitions.two(0.5),
         }}
         src={src}

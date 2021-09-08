@@ -6,6 +6,7 @@ import {
   Stack,
   Flex,
   Heading,
+  Link,
   useLatestRef,
 } from "@chakra-ui/react";
 
@@ -14,6 +15,7 @@ export const MotionImage = motion(Image);
 export const MotionStack = motion(Stack);
 export const MotionFlex = motion(Flex);
 export const MotionHeading = motion(Heading);
+export const MotionLink = motion(Link);
 
 export const transitions = {
   one: (duration = 0.6) => ({

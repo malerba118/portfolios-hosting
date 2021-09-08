@@ -14,6 +14,22 @@ const DEFAULT_VALUE = JSON.stringify([
   { type: "paragraph", children: [{ text: "" }] },
 ]);
 
+export const isEmpty = (value) => {
+  try {
+    const parsed = JSON.parse(value);
+    if (
+      parsed?.length === 1 &&
+      parsed[0]?.children?.length === 1 &&
+      parsed[0]?.children?.[0]?.text === ""
+    ) {
+      return true;
+    }
+    return false;
+  } catch (err) {
+    return true;
+  }
+};
+
 const RichtextViewer = ({ value }) => {
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);

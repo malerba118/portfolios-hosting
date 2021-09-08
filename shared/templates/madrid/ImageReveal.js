@@ -10,9 +10,9 @@ import {
 
 const variants = {
   container: {
-    loading: {
-      height: "100%",
-    },
+    loading: (disabled) => ({
+      height: disabled ? "75%" : "100%",
+    }),
     loaded: {
       height: "75%",
       transition: {
@@ -42,6 +42,7 @@ const ImageReveal = ({
   width = "100%",
   onClick,
   cursor,
+  disableExpandAnimation,
   ...otherProps
 }) => {
   const [status, setStatus] = useState("loading");
@@ -58,6 +59,8 @@ const ImageReveal = ({
       onClick={onClick}
       overflow="hidden"
       width={width}
+      initial="loading"
+      custom={disableExpandAnimation}
       variants={variants.container}
       animate={controls}
       bg="primary.100"

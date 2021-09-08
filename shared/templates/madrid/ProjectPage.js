@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Box, Heading, Flex } from "@chakra-ui/react";
+import { Box, Heading, Flex, Center } from "@chakra-ui/react";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import { MotionBox } from "shared/components/animation";
 import MotionImage from "shared/components/MotionImage";
-import RichtextViewer from "shared/components/RichtextViewer";
+import RichtextViewer, { isEmpty } from "shared/components/RichtextViewer";
 import Toolbar from "./Toolbar";
 
-const AboutPage = ({ about }) => {
-  const media = about.images.items[0];
+const ProjectPage = ({ project }) => {
+  const media = project.images.items[0];
+  const isDescription = !isEmpty(project.description);
+  const pageSizes = {
+    intro: 1,
+    description: isDescription ? 1 : 0,
+    images: project.images.items.length,
+  };
   return (
     <Parallax
-      pages={2}
+      pages={pageSizes.intro + pageSizes.description + pageSizes.images}
       style={{
         height: "100vh",
       }}
@@ -47,36 +53,58 @@ const AboutPage = ({ about }) => {
           textAlign="center"
         >
           <Heading
-            size="xl"
-            textTransform="uppercase"
-            color="white"
-            textShadow="2px 4px 0px var(--chakra-colors-primary-200), 4px 8px 0px var(--chakra-colors-primary-300)"
-          >
-            Hi, I'm
-          </Heading>
-          <Heading
             size="4xl"
             textTransform="uppercase"
             color="white"
             textShadow="2px 4px 0px var(--chakra-colors-primary-200), 4px 8px 0px var(--chakra-colors-primary-300)"
             textAlign="center"
           >
-            {about.firstName}
+            {project.name}
           </Heading>
         </MotionBox>
       </ParallaxLayer>
       <ParallaxLayer
-        factor={1}
+        factor={pageSizes.description}
         offset={1}
         speed={0.2}
         style={{ overflow: "auto" }}
       >
-        <Box px={16} py={8} maxWidth="900" margin="0 auto">
-          <RichtextViewer value={about.description} />
-        </Box>
+        {isDescription && (
+          <Box p={16} maxWidth="900" margin="0 auto">
+            <RichtextViewer value={project.description} />
+          </Box>
+        )}
       </ParallaxLayer>
+      {project.images.items.map((media, i) => {
+        return (
+          <ParallaxLayer
+            key={project.id}
+            offset={pageSizes.intro + pageSizes.description + i}
+            speed={0.25}
+          >
+            <Center h="100%" w="100%">
+              <MotionImage
+                initialScale={1}
+                src={
+                  media?.processedUrl ||
+                  media?.rawUrl ||
+                  "/image-unavailable.svg"
+                }
+                maxHeight="90%"
+                width={{ base: "100%", md: "60%" }}
+                left={i % 2 === 0 ? 0 : undefined}
+                right={i % 2 !== 0 ? 0 : undefined}
+                m={{ base: 0, md: 12 }}
+                bg="primary.50"
+                position="absolute"
+                // boxShadow="lg"
+              />
+            </Center>
+          </ParallaxLayer>
+        );
+      })}
     </Parallax>
   );
 };
 
-export default AboutPage;
+export default ProjectPage;

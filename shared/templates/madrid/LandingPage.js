@@ -5,13 +5,15 @@ import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import ImageReveal from "./ImageReveal";
 import {
   MotionBox,
-  MotionStack,
+  MotionHeading,
   MotionFlex,
   transitions,
   useAnimation,
 } from "shared/components/animation";
 import MotionImage from "shared/components/MotionImage";
 import Toolbar from "./Toolbar";
+import Link from "shared/components/Link";
+import { useLocation } from "react-router-dom";
 
 const variants = {
   nav: {
@@ -53,6 +55,7 @@ const variants = {
 
 const LandingPage = (props) => {
   let { about, projects } = props.portfolio.content;
+  const location = useLocation();
 
   const animations = {
     content: useAnimation("content"),
@@ -85,10 +88,6 @@ const LandingPage = (props) => {
           speed={0.1}
           style={{
             backgroundColor: "var(--chakra-colors-primary-100)",
-            // backgroundImage:
-            //   'url("https://www.transparenttextures.com/patterns/food.png")',
-            // backgroundBlendMode: "multiply",
-            // backgroundSize: "25%",
             backgroundImage: 'url("/templates/madrid/topography.svg")',
             backgroundBlendMode: "soft-light",
             backgroundSize: "30%",
@@ -98,18 +97,21 @@ const LandingPage = (props) => {
         <ParallaxLayer offset={0} speed={0.4}>
           <Box h="100%" bg="primary.50">
             <Toolbar
+              initial={location.state?.disableAnimations ? "visible" : "hidden"}
               variants={variants.nav}
               animate={animations.content}
-              portfolio={props.portfolio}
             />
             <Flex position="absolute" inset={0} py="128px" justify="center">
               <ImageReveal
                 mx={16}
                 maxWidth="900"
                 src={media?.processedUrl || media?.rawUrl}
+                disableExpandAnimation={location.state?.disableAnimations}
               />
               <MotionBox
-                initial="hidden"
+                initial={
+                  location.state?.disableAnimations ? "visible" : "hidden"
+                }
                 variants={variants.fullName}
                 pos="absolute"
                 top="70%"
@@ -152,16 +154,22 @@ const LandingPage = (props) => {
               </ParallaxLayer>
               <ParallaxLayer key={project.id} offset={i + 1} speed={0.45}>
                 <Center h="100%" w="100%">
-                  <Heading
-                    size="xl"
-                    fontSize="6xl"
-                    textTransform="uppercase"
-                    color="white"
-                    textShadow="2px 4px 0px var(--chakra-colors-primary-200), 4px 8px 0px var(--chakra-colors-primary-300)"
-                    textAlign="center"
-                  >
-                    {project.name}
-                  </Heading>
+                  <Link to={`/projects/${project.id}`}>
+                    <MotionHeading
+                      size="xl"
+                      fontSize="6xl"
+                      textTransform="uppercase"
+                      color="white"
+                      textShadow="2px 4px 0px var(--chakra-colors-primary-200), 4px 8px 0px var(--chakra-colors-primary-300)"
+                      whileHover={{
+                        scale: 1.075,
+                        transition: transitions.one(0.5),
+                      }}
+                      textAlign="center"
+                    >
+                      {project.name}
+                    </MotionHeading>
+                  </Link>
                 </Center>
               </ParallaxLayer>
             </>

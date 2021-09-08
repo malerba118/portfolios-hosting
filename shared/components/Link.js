@@ -1,7 +1,30 @@
 import { Link as ReactRouterLink, useLocation } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
+import { MotionLink, MotionBox } from "./animation";
 
-const Link = ({ children, to, preserveQuery, ...props }) => {
+const variants = {
+  link: {
+    initial: {},
+    hovered: {},
+  },
+  underline: {
+    initial: {
+      width: 0,
+    },
+    hovered: {
+      width: "100%",
+    },
+  },
+};
+
+const Link = ({
+  children,
+  to,
+  preserveQuery,
+  showUnderline,
+  color = "primary.600",
+  ...otherProps
+}) => {
   const { search } = useLocation();
 
   let locationDescriptor = {};
@@ -17,9 +40,38 @@ const Link = ({ children, to, preserveQuery, ...props }) => {
   }
 
   return (
-    <ChakraLink as={ReactRouterLink} to={locationDescriptor} {...props}>
-      {children}
-    </ChakraLink>
+    <MotionLink
+      pos="relative"
+      variants={variants.link}
+      whileHover={"hovered"}
+      _hover={{
+        textDecoration: "none",
+      }}
+      color={color}
+      as={ReactRouterLink}
+      to={locationDescriptor}
+      {...otherProps}
+    >
+      <Box>
+        {children}
+        {showUnderline && (
+          <MotionBox
+            variants={variants.underline}
+            layout
+            pos="absolute"
+            bottom={"-1px"}
+            background={color}
+            height="2px"
+            transition={{
+              type: "spring",
+              mass: 0.1,
+              stiffness: 110,
+              damping: 10,
+            }}
+          />
+        )}
+      </Box>
+    </MotionLink>
   );
 };
 

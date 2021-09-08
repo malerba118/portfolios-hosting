@@ -13,9 +13,18 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
         body: {
           bg: "primary.50",
         },
+        ".js-focus-visible :focus:not([data-focus-visible-added])": {
+          outline: "none",
+          boxShadow: "none",
+        },
       },
     },
     components: {
+      Button: {
+        baseStyle: {
+          rounded: "none",
+        },
+      },
       Heading: {
         baseStyle: {
           color: "primary.700",
@@ -114,6 +123,49 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
           xl: {
             fontSize: "xl",
           },
+        },
+      },
+      Input: {
+        variants: {
+          filled: {
+            field: {
+              background: "primary.100",
+              _focus: {
+                background: "primary.50",
+              },
+              _hover: {
+                background: "primary.100",
+              },
+              _placeholder: {
+                color: "primary.300",
+              },
+              rounded: "none",
+            },
+          },
+        },
+        defaultProps: {
+          focusBorderColor: "primary.400",
+        },
+      },
+      Textarea: {
+        variants: {
+          filled: {
+            color: "primary.700",
+            background: "primary.100",
+            _focus: {
+              background: "primary.50",
+            },
+            _hover: {
+              background: "primary.100",
+            },
+            _placeholder: {
+              color: "primary.300",
+            },
+            rounded: "none",
+          },
+        },
+        defaultProps: {
+          focusBorderColor: "primary.400",
         },
       },
     },

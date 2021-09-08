@@ -4,7 +4,7 @@ import "@fontsource/major-mono-display";
 const Logo = ({
   charOne,
   charTwo,
-  color = "primary.800",
+  color = "primary.700",
   size = 64,
   padding = 16,
 }) => {

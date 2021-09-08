@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import useFonts from "shared/hooks/useFonts";
 import { BrowserRouter as Router, useRouteMatch } from "react-router-dom";
 import TransitionPage from "shared/components/TransitionPage";
 import LandingPage from "./LandingPage";
 import AboutPage from "./AboutPage";
+import ProjectPage from "./ProjectPage";
+import { usePortfolio } from "shared/components/PortfolioProvider";
+import ContactPage from "./ContactPage";
 
-const App = (props) => {
+const App = () => {
+  const portfolio = usePortfolio();
+
   const matches = {
     about: useRouteMatch("/about"),
     contact: useRouteMatch("/contact"),
@@ -15,8 +20,8 @@ const App = (props) => {
   };
 
   const fonts = useFonts([
-    props.portfolio.templateSettings.headingFont,
-    props.portfolio.templateSettings.paragraphFont,
+    portfolio.templateSettings.headingFont,
+    portfolio.templateSettings.paragraphFont,
   ]);
 
   if (fonts.isLoading) {
@@ -27,18 +32,26 @@ const App = (props) => {
     <AnimatePresence initial={false} exitBeforeEnter>
       {matches.about && (
         <TransitionPage key="about">
-          <AboutPage portfolio={props.portfolio} />
+          <AboutPage about={portfolio.content.about} />
         </TransitionPage>
       )}
       {matches.contact && (
-        <TransitionPage key="contact">contact</TransitionPage>
+        <TransitionPage key="contact">
+          <ContactPage />
+        </TransitionPage>
       )}
       {matches.projectDetail && (
-        <TransitionPage key="project-detail">proj</TransitionPage>
+        <TransitionPage key="project-detail">
+          <ProjectPage
+            project={portfolio.content.projects.find(
+              (p) => p.id === matches.projectDetail.params.id
+            )}
+          />
+        </TransitionPage>
       )}
       {!matches.about && !matches.contact && !matches.projectDetail && (
         <TransitionPage key="landing">
-          <LandingPage portfolio={props.portfolio} />
+          <LandingPage portfolio={portfolio} />
         </TransitionPage>
       )}
     </AnimatePresence>

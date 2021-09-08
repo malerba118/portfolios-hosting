@@ -34,17 +34,14 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
           xs: {
             color: "primary.700",
             fontSize: "xl",
-            opacity: 0.7,
           },
           sm: {
             color: "primary.700",
             fontSize: "2xl",
-            opacity: 0.7,
           },
           md: {
             color: "primary.700",
             fontSize: "3xl",
-            opacity: 0.7,
           },
           lg: {
             color: "primary.700",
@@ -77,17 +74,14 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
           xs: {
             color: "primary.700",
             fontSize: "xs",
-            opacity: 0.7,
           },
           sm: {
             color: "primary.700",
             fontSize: "sm",
-            opacity: 0.7,
           },
           md: {
             color: "primary.700",
             fontSize: "md",
-            opacity: 0.7,
           },
           lg: {
             color: "primary.700",
@@ -107,15 +101,12 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
         sizes: {
           xs: {
             fontSize: "xs",
-            opacity: 0.7,
           },
           sm: {
             fontSize: "sm",
-            opacity: 0.7,
           },
           md: {
             fontSize: "md",
-            opacity: 0.7,
           },
           lg: {
             fontSize: "lg",

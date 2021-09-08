@@ -161,10 +161,6 @@ const LandingPage = (props) => {
                       textTransform="uppercase"
                       color="white"
                       textShadow="2px 4px 0px var(--chakra-colors-primary-200), 4px 8px 0px var(--chakra-colors-primary-300)"
-                      whileHover={{
-                        scale: 1.075,
-                        transition: transitions.one(0.5),
-                      }}
                       textAlign="center"
                     >
                       {project.name}

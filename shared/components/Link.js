@@ -52,7 +52,7 @@ const Link = ({
       to={locationDescriptor}
       {...otherProps}
     >
-      <Box>
+      <Box display="inline-block">
         {children}
         {showUnderline && (
           <MotionBox

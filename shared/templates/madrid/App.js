@@ -3,10 +3,11 @@ import { AnimatePresence } from "framer-motion";
 import useFonts from "shared/hooks/useFonts";
 import { BrowserRouter as Router, useRouteMatch } from "react-router-dom";
 import TransitionPage from "shared/components/TransitionPage";
+import Advertisement from "shared/components/Advertisement";
+import { usePortfolio } from "shared/components/PortfolioProvider";
 import LandingPage from "./LandingPage";
 import AboutPage from "./AboutPage";
 import ProjectPage from "./ProjectPage";
-import { usePortfolio } from "shared/components/PortfolioProvider";
 import ContactPage from "./ContactPage";
 
 const App = () => {
@@ -61,6 +62,7 @@ const App = () => {
 const RouterApp = (props) => (
   <Router>
     <App {...props} />
+    <Advertisement />
   </Router>
 );
 

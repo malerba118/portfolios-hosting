@@ -45,7 +45,8 @@ const Advertisement = ({ ...otherProps }) => {
         >
           <HStack>
             <VernosLogo
-              height="36px"
+              style={{ minWidth: 48 }}
+              height="32px"
               color="var(--chakra-colors-primary-100)"
             />
             <Text pb="2px" size="md" color="primary.100">

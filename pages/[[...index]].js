@@ -7,12 +7,13 @@ import { getSubdomain } from "shared/utils/url";
 import useData from "shared/hooks/useData";
 import { useRouter } from "next/router";
 import { getPreviewablePortfolio, processPortfolio } from "shared/utils/data";
+import { CgQuote } from "react-icons/cg";
 
 const isDev = process.env.NODE_ENV === "development";
 
 export const getServerSideProps = async (ctx) => {
   try {
-    if (ctx.query.edit) {
+    if (ctx.query.edit && ctx.query.edit !== "false") {
       return {
         props: {
           portfolio: null,
@@ -58,7 +59,7 @@ const Home = ({ portfolio }) => {
   const draft = useData();
   const router = useRouter();
 
-  if (router.query.edit) {
+  if (router.query.edit && router.query.edit !== "false") {
     portfolio = processPortfolio(draft);
     if (!portfolio) {
       return null;

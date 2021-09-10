@@ -264,7 +264,15 @@ const PortfolioData = types.snapshotProcessor(_PortfolioData, {
   },
 });
 
+const Portfolio = types.model("Portfolio", {
+  id: types.string,
+  subdomain: types.maybeNull(types.string),
+  draft: PortfolioData,
+  published: types.maybeNull(PortfolioData),
+  advertisementsDisabled: types.maybe(types.boolean),
+});
+
 export const processPortfolio = (portfolio) => {
   if (!portfolio) return portfolio;
-  return PortfolioData.create(portfolio).toJSON();
+  return Portfolio.create(portfolio).toJSON();
 };

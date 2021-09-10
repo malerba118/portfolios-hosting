@@ -62,7 +62,7 @@ const App = () => {
 const RouterApp = (props) => (
   <Router>
     <App {...props} />
-    <Advertisement />
+    {!props.advertisementsDisabled && <Advertisement />}
   </Router>
 );
 

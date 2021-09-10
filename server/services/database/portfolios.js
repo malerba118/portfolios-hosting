@@ -47,10 +47,6 @@ export default ({ db, user }) => {
       .get();
     let portfolioDoc = portfoliosSnapshot.docs[0];
     assertResourceExists(portfolioDoc);
-    const data = portfolioDoc.data();
-    if (data.live !== true) {
-      throw new ResourceNotFoundError();
-    }
     return toData(portfolioDoc);
   };
 

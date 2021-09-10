@@ -39,7 +39,9 @@ export const getServerSideProps = async (ctx) => {
     }
     return {
       props: {
-        portfolio: processPortfolio(portfolio.published),
+        portfolio: processPortfolio(portfolio),
+        advertisementsDisabled: portfolio.advertisementsDisabled,
+        subdomain: portfolio.subdomain,
       },
     };
   } catch (err) {
@@ -56,23 +58,30 @@ const getTemplateComponent = ({ name }) => {
 };
 
 const Home = ({ portfolio }) => {
-  const draft = useData();
+  const editablePortfolio = useData();
   const router = useRouter();
-
+  let portfolioData = portfolio?.published;
   if (router.query.edit && router.query.edit !== "false") {
-    portfolio = processPortfolio(draft);
-    if (!portfolio) {
+    if (!editablePortfolio) {
       return null;
     }
+    portfolio = processPortfolio(editablePortfolio);
+    portfolioData = portfolio.draft;
   }
 
   const Template = getTemplateComponent({
-    name: portfolio?.template,
+    name: portfolioData?.template,
   });
 
-  if (portfolio && Template) {
+  if (portfolioData && Template) {
     // force remount when updating
-    return <Template key={Math.random()} portfolio={portfolio} />;
+    return (
+      <Template
+        key={Math.random()}
+        portfolio={portfolioData}
+        advertisementsDisabled={portfolio.advertisementsDisabled}
+      />
+    );
   }
   return <h1>Not Found</h1>;
 };

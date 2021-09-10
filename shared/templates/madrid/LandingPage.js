@@ -14,6 +14,7 @@ import MotionImage from "shared/components/MotionImage";
 import Toolbar from "./Toolbar";
 import Link from "shared/components/Link";
 import { useLocation } from "react-router-dom";
+import { usePortfolio } from "shared/components/PortfolioProvider";
 
 const variants = {
   nav: {
@@ -53,8 +54,9 @@ const variants = {
   },
 };
 
-const LandingPage = (props) => {
-  let { about, projects } = props.portfolio.content;
+const LandingPage = () => {
+  const portfolio = usePortfolio();
+  let { about, projects } = portfolio.data.content;
   const location = useLocation();
 
   const animations = {

@@ -21,8 +21,8 @@ const App = () => {
   };
 
   const fonts = useFonts([
-    portfolio.templateSettings.headingFont,
-    portfolio.templateSettings.paragraphFont,
+    portfolio.data.templateSettings.headingFont,
+    portfolio.data.templateSettings.paragraphFont,
   ]);
 
   if (fonts.isLoading) {
@@ -33,7 +33,7 @@ const App = () => {
     <AnimatePresence initial={false} exitBeforeEnter>
       {matches.about && (
         <TransitionPage key="about">
-          <AboutPage about={portfolio.content.about} />
+          <AboutPage about={portfolio.data.content.about} />
         </TransitionPage>
       )}
       {matches.contact && (
@@ -44,7 +44,7 @@ const App = () => {
       {matches.projectDetail && (
         <TransitionPage key="project-detail">
           <ProjectPage
-            project={portfolio.content.projects.find(
+            project={portfolio.data.content.projects.find(
               (p) => p.id === matches.projectDetail.params.id
             )}
           />
@@ -52,7 +52,7 @@ const App = () => {
       )}
       {!matches.about && !matches.contact && !matches.projectDetail && (
         <TransitionPage key="landing">
-          <LandingPage portfolio={portfolio} />
+          <LandingPage />
         </TransitionPage>
       )}
     </AnimatePresence>
@@ -62,7 +62,7 @@ const App = () => {
 const RouterApp = (props) => (
   <Router>
     <App {...props} />
-    {!props.advertisementsDisabled && <Advertisement />}
+    <Advertisement />
   </Router>
 );
 

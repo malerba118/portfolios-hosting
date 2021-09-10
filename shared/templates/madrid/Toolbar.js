@@ -24,8 +24,8 @@ const Toolbar = ({ animate, variants, initial = "hidden" }) => {
       <Box>
         <Link to={{ pathname: "/", state: { disableAnimations: true } }}>
           <Logo
-            charOne={portfolio.content.about.firstName[0]}
-            charTwo={portfolio.content.about.lastName[0]}
+            charOne={portfolio.data.content.about.firstName[0]}
+            charTwo={portfolio.data.content.about.lastName[0]}
             color="primary.700"
           />
         </Link>

@@ -8,14 +8,14 @@ import "focus-visible/dist/focus-visible";
 
 const App = dynamic(() => import("./App"), { ssr: false });
 
-const Template = ({ portfolio, advertisementsDisabled }) => {
-  const [theme] = useState(() => makeTheme(portfolio.templateSettings));
+const Template = ({ portfolio }) => {
+  const [theme] = useState(() => makeTheme(portfolio.data.templateSettings));
 
   return (
     <ChakraProvider theme={theme}>
       <AnimationProvider>
         <PortfolioProvider portfolio={portfolio}>
-          <App advertisementsDisabled={advertisementsDisabled} />
+          <App />
         </PortfolioProvider>
       </AnimationProvider>
     </ChakraProvider>

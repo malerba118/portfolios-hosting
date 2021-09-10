@@ -12,10 +12,16 @@ import { MotionBox, MotionStack, transitions } from "./animation";
 import Link from "./Link";
 import VernosLogo from "./VernosLogo";
 import { CgClose as CloseIcon } from "react-icons/cg";
+import { usePortfolio } from "./PortfolioProvider";
 
 const Advertisement = ({ ...otherProps }) => {
+  const portfolio = usePortfolio();
   const breakpoint = useBreakpoint();
   const [hidden, setHidden] = useState(false);
+
+  if (portfolio.advertisementsDisabled) {
+    return null;
+  }
 
   return (
     <AnimatePresence>

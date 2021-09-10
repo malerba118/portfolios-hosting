@@ -7,7 +7,6 @@ import { getSubdomain } from "shared/utils/url";
 import useData from "shared/hooks/useData";
 import { useRouter } from "next/router";
 import { getPreviewablePortfolio, processPortfolio } from "shared/utils/data";
-import { CgQuote } from "react-icons/cg";
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -40,8 +39,6 @@ export const getServerSideProps = async (ctx) => {
     return {
       props: {
         portfolio: processPortfolio(portfolio),
-        advertisementsDisabled: portfolio.advertisementsDisabled,
-        subdomain: portfolio.subdomain,
       },
     };
   } catch (err) {
@@ -60,28 +57,20 @@ const getTemplateComponent = ({ name }) => {
 const Home = ({ portfolio }) => {
   const editablePortfolio = useData();
   const router = useRouter();
-  let portfolioData = portfolio?.published;
   if (router.query.edit && router.query.edit !== "false") {
     if (!editablePortfolio) {
       return null;
     }
-    portfolio = processPortfolio(editablePortfolio);
-    portfolioData = portfolio.draft;
+    portfolio = processPortfolio(editablePortfolio, { useDraft: true });
   }
 
   const Template = getTemplateComponent({
-    name: portfolioData?.template,
+    name: portfolio?.data?.template,
   });
 
-  if (portfolioData && Template) {
+  if (portfolio && Template) {
     // force remount when updating
-    return (
-      <Template
-        key={Math.random()}
-        portfolio={portfolioData}
-        advertisementsDisabled={portfolio.advertisementsDisabled}
-      />
-    );
+    return <Template key={Math.random()} portfolio={portfolio} />;
   }
   return <h1>Not Found</h1>;
 };

@@ -8,7 +8,7 @@ const App = dynamic(() => import("./App"), { ssr: false });
 const Template = ({ portfolio }) => {
   return (
     <ChakraProvider theme={theme}>
-      <App portfolio={portfolio} />
+      <App portfolio={portfolio.data} />
     </ChakraProvider>
   );
 };

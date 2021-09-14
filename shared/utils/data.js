@@ -157,6 +157,14 @@ export const templates = {
       palette: "desert",
     },
   },
+  skrol: {
+    label: "Skrol",
+    defaults: {
+      headingFont: "Montserrat",
+      paragraphFont: "Lato",
+      palette: "desert",
+    },
+  },
 };
 
 // SCHEMAS
@@ -256,6 +264,7 @@ const TemplateSettings = types.model("TemplateSettings", {
 const TemplateSettingsMap = types.model("TemplateSettingsMap", {
   madrid: types.optional(TemplateSettings, templates.madrid.defaults),
   venice: types.optional(TemplateSettings, templates.venice.defaults),
+  skrol: types.optional(TemplateSettings, templates.skrol.defaults),
 });
 
 export const _PortfolioData = types.model("PortfolioData", {

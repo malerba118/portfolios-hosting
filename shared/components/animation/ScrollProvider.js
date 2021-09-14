@@ -1,4 +1,4 @@
-import React, { useRef, createContext, useContext } from "react";
+import React, { useRef, createContext, useContext, forwardRef } from "react";
 import { Box } from "@chakra-ui/react";
 import {
   useViewportScroll,
@@ -46,8 +46,7 @@ export const ScrollProvider = {
       </ScrollContext.Provider>
     );
   },
-  Box: ({ children, ...otherProps }) => {
-    const ref = useRef();
+  Box: forwardRef(({ children, style, ...otherProps }, ref) => {
     const {
       scrollX,
       scrollY,
@@ -78,12 +77,16 @@ export const ScrollProvider = {
     };
     return (
       <ScrollContext.Provider value={scroll}>
-        <Box {...otherProps} ref={ref}>
+        <Box
+          {...otherProps}
+          ref={ref}
+          style={{ scrollBehavior: "smooth", ...style }}
+        >
           {children}
         </Box>
       </ScrollContext.Provider>
     );
-  },
+  }),
 };
 
 // Unified hook to consume scroll.

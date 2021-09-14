@@ -22,3 +22,16 @@ export const palettes = {
     primary: DEFAULT_THEME.colors.pink,
   },
 };
+
+export const invert = (palette) => ({
+  50: palette[900],
+  100: palette[800],
+  200: palette[700],
+  300: palette[600],
+  400: palette[500],
+  500: palette[400],
+  600: palette[300],
+  700: palette[200],
+  800: palette[100],
+  900: palette[50],
+});

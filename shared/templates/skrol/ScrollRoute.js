@@ -6,7 +6,7 @@ export const ScrollRoute = ({ path, exact, onMatch, children = null }) => {
 
   useEffect(() => {
     onMatch(match);
-  }, [match]);
+  }, [JSON.stringify(match)]);
 
   return children;
 };

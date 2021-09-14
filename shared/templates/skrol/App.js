@@ -15,6 +15,11 @@ import {
   HStack,
   Button,
   Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  Textarea,
+  Text,
 } from "@chakra-ui/react";
 import Parallax from "shared/components/animation/Parallax";
 import Logo from "shared/components/Logo";
@@ -86,8 +91,9 @@ const keyframes = {
 
 function App() {
   const introPageRef = useRef(null);
-  const firstProjectRef = useRef(null);
   const aboutPageRef = useRef(null);
+  const firstProjectRef = useRef(null);
+  const contactPageRef = useRef(null);
   const history = useHistory();
   const portfolio = usePortfolio();
 
@@ -129,13 +135,21 @@ function App() {
           }
         }}
       />
+      <ScrollRoute
+        path="/contact"
+        onMatch={(match) => {
+          if (match) {
+            contactPageRef.current.scrollIntoView();
+          }
+        }}
+      />
       <Parallax h="100vh">
         <Parallax.Page ref={introPageRef} pageId="intro-page" h="100vh">
           <Parallax.Box keyframes={keyframes.intro} h="100%">
             <Flex
               pos="relative"
               zIndex={1}
-              h="128px"
+              h="150px"
               px={{ base: 12, md: 24 }}
               justify="space-between"
               align="center"
@@ -158,14 +172,14 @@ function App() {
                     Projects
                   </Heading>
                 </Link>
-                <Link showUnderline color="secondary.400">
+                <Link to="/contact" showUnderline color="secondary.400">
                   <Heading color="secondary.400" size="xs">
                     Contact
                   </Heading>
                 </Link>
               </HStack>
             </Flex>
-            <Center pos="absolute" inset={0}>
+            <Center pos="absolute" top="50px" left={0} right={0} bottom={0}>
               <Stack
                 w="100%"
                 px={{ base: 12, md: 24 }}
@@ -203,29 +217,32 @@ function App() {
         </Parallax.Page>
         <Parallax.Page ref={aboutPageRef} pageId={`about-page`}>
           <Parallax.Box keyframes={keyframes.about}>
-            <Box
+            <Center
+              flexDirection="column"
               h="100%"
               px={{ base: 12, md: 24 }}
               py={{ base: 6, md: 12 }}
               pos="relative"
             >
-              <Flex w="100%" justify="space-between" align="center" my={2}>
-                <Heading size="xl">About</Heading>
-                {about?.resume?.url && (
-                  <Button
-                    onClick={() => {
-                      window.open(about?.resume?.url, "_blank");
-                    }}
-                    colorScheme="secondary"
-                    variant="outline"
-                    size="md"
-                  >
-                    View Resume
-                  </Button>
-                )}
-              </Flex>
-              <RichtextViewer value={about.description} />
-            </Box>
+              <Box w="100%" maxW="50em">
+                <Flex justify="space-between" align="center" my={2}>
+                  <Heading size="xl">About</Heading>
+                  {about?.resume?.url && (
+                    <Button
+                      onClick={() => {
+                        window.open(about?.resume?.url, "_blank");
+                      }}
+                      colorScheme="secondary"
+                      variant="outline"
+                      size="md"
+                    >
+                      View Resume
+                    </Button>
+                  )}
+                </Flex>
+                <RichtextViewer value={about.description} />
+              </Box>
+            </Center>
           </Parallax.Box>
         </Parallax.Page>
         {portfolio.data.content.projects.map((project, i) => {
@@ -276,6 +293,37 @@ function App() {
             </Parallax.Page>
           );
         })}
+        <Parallax.Page ref={contactPageRef} pageId={`contact-page`}>
+          <Parallax.Box keyframes={keyframes.contact}>
+            <Center minH="100vh" p={8}>
+              <Stack
+                as="form"
+                fontSize="xl"
+                spacing={{ base: 4, md: 6 }}
+                p={1}
+                w="100%"
+                maxW="420px"
+              >
+                <Heading textAlign="start" size="2xl">
+                  Drop a Note
+                </Heading>
+                <FormControl id="name">
+                  <FormLabel as={Text}>Your Name</FormLabel>
+                  <Input variant="filled" placeholder="Name" />
+                </FormControl>
+                <FormControl id="email">
+                  <FormLabel as={Text}>Your Email</FormLabel>
+                  <Input variant="filled" placeholder="Email" />
+                </FormControl>
+                <FormControl id="message">
+                  <FormLabel as={Text}>Your Message for Me</FormLabel>
+                  <Textarea variant="filled" placeholder="Message" />
+                </FormControl>
+                <Button colorScheme="secondary">Submit</Button>
+              </Stack>
+            </Center>
+          </Parallax.Box>
+        </Parallax.Page>
       </Parallax>
     </>
   );

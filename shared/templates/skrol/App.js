@@ -1,6 +1,10 @@
 import React, { useRef } from "react";
 import useFonts from "shared/hooks/useFonts";
-import { BrowserRouter as Router, useRouteMatch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  useHistory,
+  useRouteMatch,
+} from "react-router-dom";
 import Advertisement from "shared/components/Advertisement";
 import { usePortfolio } from "shared/components/PortfolioProvider";
 import {
@@ -9,7 +13,6 @@ import {
   Center,
   Stack,
   HStack,
-  Image,
   Button,
   Flex,
 } from "@chakra-ui/react";
@@ -17,6 +20,8 @@ import Parallax from "shared/components/animation/Parallax";
 import Logo from "shared/components/Logo";
 import MotionImage from "shared/components/MotionImage";
 import RichtextViewer from "./RichtextViewer";
+import Link from "shared/components/Link";
+import ScrollRoute from "./ScrollRoute";
 
 const keyframes = {
   intro: ({ page }) => ({
@@ -80,8 +85,10 @@ const keyframes = {
 };
 
 function App() {
+  const introPageRef = useRef(null);
   const firstProjectRef = useRef(null);
   const aboutPageRef = useRef(null);
+  const history = useHistory();
   const portfolio = usePortfolio();
 
   const fonts = useFonts([
@@ -97,60 +104,102 @@ function App() {
 
   return (
     <>
+      <ScrollRoute
+        path="/"
+        exact
+        onMatch={(match) => {
+          if (match) {
+            introPageRef.current.scrollIntoView();
+          }
+        }}
+      />
+      <ScrollRoute
+        path="/about"
+        onMatch={(match) => {
+          if (match) {
+            aboutPageRef.current.scrollIntoView();
+          }
+        }}
+      />
+      <ScrollRoute
+        path="/projects"
+        onMatch={(match) => {
+          if (match) {
+            firstProjectRef.current.scrollIntoView();
+          }
+        }}
+      />
       <Parallax h="100vh">
-        <Parallax.Page
-          keyframes={keyframes.intro}
-          pageId="first-page"
-          h="100vh"
-        >
-          <Flex
-            pos="relative"
-            zIndex={1}
-            h="128px"
-            px={{ base: 12, md: 24 }}
-            justify="space-between"
-            align="center"
-          >
-            <Logo
-              color="secondary.400"
-              charOne={about.firstName[0]}
-              charTwo={about.lastName[0]}
-            />
-            <HStack spacing={4} color="secondary.400">
-              <Heading color="secondary.400" size="xs">
-                About
-              </Heading>
-              <Heading color="secondary.400" size="xs">
-                Projects
-              </Heading>
-              <Heading color="secondary.400" size="xs">
-                Contact
-              </Heading>
-            </HStack>
-          </Flex>
-          <Center pos="absolute" inset={0}>
-            <Stack
-              w="100%"
+        <Parallax.Page ref={introPageRef} pageId="intro-page" h="100vh">
+          <Parallax.Box keyframes={keyframes.intro} h="100%">
+            <Flex
+              pos="relative"
+              zIndex={1}
+              h="128px"
               px={{ base: 12, md: 24 }}
-              spacing={{ base: 3, md: 3 }}
+              justify="space-between"
+              align="center"
             >
-              <Heading maxW="800px" size="3xl" textTransform="uppercase">
-                {about.summary}
-              </Heading>
-              <Heading maxW="600px" size="sm" pb={2}>
-                {about.firstName + " " + about.lastName} • {about.title}
-              </Heading>
-              <Button
-                onClick={() => {
-                  firstProjectRef.current?.scrollIntoView();
-                }}
-                alignSelf="start"
-                colorScheme="secondary"
+              <Link to="/">
+                <Logo
+                  color="secondary.400"
+                  charOne={about.firstName[0]}
+                  charTwo={about.lastName[0]}
+                />
+              </Link>
+              <HStack spacing={{ base: 4, md: 6 }} color="secondary.400">
+                <Link to="/about" showUnderline color="secondary.400">
+                  <Heading color="secondary.400" size="xs">
+                    About
+                  </Heading>
+                </Link>
+                <Link to="/projects" showUnderline color="secondary.400">
+                  <Heading color="secondary.400" size="xs">
+                    Projects
+                  </Heading>
+                </Link>
+                <Link showUnderline color="secondary.400">
+                  <Heading color="secondary.400" size="xs">
+                    Contact
+                  </Heading>
+                </Link>
+              </HStack>
+            </Flex>
+            <Center pos="absolute" inset={0}>
+              <Stack
+                w="100%"
+                px={{ base: 12, md: 24 }}
+                spacing={{ base: 3, md: 3 }}
               >
-                See Projects
-              </Button>
-            </Stack>
-          </Center>
+                <Heading maxW="800px" size="3xl" textTransform="uppercase">
+                  {about.summary}
+                </Heading>
+                <Heading maxW="600px" size="sm" pb={2}>
+                  {about.firstName + " " + about.lastName} • {about.title}
+                </Heading>
+                <HStack alignSelf="start" spacing={4}>
+                  <Button
+                    onClick={() => {
+                      history.push("/about");
+                    }}
+                    colorScheme="secondary"
+                  >
+                    About Me
+                  </Button>
+
+                  <Button
+                    onClick={() => {
+                      history.push("/projects");
+                    }}
+                    colorScheme="secondary"
+                    variant="outline"
+                  >
+                    See Projects
+                  </Button>
+                </HStack>
+              </Stack>
+            </Center>
+          </Parallax.Box>
         </Parallax.Page>
         <Parallax.Page ref={aboutPageRef} pageId={`about-page`}>
           <Parallax.Box keyframes={keyframes.about}>
@@ -160,6 +209,21 @@ function App() {
               py={{ base: 6, md: 12 }}
               pos="relative"
             >
+              <Flex w="100%" justify="space-between" align="center" my={2}>
+                <Heading size="xl">About</Heading>
+                {about?.resume?.url && (
+                  <Button
+                    onClick={() => {
+                      window.open(about?.resume?.url, "_blank");
+                    }}
+                    colorScheme="secondary"
+                    variant="outline"
+                    size="md"
+                  >
+                    View Resume
+                  </Button>
+                )}
+              </Flex>
               <RichtextViewer value={about.description} />
             </Box>
           </Parallax.Box>

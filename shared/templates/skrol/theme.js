@@ -58,6 +58,14 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
             backgroundColor: "secondary.400",
             color: "primary.50",
           },
+          outline: {
+            color: "secondary.400",
+            backgroundColor: "primary.50",
+            borderColor: "secondary.400",
+            _hover: {
+              backgroundColor: "primary.100",
+            },
+          },
         },
       },
       Heading: {
@@ -108,6 +116,8 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
           xl: {
             WebkitTextStroke: "3px currentColor",
             lineHeight: "140%",
+            letterSpacing: ".05em",
+
             fontSize: {
               base: "xl",
               md: "3xl",
@@ -117,6 +127,8 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
           "2xl": {
             WebkitTextStroke: "3px currentColor",
             lineHeight: 1.2,
+            letterSpacing: ".05em",
+
             fontSize: {
               base: "2xl",
               md: "4xl",
@@ -126,6 +138,7 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
           "3xl": {
             WebkitTextStroke: "3px currentColor",
             lineHeight: "120%",
+            letterSpacing: ".05em",
             fontSize: {
               base: "3xl",
               md: "5xl",
@@ -135,6 +148,7 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
           "4xl": {
             WebkitTextStroke: "3px currentColor",
             lineHeight: "120%",
+            letterSpacing: ".05em",
             fontSize: {
               base: "4xl",
               md: "6xl",

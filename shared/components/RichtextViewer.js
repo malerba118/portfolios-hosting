@@ -30,7 +30,11 @@ export const isEmpty = (value) => {
   }
 };
 
-const RichtextViewer = ({ value }) => {
+const RichtextViewer = ({
+  value,
+  elementComponent: Element = DefaultElement,
+  leafComponent: Leaf = DefaultLeaf,
+}) => {
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   const [editor] = useState(() => withReact(createEditor()), []);
@@ -59,12 +63,12 @@ const RichtextViewer = ({ value }) => {
   );
 };
 
-const Element = ({ attributes, children, element }) => {
+const DefaultElement = ({ attributes, children, element }) => {
   switch (element.type) {
     case "link":
       return (
         <Link
-          color="blue.500"
+          color="primary.700"
           as={"a"}
           size="lg"
           {...attributes}
@@ -104,7 +108,7 @@ const Element = ({ attributes, children, element }) => {
   }
 };
 
-const Leaf = ({ attributes, children, leaf }) => {
+const DefaultLeaf = ({ attributes, children, leaf }) => {
   if (leaf.bold) {
     children = <strong>{children}</strong>;
   }

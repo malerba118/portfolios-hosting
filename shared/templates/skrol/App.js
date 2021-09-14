@@ -16,7 +16,7 @@ import {
 import Parallax from "shared/components/animation/Parallax";
 import Logo from "shared/components/Logo";
 import MotionImage from "shared/components/MotionImage";
-import RichtextViewer from "shared/components/RichtextViewer";
+import RichtextViewer from "./RichtextViewer";
 
 const keyframes = {
   intro: ({ page }) => ({

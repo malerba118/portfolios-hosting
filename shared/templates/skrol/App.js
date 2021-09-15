@@ -22,6 +22,7 @@ import {
   Input,
   Textarea,
   Text,
+  Container,
 } from "@chakra-ui/react";
 import Parallax from "shared/components/animation/Parallax";
 import Logo from "shared/components/Logo";
@@ -66,18 +67,30 @@ const keyframes = {
       y: 0,
     },
   }),
-  projectTitle: ({ page }) => ({
-    [page.y - page.height * 0.45]: {
-      x: "-100vw",
+  projectTitle: ({ page, container }) => ({
+    // [page.y - page.height * 0.45]: {
+    //   x: "-100vw",
+    // },
+    // [page.y - page.height * 0.449]: {
+    //   x: "0vw",
+    // },
+    // [page.y + page.height * 0.449]: {
+    //   x: "0vw",
+    // },
+    // [page.y + page.height * 0.45]: {
+    //   x: "100vw",
+    // },
+    [page.y - container.height]: {
+      y: -120,
+      scale: 0.8,
     },
-    [page.y - page.height * 0.449]: {
-      x: "0vw",
+    [page.y]: {
+      y: 0,
+      scale: 1,
     },
-    [page.y + page.height * 0.449]: {
-      x: "0vw",
-    },
-    [page.y + page.height * 0.45]: {
-      x: "100vw",
+    [page.y + container.height]: {
+      y: 100,
+      scale: 1,
     },
   }),
   image: ({ page }) => ({

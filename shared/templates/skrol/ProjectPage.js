@@ -50,8 +50,8 @@ const keyframes = {
   }),
   gallery: ({ page, container }) => ({
     [page.y - container.height]: {
-      opacity: -0.15,
-      y: -150,
+      opacity: 0,
+      y: -100,
     },
     [page.y]: {
       opacity: 1,
@@ -142,7 +142,7 @@ const ProjectPage = ({ history, match }) => {
         <Parallax.Page
           pageId="project-gallery"
           keyframes={keyframes.gallery}
-          p={{ base: 12, md: 24 }}
+          p={{ base: 0, md: 24 }}
         >
           <SimpleGrid
             columns={{ base: 1, md: 2 }}

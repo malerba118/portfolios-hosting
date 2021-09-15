@@ -3,7 +3,9 @@ import useFonts from "shared/hooks/useFonts";
 import {
   BrowserRouter as Router,
   useHistory,
-  useRouteMatch,
+  Route,
+  Switch,
+  useLocation,
 } from "react-router-dom";
 import Advertisement from "shared/components/Advertisement";
 import { usePortfolio } from "shared/components/PortfolioProvider";
@@ -27,6 +29,9 @@ import MotionImage from "shared/components/MotionImage";
 import RichtextViewer from "./RichtextViewer";
 import Link from "shared/components/Link";
 import ScrollRoute from "./ScrollRoute";
+import ProjectPage from "./ProjectPage";
+import { AnimatePresence } from "framer-motion";
+import { locationsAreEqual } from "history";
 
 const keyframes = {
   intro: ({ page }) => ({
@@ -40,13 +45,13 @@ const keyframes = {
       skewY: "15deg",
       opacity: 0,
       y: 150,
-      scale: 0.9,
+      scale: 0.75,
     },
   }),
   about: ({ page }) => ({
     [0]: {
       skewY: "0deg",
-      opacity: 0,
+      opacity: -0.15,
       y: 150,
       scale: 1,
     },
@@ -95,6 +100,7 @@ function App() {
   const firstProjectRef = useRef(null);
   const contactPageRef = useRef(null);
   const history = useHistory();
+  const location = useLocation();
   const portfolio = usePortfolio();
 
   const fonts = useFonts([
@@ -121,6 +127,7 @@ function App() {
       />
       <ScrollRoute
         path="/about"
+        exact
         onMatch={(match) => {
           if (match) {
             aboutPageRef.current.scrollIntoView();
@@ -129,6 +136,7 @@ function App() {
       />
       <ScrollRoute
         path="/projects"
+        exact
         onMatch={(match) => {
           if (match) {
             firstProjectRef.current.scrollIntoView();
@@ -137,6 +145,7 @@ function App() {
       />
       <ScrollRoute
         path="/contact"
+        exact
         onMatch={(match) => {
           if (match) {
             contactPageRef.current.scrollIntoView();
@@ -275,10 +284,14 @@ function App() {
                 <Center pos="absolute" inset={0}>
                   <Parallax.Box
                     cursor="pointer"
+                    tabIndex={0}
+                    onClick={() => {
+                      history.push(`/projects/${project.id}`);
+                    }}
                     keyframes={keyframes.projectTitle}
                   >
                     <Heading
-                      p={2}
+                      p={4}
                       backgroundColor="secondary.400"
                       size="4xl"
                       color="primary.50"
@@ -325,6 +338,11 @@ function App() {
           </Parallax.Box>
         </Parallax.Page>
       </Parallax>
+      <AnimatePresence exitBeforeEnter initial={false}>
+        <Switch location={location} key={location.pathname}>
+          <Route path="/projects/:id" component={ProjectPage} />
+        </Switch>
+      </AnimatePresence>
     </>
   );
 }

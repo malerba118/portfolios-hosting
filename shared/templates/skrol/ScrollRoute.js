@@ -1,12 +1,16 @@
 import { useEffect } from "react";
-import { useRouteMatch } from "react-router-dom";
+import { useRouteMatch, useLocation, matchPath } from "react-router-dom";
 
 export const ScrollRoute = ({ path, exact, onMatch, children = null }) => {
-  const match = useRouteMatch({ path, exact });
+  //   const match = useRouteMatch({ path, exact });
+  const location = useLocation();
 
   useEffect(() => {
-    onMatch(match);
-  }, [JSON.stringify(match)]);
+    const match = matchPath(location.pathname, { path, exact });
+    if (!location.state?.noScroll) {
+      onMatch(match);
+    }
+  }, [location.pathname, location.state?.noScroll, path, exact]);
 
   return children;
 };

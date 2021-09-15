@@ -117,7 +117,6 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
             WebkitTextStroke: "3px currentColor",
             lineHeight: "140%",
             letterSpacing: ".05em",
-
             fontSize: {
               base: "xl",
               md: "3xl",

@@ -8,6 +8,7 @@ const Entrance = ({
   initialY = 0,
   initialRotation = 0,
   initialOpacity = 1,
+  initialScale = 1,
   overflow = "hidden",
   transition,
   delay = 0,
@@ -22,11 +23,13 @@ const Entrance = ({
         y: initialY,
         opacity: initialOpacity,
         rotate: initialRotation,
+        scale: initialScale,
       }}
       animate={{
         x: 0,
         y: 0,
         opacity: 1,
+        scale: 1,
         rotate: 0,
         transition: { duration: 0.6, delay },
       }}

@@ -21,19 +21,19 @@ export const DateViewer = ({ startDate, endDate }) => {
   const d2 = useMemo(() => endDate && new Date(endDate), [endDate]);
 
   return (
-    <HStack spacing={1}>
+    <Box display="inline-block">
       {d1 && (
-        <Box>
+        <Box display="inline">
           {months[d1.getMonth()]}, {d1.getFullYear()}
         </Box>
       )}
-      {d1 && d2 && <Box>-</Box>}
+      {d1 && d2 && <Box display="inline"> - </Box>}
       {d2 && (
-        <Box>
+        <Box display="inline">
           {months[d2.getMonth()]}, {d2.getFullYear()}
         </Box>
       )}
-    </HStack>
+    </Box>
   );
 };
 

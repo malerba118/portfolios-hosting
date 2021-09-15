@@ -50,16 +50,12 @@ const keyframes = {
   }),
   about: ({ page }) => ({
     [0]: {
-      skewY: "0deg",
       opacity: -0.15,
       y: 150,
-      scale: 1,
     },
     [page.y]: {
-      skewY: "0deg",
       opacity: 1,
       y: 0,
-      scale: 1,
     },
   }),
   project: ({ page }) => ({
@@ -293,7 +289,7 @@ function App() {
                     <Heading
                       p={4}
                       backgroundColor="secondary.400"
-                      size="4xl"
+                      size="3xl"
                       color="primary.50"
                       textTransform="uppercase"
                       textAlign="center"

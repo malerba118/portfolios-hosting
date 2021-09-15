@@ -86,12 +86,36 @@ const useParallaxApi = ({ ids }) => {
     return obj;
   }, [JSON.stringify(ids), pageRects, containerRect, isReady]);
 
+  const normalizedContainerRect = useMemo(() => {
+    if (!isReady) {
+      return {};
+    }
+    const scrollWidth =
+      sum(ids.map((id) => pageRects[id].width)) - containerRect.width;
+    const scrollHeight =
+      sum(ids.map((id) => pageRects[id].height)) - containerRect.height;
+    const normalizeRect = (rect) => {
+      if (!rect) {
+        return null;
+      }
+      return {
+        x: rect.x / scrollWidth,
+        y: rect.y / scrollHeight,
+        width: rect.width / scrollWidth,
+        height: rect.height / scrollHeight,
+      };
+    };
+
+    return normalizeRect(containerRect);
+  }, [JSON.stringify(ids), pageRects, containerRect, isReady]);
+
   return {
     setContainerRect,
     setPageRect,
     pageRects,
     normalizedPageRects,
     containerRect,
+    normalizedContainerRect,
     isReady,
   };
 };
@@ -232,6 +256,7 @@ export const Box = forwardRef(({ keyframes, children, ...otherProps }, ref) => {
         evaledKeyframes = keyframes({
           page: parallax.normalizedPageRects[page.id],
           pages: parallax.normalizedPageRects,
+          container: parallax.normalizedContainerRect,
         });
       }
     } else {

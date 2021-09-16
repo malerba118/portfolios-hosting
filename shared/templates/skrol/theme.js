@@ -114,7 +114,7 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
             color: "primary.900",
           },
           xl: {
-            WebkitTextStroke: "3px currentColor",
+            WebkitTextStroke: "2px currentColor",
             lineHeight: "140%",
             letterSpacing: ".05em",
             fontSize: {
@@ -219,7 +219,9 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
         variants: {
           filled: {
             field: {
+              px: 2,
               background: "primary.100",
+              color: "primary.700",
               _focus: {
                 background: "primary.50",
               },
@@ -240,6 +242,7 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
       Textarea: {
         variants: {
           filled: {
+            px: 2,
             color: "primary.700",
             background: "primary.100",
             _focus: {

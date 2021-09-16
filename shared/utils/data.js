@@ -168,14 +168,23 @@ export const templates = {
 };
 
 // SCHEMAS
-const hideable = (model) =>
-  types.optional(
-    types.model(model.name, {
-      hidden: types.optional(types.boolean, false),
-      value: model,
-    }),
-    {}
-  );
+const hideable = (model) => {
+  const _Model = types.model(model.name, {
+    hidden: types.optional(types.boolean, false),
+    value: model,
+  });
+
+  const Model = types.snapshotProcessor(_Model, {
+    postProcessor(snapshot) {
+      if (snapshot.hidden) {
+        return undefined;
+      } else {
+        return snapshot.value;
+      }
+    },
+  });
+  return types.optional(Model, {});
+};
 
 // All percentages
 export const Crop = types.model("Crop", {

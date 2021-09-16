@@ -4,6 +4,7 @@ import {
   Center,
   SimpleGrid,
   CloseButton,
+  IconButton,
 } from "@chakra-ui/react";
 import { MotionBox, transitions } from "shared/components/animation";
 import Parallax from "shared/components/animation/Parallax";
@@ -12,6 +13,7 @@ import Entrance from "shared/components/Entrance";
 import MotionImage from "shared/components/MotionImage";
 import { usePortfolio } from "shared/components/PortfolioProvider";
 import RichtextViewer from "./RichtextViewer";
+import { IoMdReturnLeft } from "react-icons/io";
 
 const keyframes = {
   intro: ({ page }) => ({
@@ -31,10 +33,12 @@ const keyframes = {
   introBanner: ({ page }) => ({
     [page.y]: {
       y: "0vh",
+      x: "0vw",
       scale: 0.8,
     },
     [page.y + page.height]: {
-      y: "20vh",
+      y: "15vh",
+      x: "-4vw",
       scale: 0.8,
     },
   }),
@@ -160,14 +164,15 @@ const ProjectPage = ({ history, match }) => {
           </SimpleGrid>
         </Parallax.Page>
       </Parallax>
-      <CloseButton
+      <IconButton
         onClick={() => {
           history.push({ pathname: "/projects", state: { noScroll: true } });
         }}
         pos="absolute"
         top={4}
-        right={4}
-        color="primary.900"
+        left={4}
+        // color="primary.900"
+        icon={<IoMdReturnLeft />}
       />
     </MotionBox>
   );

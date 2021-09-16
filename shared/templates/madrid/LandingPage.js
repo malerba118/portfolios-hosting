@@ -144,7 +144,7 @@ const LandingPage = () => {
                       "/image-unavailable.svg"
                     }
                     maxHeight="90%"
-                    width={{ base: "100%", md: "50%" }}
+                    width={{ base: "100%", md: "55%" }}
                     left={i % 2 === 0 ? 0 : undefined}
                     right={i % 2 !== 0 ? 0 : undefined}
                     m={{ base: 0, md: 12 }}

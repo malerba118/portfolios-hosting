@@ -57,6 +57,7 @@ const getTemplateComponent = ({ name }) => {
 const Home = ({ portfolio }) => {
   const editablePortfolio = useData();
   const router = useRouter();
+  const draftMode = router.query.edit && router.query.edit !== "false";
   if (router.query.edit && router.query.edit !== "false") {
     if (!editablePortfolio) {
       return null;
@@ -70,7 +71,13 @@ const Home = ({ portfolio }) => {
 
   if (portfolio && Template) {
     // force remount when updating
-    return <Template key={Math.random()} portfolio={portfolio} />;
+    return (
+      <Template
+        key={Math.random()}
+        portfolio={portfolio}
+        draftMode={draftMode}
+      />
+    );
   }
   return <h1>Not Found</h1>;
 };

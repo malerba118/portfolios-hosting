@@ -14,6 +14,8 @@ import MotionImage from "shared/components/MotionImage";
 import { usePortfolio } from "shared/components/PortfolioProvider";
 import RichtextViewer from "./RichtextViewer";
 import { IoMdReturnLeft } from "react-icons/io";
+import { useLightbox } from "shared/components/Lightbox";
+import { useEffect } from "react";
 
 const keyframes = {
   intro: ({ page }) => ({
@@ -66,16 +68,25 @@ const keyframes = {
 
 const ProjectPage = ({ history, match }) => {
   const portfolio = usePortfolio();
+  const lightbox = useLightbox();
   const project = portfolio.data.content.projects.find(
     (p) => p.id === match.params.id
   );
+
+  useEffect(() => {
+    const medias = project.images.items;
+    if (medias) {
+      lightbox.setItems(medias);
+    }
+  }, []);
+
   if (!project) {
     return null;
   }
   const media = project.images.items[0];
   return (
     <MotionBox
-      initial={{ opacity: 0, scale: 1.25 }}
+      initial={{ opacity: 0, scale: 1.1 }}
       animate={{ opacity: 1, scale: 1, transition: transitions.two(0.5) }}
       exit={{ opacity: 0, scale: 0.85, transition: transitions.two(0.5) }}
       pos="fixed"
@@ -95,6 +106,10 @@ const ProjectPage = ({ history, match }) => {
               w="100%"
               initialScale={1.1}
               objectFit="cover"
+              cursor="pointer"
+              onClick={() => {
+                lightbox.open({ id: media.id });
+              }}
             />
           </Center>
           <Center flexDirection="column" pos="absolute" inset={0}>
@@ -158,6 +173,10 @@ const ProjectPage = ({ history, match }) => {
                   src={media?.processedUrl || media?.rawUrl}
                   width="100%"
                   height="100%"
+                  cursor="pointer"
+                  onClick={() => {
+                    lightbox.open({ id: media.id });
+                  }}
                 />
               </Box>
             ))}

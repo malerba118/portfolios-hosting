@@ -6,6 +6,7 @@ import { AnimationProvider } from "shared/components/animation";
 import PortfolioProvider from "shared/components/PortfolioProvider";
 import "focus-visible/dist/focus-visible";
 import DraftModeProvider from "shared/components/DraftModeProvider";
+import Lightbox from "shared/components/Lightbox";
 
 const App = dynamic(() => import("./App"), { ssr: false });
 
@@ -17,7 +18,9 @@ const Template = ({ portfolio, draftMode }) => {
       <AnimationProvider>
         <DraftModeProvider draftMode={draftMode}>
           <PortfolioProvider portfolio={portfolio}>
-            <App />
+            <Lightbox>
+              <App />
+            </Lightbox>
           </PortfolioProvider>
         </DraftModeProvider>
       </AnimationProvider>

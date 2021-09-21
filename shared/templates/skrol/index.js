@@ -12,7 +12,6 @@ const App = dynamic(() => import("./App"), { ssr: false });
 
 const Template = ({ portfolio, draftMode }) => {
   const [theme] = useState(() => makeTheme(portfolio.data.templateSettings));
-
   return (
     <ChakraProvider theme={theme}>
       <AnimationProvider>

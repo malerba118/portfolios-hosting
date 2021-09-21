@@ -88,7 +88,7 @@ const ProjectPage = ({ project }) => {
                 src={
                   media?.processedUrl ||
                   media?.rawUrl ||
-                  "/image-unavailable.svg"
+                  "/image-unavailable.jpg"
                 }
                 maxHeight="90%"
                 width={{ base: "100%", md: "60%" }}

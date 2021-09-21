@@ -37,7 +37,7 @@ const variants = {
 };
 
 const ImageReveal = ({
-  src = "/image-unavailable.svg",
+  src = "/image-unavailable.jpg",
   height,
   width = "100%",
   onClick,

@@ -1,11 +1,16 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
-import { makeAutoObservable } from "mobx";
+import { autorun, makeAutoObservable } from "mobx";
+import { nanoid } from "nanoid";
 import apps from "./apps";
 
+export const getPath = (pathname) => {
+  return pathname?.split("/").filter((seg) => !!seg) || [];
+};
+
 export class Node {
-  constructor({ type, name, data, parent }) {
-    this.id = Math.random();
+  constructor({ id, type, name, data, parent }) {
+    this.id = id || nanoid();
     this.type = type;
     this.name = name;
     this.parent = parent;
@@ -15,19 +20,22 @@ export class Node {
 
 export const portfolioToNodes = (portfolio) => {
   const nodes = [];
-  const desktop = new Node({ type: "folder", name: "Desktop" });
+  const desktop = new Node({ id: "desktop", type: "folder", name: "Desktop" });
   const projects = new Node({
+    id: "projects",
     type: "folder",
     name: "Projects",
     parent: desktop,
   });
   const about = new Node({
+    id: "about",
     type: "about",
     name: "About",
     parent: desktop,
     data: portfolio.data.content.about,
   });
   const contact = new Node({
+    id: "contact",
     type: "contact",
     name: "Contact",
     parent: desktop,
@@ -37,6 +45,7 @@ export const portfolioToNodes = (portfolio) => {
   portfolio.data.content.projects.forEach((project) => {
     nodes.push(
       new Node({
+        id: project.id,
         type: "project",
         name: project.name,
         parent: projects,
@@ -58,6 +67,27 @@ export class FileSystem {
 
   children(node) {
     return this.nodes.filter((n) => n.parent?.id === node?.id);
+  }
+
+  query(path = [], node = this.root()) {
+    let result = node;
+    for (const segment of path) {
+      if (!result) {
+        return undefined;
+      }
+      result = this.children(result).find((child) => child.id === segment);
+    }
+    return result;
+  }
+
+  path(node) {
+    let result = [];
+    let curr = node;
+    while (curr) {
+      result.unshift(curr.id);
+      curr = curr.parent;
+    }
+    return result;
   }
 }
 

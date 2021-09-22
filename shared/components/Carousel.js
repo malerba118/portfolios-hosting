@@ -158,7 +158,7 @@ const Carousel = ({
     >
       <AnimatePresence initial={false}>
         <MotionBox
-          key={carousel.prev?.id}
+          key={carousel.prev?.id || "left"}
           variants={variants}
           initial={false}
           animate="left"
@@ -171,7 +171,7 @@ const Carousel = ({
           <ItemComponent item={carousel.prev} />
         </MotionBox>
         <MotionBox
-          key={carousel.current?.id}
+          key={carousel.current?.id || "center"}
           variants={variants}
           initial={false}
           animate="center"
@@ -184,7 +184,7 @@ const Carousel = ({
           <ItemComponent item={carousel.current} />
         </MotionBox>
         <MotionBox
-          key={carousel.next?.id}
+          key={carousel.next?.id || "right"}
           variants={variants}
           initial={false}
           animate="right"

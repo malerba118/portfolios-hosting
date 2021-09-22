@@ -37,7 +37,7 @@ const apps = {
             px={2}
           >
             {path.map((ancestor, i) => (
-              <>
+              <HStack key={ancestor?.id}>
                 <Button
                   color="primary.100"
                   variant="link"
@@ -52,7 +52,7 @@ const apps = {
                     {">"}
                   </Text>
                 )}
-              </>
+              </HStack>
             ))}
           </HStack>
           <Box flex={1} overflow="auto">

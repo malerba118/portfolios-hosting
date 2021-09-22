@@ -12,8 +12,9 @@ import Advertisement from "shared/components/Advertisement";
 import { usePortfolio } from "shared/components/PortfolioProvider";
 import { Text } from "@chakra-ui/react";
 import Desktop from "./Desktop";
-import { FileSystem, portfolioToNodes, os } from "./utils";
+import { FileSystem, portfolioToNodes, os, getPath } from "./utils";
 import FsProvider from "./FsProvider";
+import { autorun } from "mobx";
 
 function App() {
   const history = useHistory();
@@ -23,6 +24,21 @@ function App() {
 
   useEffect(() => {
     os.reset();
+    const path = getPath(location.pathname);
+    if (path?.length) {
+      const target = fs.query(path);
+      if (target) {
+        os.open(target);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    // push urls when active window changes
+    return autorun(() => {
+      const pathname = "/" + fs.path(os.selected?.node).slice(1).join("/");
+      history.push(pathname);
+    });
   }, []);
 
   const fonts = useFonts([

@@ -165,6 +165,14 @@ export const templates = {
       palette: "desert",
     },
   },
+  os: {
+    label: "Operating System",
+    defaults: {
+      headingFont: "Ubuntu Mono",
+      paragraphFont: "Ubuntu Mono",
+      palette: "desert",
+    },
+  },
 };
 
 // SCHEMAS
@@ -274,6 +282,7 @@ const TemplateSettingsMap = types.model("TemplateSettingsMap", {
   madrid: types.optional(TemplateSettings, templates.madrid.defaults),
   venice: types.optional(TemplateSettings, templates.venice.defaults),
   skrol: types.optional(TemplateSettings, templates.skrol.defaults),
+  os: types.optional(TemplateSettings, templates.os.defaults),
 });
 
 export const _PortfolioData = types.model("PortfolioData", {

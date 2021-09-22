@@ -23,18 +23,28 @@ import {
 } from "@chakra-ui/icons";
 import { AnimatePresence } from "framer-motion";
 import { MotionBox, transitions } from "./animation/chakra";
+import MotionImage from "./MotionImage";
+import Lightbox, { useLightbox } from "./Lightbox";
 
 // interface Item extends {
 //   id: string | number;
 // }
 
 const DefaultComponent = ({ item: media }) => {
+  const lightbox = useLightbox();
   return (
-    <Image
+    <MotionImage
       src={media?.processedUrl || media?.rawUrl}
       w="100%"
       h="100%"
       objectFit="cover"
+      initialScale={1}
+      hoverScale={1.04}
+      scaleFactor={1}
+      cursor="pointer"
+      onClick={() => {
+        lightbox.open({ id: media.id });
+      }}
     />
   );
 };
@@ -97,8 +107,9 @@ const useCarouselState = ({ defaultItems = [] } = {}) => {
 
 const variants = {
   left: {
-    x: "-100vw",
-    opacity: 0.5,
+    zIndex: 0,
+    x: "-0%",
+    opacity: 0,
     scale: 1,
   },
   center: {
@@ -109,15 +120,15 @@ const variants = {
   },
   right: {
     zIndex: 0,
-    x: "100vw",
-    opacity: 0.5,
+    x: "0%",
+    opacity: 0,
     scale: 1,
   },
 };
 
 const transition = {
   x: transitions.two(0.32),
-  opacity: { duration: 0.2 },
+  opacity: { duration: 0.32 },
 };
 
 const Carousel = ({

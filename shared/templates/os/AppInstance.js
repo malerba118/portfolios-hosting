@@ -1,5 +1,5 @@
 import { Box, Flex, HStack } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { observer } from "mobx-react";
 import { Rnd } from "react-rnd";
 import { os } from "./utils";
@@ -125,7 +125,7 @@ const AppInstance = observer(({ instance }) => {
         </Flex>
         <Box
           h="calc(100% - 24px)"
-          bg="white"
+          bg="primary.50"
           className="app-container"
           pos="relative"
           cursor="auto"

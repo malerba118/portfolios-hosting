@@ -21,6 +21,9 @@ export const palettes = {
   pink: {
     primary: DEFAULT_THEME.colors.pink,
   },
+  gray: {
+    primary: DEFAULT_THEME.colors.gray,
+  },
 };
 
 export const invert = (palette) => ({

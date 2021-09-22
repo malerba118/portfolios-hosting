@@ -17,6 +17,7 @@ const MotionImage = ({
   onClick,
   cursor,
   bg = "primary.100",
+  scaleFactor = 1.25,
   ...otherProps
 }) => {
   const [status, setStatus] = useState("loading");
@@ -32,7 +33,7 @@ const MotionImage = ({
       animate={{
         scale: status !== "loading" ? 1 : initialScale,
         opacity: status !== "loading" ? 1 : initialOpacity,
-        transition: transitions.two(0.9),
+        transition: transitions.two(0.66),
       }}
       {...otherProps}
     >
@@ -40,10 +41,10 @@ const MotionImage = ({
         h="100%"
         w="100%"
         objectFit="cover"
-        initial={{ scale: (1 / initialScale) * 1.25 }}
+        initial={{ scale: (1 / initialScale) * scaleFactor }}
         animate={{
-          scale: status !== "loading" ? 1 : (1 / initialScale) * 1.25,
-          transition: transitions.two(0.9),
+          scale: status !== "loading" ? 1 : (1 / initialScale) * scaleFactor,
+          transition: transitions.two(0.66),
         }}
         whileHover={{
           scale: hoverScale,

@@ -24,22 +24,22 @@ import { MotionStack } from "shared/components/animation";
 
 export const renderers = {
   about: () => (
-    <Center bg="pink.400" rounded="xl" h="100%" w="100%">
+    <Center boxShadow="sm" bg="pink.400" rounded="xl" h="100%" w="100%">
       <Icon fontSize="32px" color="whiteAlpha.700" as={IoMdPerson} />
     </Center>
   ),
   folder: () => (
-    <Center bg="blue.400" rounded="xl" h="100%" w="100%">
+    <Center boxShadow="sm" bg="blue.400" rounded="xl" h="100%" w="100%">
       <Icon fontSize="32px" color="whiteAlpha.700" as={IoMdFolder} />
     </Center>
   ),
   contact: () => (
-    <Center bg="red.400" rounded="xl" h="100%" w="100%">
+    <Center boxShadow="sm" bg="red.400" rounded="xl" h="100%" w="100%">
       <Icon fontSize="32px" color="whiteAlpha.700" as={IoMdMail} />
     </Center>
   ),
   project: ({ node }) => (
-    <Center bg="orange.300" rounded="xl" h="100%" w="100%">
+    <Center boxShadow="sm" bg="orange.300" rounded="xl" h="100%" w="100%">
       <Icon fontSize="32px" color="whiteAlpha.700" as={BsImageFill} />
     </Center>
   ),
@@ -71,7 +71,7 @@ const Thumbnail = ({
       {!hideName && (
         <Text
           fontWeight="600"
-          fontSize="sm"
+          fontSize="xs"
           w="100%"
           textAlign="center"
           color={color}
@@ -83,7 +83,7 @@ const Thumbnail = ({
   );
   if (tooltip) {
     return (
-      <Tooltip bg="primary.700" rounded="md" label={tooltip}>
+      <Tooltip fontSize="xs" bg="primary.700" rounded="md" label={tooltip}>
         {content}
       </Tooltip>
     );

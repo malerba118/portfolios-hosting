@@ -8,6 +8,7 @@ import {
   Stack,
   Text,
   Button,
+  Center,
 } from "@chakra-ui/react";
 import Thumbnail, { renderers } from "./Thumbnail";
 import { useFs } from "./FsProvider";
@@ -15,6 +16,10 @@ import { os } from "./utils";
 import { observer } from "mobx-react";
 import RichtextViewer from "./RichtextViewer";
 import Carousel from "shared/components/Carousel";
+import { ContactForm, ContactSection } from "./Contact";
+import { useLightbox } from "shared/components/Lightbox";
+import { useEffect } from "react";
+import { autorun } from "mobx";
 
 const apps = {
   finder: {
@@ -43,12 +48,12 @@ const apps = {
                   variant="link"
                   onClick={() => os.open(ancestor)}
                   _focus={{ boxShadow: "none" }}
-                  fontSize="sm"
+                  fontSize="xs"
                 >
                   {ancestor.name}
                 </Button>
                 {i < path.length - 1 && (
-                  <Text fontSize="sm" color="primary.100">
+                  <Text fontSize="xs" color="primary.100">
                     {">"}
                   </Text>
                 )}
@@ -62,7 +67,7 @@ const apps = {
                   key={node.id}
                   node={node}
                   size="64px"
-                  color="black"
+                  color="primary.800"
                   onClick={() => os.open(node)}
                 />
               ))}
@@ -76,7 +81,7 @@ const apps = {
     name: "Contact",
     getInstanceKey: ({ node }) => "contact",
     App: ({ node }) => {
-      return <Box>contact</Box>;
+      return <ContactSection minH="100%" />;
     },
   },
   about: {
@@ -106,11 +111,19 @@ const apps = {
     },
   },
   project: {
-    name: "About",
+    name: "Project",
     getInstanceKey: ({ node }) => "project-" + node?.data?.id,
     App: ({ node }) => {
+      const lightbox = useLightbox();
       const project = node.data;
       const media = project.images.items[0];
+      useEffect(() => {
+        return autorun(() => {
+          if (os.selected?.node?.id === node?.id) {
+            lightbox.setItems(node.data.images.items);
+          }
+        });
+      }, []);
       return (
         <Box h="100%" overflow="auto">
           <Carousel defaultItems={project.images.items} height="70%" />

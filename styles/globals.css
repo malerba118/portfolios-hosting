@@ -14,3 +14,13 @@ a {
 * {
   box-sizing: border-box;
 }
+
+/* fix for iphone notch so content doesn't slide under it */
+@supports (padding: max(0px)) {
+  body,
+  header,
+  footer {
+    padding-left: min(0vmin, env(safe-area-inset-left));
+    padding-right: min(0vmin, env(safe-area-inset-right));
+  }
+}

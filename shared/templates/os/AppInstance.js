@@ -16,7 +16,7 @@ const AppInstance = observer(({ instance }) => {
       enableResizing: false,
       position: {
         x: 0,
-        y: -28,
+        y: 0,
       },
       size: {
         width: dims.innerWidth,

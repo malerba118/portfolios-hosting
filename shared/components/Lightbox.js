@@ -162,11 +162,16 @@ const Lightbox = ({
         isOpen={lightbox.isOpen}
         closeOnOverlayClick={false}
         closeOnEsc={true}
-        size="full"
       >
         <ModalOverlay backgroundColor="primary.50" />
-        <ModalContent bg="none" overflow="hidden" rounded="none">
-          <Flex pos="absolute" inset={0} justify="center" align="center">
+        <ModalContent
+          // pos="fixed"
+          // inset={0}
+          bg="none"
+          overflow="hidden"
+          rounded="none"
+        >
+          <Flex pos="fixed" inset={0} justify="center" align="center">
             <AnimatePresence initial={false}>
               <MotionBox
                 key={lightbox.prev?.id}

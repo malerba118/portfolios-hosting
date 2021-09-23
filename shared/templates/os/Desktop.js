@@ -36,7 +36,8 @@ const Desktop = observer(() => {
   return (
     <Flex
       direction="column"
-      h="100vh"
+      pos="fixed"
+      inset={0}
       bgImage="url(/templates/os/wallpaper-light.jpg)"
       bgSize="cover"
       overflow="hidden"

@@ -45,6 +45,9 @@ const DefaultComponent = ({ item: media }) => {
       onClick={() => {
         lightbox.open({ id: media.id });
       }}
+      style={{
+        userSelect: "none",
+      }}
     />
   );
 };

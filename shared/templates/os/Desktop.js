@@ -38,6 +38,7 @@ const Desktop = observer(() => {
       direction="column"
       h="100vh"
       bgImage="url(/templates/os/wallpaper-light.jpg)"
+      bgSize="cover"
       overflow="hidden"
     >
       <Navbar />

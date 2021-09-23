@@ -78,6 +78,10 @@ const Thumbnail = ({
           color={color}
           noOfLines={2}
           title={node.name}
+          bg="whiteAlpha.400"
+          backdropFilter="blur(4px)"
+          rounded="5px"
+          p={"2px"}
         >
           {node.name}
         </Text>

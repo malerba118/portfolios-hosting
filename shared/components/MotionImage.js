@@ -35,6 +35,7 @@ const MotionImage = ({
         opacity: status !== "loading" ? 1 : initialOpacity,
         transition: transitions.two(0.66),
       }}
+      bg={bg}
       {...otherProps}
     >
       <CMotionImage

@@ -1,4 +1,4 @@
-import { Box, Flex, HStack } from "@chakra-ui/react";
+import { Box, Flex, HStack, Center, Text } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { observer } from "mobx-react";
 import { Rnd } from "react-rnd";
@@ -122,6 +122,11 @@ const AppInstance = observer(({ instance }) => {
               cursor="pointer"
             />
           </HStack>
+          <Center>
+            <Text color="primary.50" size="xs">
+              {instance.node.label}
+            </Text>
+          </Center>
         </Flex>
         <Box
           h="calc(100% - 24px)"

@@ -13,11 +13,12 @@ const Element = ({ attributes, children, element }) => {
     case "link":
       return (
         <Link
-          color="secondary.500"
+          color="primary.500"
           as={"a"}
-          size="xl"
+          size="lg"
           {...attributes}
           href={element.url}
+          target="_blank"
         >
           {children}
         </Link>

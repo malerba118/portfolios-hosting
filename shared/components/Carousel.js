@@ -139,9 +139,9 @@ const Carousel = ({
   const ref = useRef(null);
   const carousel = useCarouselState({ defaultItems });
 
-  useEffect(() => {
-    ref.current?.focus();
-  }, []);
+  // useEffect(() => {
+  //   ref.current?.focus();
+  // }, []);
 
   useEventListener("keydown", (e) => {
     if (!ref.current.contains(document.activeElement)) {
@@ -208,36 +208,38 @@ const Carousel = ({
           <ItemComponent item={carousel.next} />
         </MotionBox>
       </AnimatePresence>
-      <IconButton
-        isDisabled={!carousel.prev}
-        size="xs"
-        pos="absolute"
-        left={"8px"}
-        top="50%"
-        transform="translateY(-50%)"
-        onClick={() => carousel.goToPrev()}
-        zIndex={1}
-        icon={<Icon as={PrevIcon} fontSize={24} />}
-        variant="solid"
-        colorScheme="whiteAlpha"
-        bg="whiteAlpha.600"
-        color="blackAlpha.700"
-      />
-      <IconButton
-        isDisabled={!carousel.next}
-        size="xs"
-        pos="absolute"
-        right={"8px"}
-        top="50%"
-        transform="translateY(-50%)"
-        onClick={() => carousel.goToNext()}
-        zIndex={1}
-        icon={<Icon as={NextIcon} fontSize={24} />}
-        variant="solid"
-        colorScheme="whiteAlpha"
-        bg="whiteAlpha.600"
-        color="blackAlpha.700"
-      />
+      {carousel.prev && (
+        <IconButton
+          size="xs"
+          pos="absolute"
+          left={"8px"}
+          top="50%"
+          transform="translateY(-50%)"
+          onClick={() => carousel.goToPrev()}
+          zIndex={1}
+          icon={<Icon as={PrevIcon} fontSize={24} />}
+          variant="solid"
+          colorScheme="whiteAlpha"
+          bg="whiteAlpha.600"
+          color="blackAlpha.700"
+        />
+      )}
+      {carousel.next && (
+        <IconButton
+          size="xs"
+          pos="absolute"
+          right={"8px"}
+          top="50%"
+          transform="translateY(-50%)"
+          onClick={() => carousel.goToNext()}
+          zIndex={1}
+          icon={<Icon as={NextIcon} fontSize={24} />}
+          variant="solid"
+          colorScheme="whiteAlpha"
+          bg="whiteAlpha.600"
+          color="blackAlpha.700"
+        />
+      )}
     </Flex>
   );
 };

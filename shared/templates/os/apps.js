@@ -89,19 +89,37 @@ const apps = {
     getInstanceKey: ({ node }) => "about",
     App: ({ node }) => {
       const about = node.data;
-      const media = about.images.items[0];
+      const lightbox = useLightbox();
+
+      useEffect(() => {
+        return autorun(() => {
+          if (os.selected?.node?.id === node?.id) {
+            lightbox.setItems(node.data.images.items);
+          }
+        });
+      }, []);
+
       return (
         <Box h="100%" overflow="auto">
-          <Image
-            src={media?.processedUrl || media?.rawUrl}
-            w="100%"
-            h="75%"
-            objectFit="cover"
-          />
-          <Stack p={4}>
-            <Heading size="xl">
-              {about.firstName} {about.lastName}
-            </Heading>
+          <Carousel defaultItems={about.images.items} height="75%" />
+          <Stack p="5%" maxW="720px" m="0 auto">
+            <Flex justify="space-between" align="center">
+              <Heading size="xl">
+                {about.firstName} {about.lastName}
+              </Heading>
+              {about?.resume?.url && (
+                <Button
+                  onClick={() => {
+                    window.open(about?.resume?.url, "_blank");
+                  }}
+                  colorScheme="secondary"
+                  variant="outline"
+                  size="sm"
+                >
+                  View Resume
+                </Button>
+              )}
+            </Flex>
             {about.title && <Heading size="md">{about.title}</Heading>}
             {/* <Heading size="md">{about.summary}</Heading> */}
             <RichtextViewer value={about.description} />
@@ -126,15 +144,8 @@ const apps = {
       }, []);
       return (
         <Box h="100%" overflow="auto">
-          <Carousel defaultItems={project.images.items} height="70%" />
-          {/* <Image
-            key={media.id}
-            src={media.processedUrl || media.rawUrl}
-            h="75%"
-            w="100%"
-            objectFit="cover"
-          /> */}
-          <Stack p={4}>
+          <Carousel defaultItems={project.images.items} height="75%" />
+          <Stack p="5%">
             <Heading size="xl">{project.name}</Heading>
             {project.summary && <Heading size="md">{project.summary}</Heading>}
             {/* <Heading size="md">{about.summary}</Heading> */}

@@ -25,12 +25,28 @@ import { AnimatePresence } from "framer-motion";
 import { MotionBox, transitions } from "./animation/chakra";
 import MotionImage from "./MotionImage";
 import Lightbox, { useLightbox } from "./Lightbox";
+import Hammer from "react-hammerjs";
 
 // interface Item extends {
 //   id: string | number;
 // }
 
 const DefaultComponent = ({ item: media }) => {
+  const downX = useRef(null);
+  const handleMouseDown = (e) => {
+    downX.current = e.screenX;
+  };
+
+  const handleClick = (e) => {
+    const delta = Math.abs(e.screenX - downX.current);
+
+    if (delta > 10) {
+      // If mouse moved more than threshold, ignore the click event
+      return;
+    }
+
+    lightbox.open({ id: media.id });
+  };
   const lightbox = useLightbox();
   return (
     <MotionImage
@@ -42,12 +58,9 @@ const DefaultComponent = ({ item: media }) => {
       hoverScale={1.04}
       scaleFactor={1}
       cursor="pointer"
-      onClick={() => {
-        lightbox.open({ id: media.id });
-      }}
-      style={{
-        userSelect: "none",
-      }}
+      onMouseDown={handleMouseDown}
+      onClick={handleClick}
+      draggable="false"
     />
   );
 };
@@ -111,9 +124,9 @@ const useCarouselState = ({ defaultItems = [] } = {}) => {
 const variants = {
   left: {
     zIndex: 0,
-    x: "-0%",
-    opacity: 0,
-    scale: 1,
+    x: "-100%",
+    opacity: 0.5,
+    scale: 0.75,
   },
   center: {
     zIndex: 1,
@@ -123,9 +136,9 @@ const variants = {
   },
   right: {
     zIndex: 0,
-    x: "0%",
-    opacity: 0,
-    scale: 1,
+    x: "100%",
+    opacity: 0.5,
+    scale: 0.75,
   },
 };
 
@@ -148,7 +161,7 @@ const Carousel = ({
   // }, []);
 
   useEventListener("keydown", (e) => {
-    if (!ref.current.contains(document.activeElement)) {
+    if (!ref.current?.contains(document.activeElement)) {
       return;
     }
     if (e.key === "ArrowLeft") {
@@ -159,96 +172,106 @@ const Carousel = ({
   });
 
   return (
-    <Flex
-      pos="relative"
-      justify="center"
-      align="center"
-      {...otherProps}
-      overflow="hidden"
-      ref={ref}
-      tabIndex={0}
-      _focus={{
-        outline: "none",
+    <Hammer
+      onSwipe={(e) => {
+        if (e.velocityX > 0) {
+          carousel.goToPrev();
+        } else if (e.velocityX < 0) {
+          carousel.goToNext();
+        }
       }}
     >
-      <AnimatePresence initial={false}>
-        <MotionBox
-          key={carousel.prev?.id || "left"}
-          variants={variants}
-          initial={false}
-          animate="left"
-          transition={transition}
-          position="absolute"
-          w="100%"
-          h="100%"
-          boxSizing="border-box"
-        >
-          <ItemComponent item={carousel.prev} />
-        </MotionBox>
-        <MotionBox
-          key={carousel.current?.id || "center"}
-          variants={variants}
-          initial={false}
-          animate="center"
-          transition={transition}
-          position="absolute"
-          w="100%"
-          h="100%"
-          boxSizing="border-box"
-        >
-          <ItemComponent item={carousel.current} />
-        </MotionBox>
-        <MotionBox
-          key={carousel.next?.id || "right"}
-          variants={variants}
-          initial={false}
-          animate="right"
-          transition={transition}
-          position="absolute"
-          w="100%"
-          h="100%"
-          boxSizing="border-box"
-        >
-          <ItemComponent item={carousel.next} />
-        </MotionBox>
-      </AnimatePresence>
-      <IconButton
-        isDisabled={!carousel.prev}
-        size="xs"
-        pos="absolute"
-        left={"8px"}
-        top="50%"
-        transform="translateY(-50%)"
-        onClick={() => carousel.goToPrev()}
-        zIndex={1}
-        icon={<Icon as={PrevIcon} fontSize={24} />}
-        variant="solid"
-        colorScheme="whiteAlpha"
-        bg="whiteAlpha.600"
-        color="blackAlpha.700"
-        style={{
-          opacity: carousel.prev ? 1 : 0,
+      <Flex
+        pos="relative"
+        justify="center"
+        align="center"
+        {...otherProps}
+        overflow="hidden"
+        ref={ref}
+        tabIndex={0}
+        _focus={{
+          outline: "none",
         }}
-      />
-      <IconButton
-        isDisabled={!carousel.next}
-        size="xs"
-        pos="absolute"
-        right={"8px"}
-        top="50%"
-        transform="translateY(-50%)"
-        onClick={() => carousel.goToNext()}
-        zIndex={1}
-        icon={<Icon as={NextIcon} fontSize={24} />}
-        variant="solid"
-        colorScheme="whiteAlpha"
-        bg="whiteAlpha.600"
-        color="blackAlpha.700"
-        style={{
-          opacity: carousel.next ? 1 : 0,
-        }}
-      />
-    </Flex>
+      >
+        <AnimatePresence initial={false}>
+          <MotionBox
+            key={carousel.prev?.id || "left"}
+            variants={variants}
+            initial={false}
+            animate="left"
+            transition={transition}
+            position="absolute"
+            w="100%"
+            h="100%"
+            boxSizing="border-box"
+          >
+            <ItemComponent item={carousel.prev} />
+          </MotionBox>
+          <MotionBox
+            key={carousel.current?.id || "center"}
+            variants={variants}
+            initial={false}
+            animate="center"
+            transition={transition}
+            position="absolute"
+            w="100%"
+            h="100%"
+            boxSizing="border-box"
+          >
+            <ItemComponent item={carousel.current} />
+          </MotionBox>
+          <MotionBox
+            key={carousel.next?.id || "right"}
+            variants={variants}
+            initial={false}
+            animate="right"
+            transition={transition}
+            position="absolute"
+            w="100%"
+            h="100%"
+            boxSizing="border-box"
+          >
+            <ItemComponent item={carousel.next} />
+          </MotionBox>
+        </AnimatePresence>
+        <IconButton
+          isDisabled={!carousel.prev}
+          size="xs"
+          pos="absolute"
+          left={"8px"}
+          top="50%"
+          transform="translateY(-50%)"
+          onClick={() => carousel.goToPrev()}
+          zIndex={1}
+          icon={<Icon as={PrevIcon} fontSize={24} />}
+          variant="solid"
+          colorScheme="whiteAlpha"
+          bg="whiteAlpha.600"
+          color="blackAlpha.700"
+          style={{
+            opacity: carousel.prev ? 1 : 0,
+          }}
+        />
+        <IconButton
+          isDisabled={!carousel.next}
+          size="xs"
+          pos="absolute"
+          right={"8px"}
+          top="50%"
+          transform="translateY(-50%)"
+          onClick={() => carousel.goToNext()}
+          zIndex={1}
+          icon={<Icon as={NextIcon} fontSize={24} />}
+          variant="solid"
+          colorScheme="whiteAlpha"
+          bg="whiteAlpha.600"
+          color="blackAlpha.700"
+          style={{
+            opacity: carousel.next ? 1 : 0,
+          }}
+        />
+      </Flex>
+    </Hammer>
   );
 };
 

@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/icons";
 import { AnimatePresence } from "framer-motion";
 import { MotionBox, transitions } from "./animation/chakra";
+import Hammer from "react-hammerjs";
 
 // interface Item extends {
 //   id: string | number;
@@ -28,6 +29,7 @@ const DefaultComponent = ({ item: media }) => {
       w="100%"
       h="100%"
       objectFit="contain"
+      draggable="false"
     />
   );
 };
@@ -171,89 +173,99 @@ const Lightbox = ({
           overflow="hidden"
           rounded="none"
         >
-          <Flex pos="fixed" inset={0} justify="center" align="center">
-            <AnimatePresence initial={false}>
-              <MotionBox
-                key={lightbox.prev?.id}
-                variants={variants}
-                initial={false}
-                animate="left"
-                transition={transition}
-                position="absolute"
-                w="100%"
-                h="100%"
-                p={12}
-                boxSizing="border-box"
-              >
-                <ItemComponent item={lightbox.prev} />
-              </MotionBox>
-              <MotionBox
-                key={lightbox.current?.id}
-                variants={variants}
-                initial={false}
-                animate="center"
-                transition={transition}
-                position="absolute"
-                w="100%"
-                h="100%"
-                p={12}
-                boxSizing="border-box"
-              >
-                <ItemComponent item={lightbox.current} />
-              </MotionBox>
-              <MotionBox
-                key={lightbox.next?.id}
-                variants={variants}
-                initial={false}
-                animate="right"
-                transition={transition}
-                position="absolute"
-                w="100%"
-                h="100%"
-                p={12}
-                boxSizing="border-box"
-              >
-                <ItemComponent item={lightbox.next} />
-              </MotionBox>
-            </AnimatePresence>
-            <IconButton
-              isDisabled={!lightbox.prev}
-              size="sm"
-              pos="absolute"
-              left={"8px"}
-              top="50%"
-              transform="translateY(-50%)"
-              onClick={() => lightbox.goToPrev()}
-              zIndex={1}
-              icon={<Icon as={PrevIcon} fontSize={24} />}
-              variant="ghost"
-              colorScheme="primary"
-            />
-            <IconButton
-              isDisabled={!lightbox.next}
-              size="sm"
-              pos="absolute"
-              right={"8px"}
-              top="50%"
-              transform="translateY(-50%)"
-              onClick={() => lightbox.goToNext()}
-              zIndex={1}
-              icon={<Icon as={NextIcon} fontSize={24} />}
-              variant="ghost"
-              colorScheme="primary"
-            />
-            <IconButton
-              size="sm"
-              pos="absolute"
-              right={"8px"}
-              top={"8px"}
-              onClick={() => lightbox.close()}
-              zIndex={1}
-              icon={<Icon as={CloseIcon} fontSize={12} />}
-              variant="ghost"
-              colorScheme="primary"
-            />
-          </Flex>
+          <Hammer
+            onSwipe={(e) => {
+              if (e.velocityX > 0) {
+                lightbox.goToPrev();
+              } else if (e.velocityX < 0) {
+                lightbox.goToNext();
+              }
+            }}
+          >
+            <Flex pos="fixed" inset={0} justify="center" align="center">
+              <AnimatePresence initial={false}>
+                <MotionBox
+                  key={lightbox.prev?.id}
+                  variants={variants}
+                  initial={false}
+                  animate="left"
+                  transition={transition}
+                  position="absolute"
+                  w="100%"
+                  h="100%"
+                  p={12}
+                  boxSizing="border-box"
+                >
+                  <ItemComponent item={lightbox.prev} />
+                </MotionBox>
+                <MotionBox
+                  key={lightbox.current?.id}
+                  variants={variants}
+                  initial={false}
+                  animate="center"
+                  transition={transition}
+                  position="absolute"
+                  w="100%"
+                  h="100%"
+                  p={12}
+                  boxSizing="border-box"
+                >
+                  <ItemComponent item={lightbox.current} />
+                </MotionBox>
+                <MotionBox
+                  key={lightbox.next?.id}
+                  variants={variants}
+                  initial={false}
+                  animate="right"
+                  transition={transition}
+                  position="absolute"
+                  w="100%"
+                  h="100%"
+                  p={12}
+                  boxSizing="border-box"
+                >
+                  <ItemComponent item={lightbox.next} />
+                </MotionBox>
+              </AnimatePresence>
+              <IconButton
+                isDisabled={!lightbox.prev}
+                size="sm"
+                pos="absolute"
+                left={"8px"}
+                top="50%"
+                transform="translateY(-50%)"
+                onClick={() => lightbox.goToPrev()}
+                zIndex={1}
+                icon={<Icon as={PrevIcon} fontSize={24} />}
+                variant="ghost"
+                colorScheme="primary"
+              />
+              <IconButton
+                isDisabled={!lightbox.next}
+                size="sm"
+                pos="absolute"
+                right={"8px"}
+                top="50%"
+                transform="translateY(-50%)"
+                onClick={() => lightbox.goToNext()}
+                zIndex={1}
+                icon={<Icon as={NextIcon} fontSize={24} />}
+                variant="ghost"
+                colorScheme="primary"
+              />
+              <IconButton
+                size="sm"
+                pos="absolute"
+                right={"8px"}
+                top={"8px"}
+                onClick={() => lightbox.close()}
+                zIndex={1}
+                icon={<Icon as={CloseIcon} fontSize={12} />}
+                variant="ghost"
+                colorScheme="primary"
+              />
+            </Flex>
+          </Hammer>
         </ModalContent>
       </Modal>
       {children}

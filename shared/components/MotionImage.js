@@ -55,6 +55,7 @@ const MotionImage = ({
         onLoad={() => setStatus("loaded")}
         onError={() => setStatus("errored")}
         bg={bg}
+        draggable="false"
       />
     </MotionBox>
   );

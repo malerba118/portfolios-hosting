@@ -54,13 +54,7 @@ export const ContactSection = ({ ...otherProps }) => {
   // If no info, jsut show form
   if (!hasInfo) {
     return (
-      <Center
-        pos="relative"
-        flexDirection="column"
-        pos="absolute"
-        inset={0}
-        p={8}
-      >
+      <Center pos="relative" flexDirection="column" pos="absolute" inset={0}>
         <ContactForm />
       </Center>
     );
@@ -177,8 +171,8 @@ export const ContactForm = () => {
     <Stack
       as="form"
       fontSize="xl"
+      my={6}
       spacing={{ base: 4, md: 4 }}
-      p={1}
       w="100%"
       maxW="420px"
       onSubmit={(e) => {

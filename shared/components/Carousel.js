@@ -139,6 +139,7 @@ const Carousel = ({
   const ref = useRef(null);
   const carousel = useCarouselState({ defaultItems });
 
+  // whoops, steals focus from
   // useEffect(() => {
   //   ref.current?.focus();
   // }, []);
@@ -208,38 +209,42 @@ const Carousel = ({
           <ItemComponent item={carousel.next} />
         </MotionBox>
       </AnimatePresence>
-      {carousel.prev && (
-        <IconButton
-          size="xs"
-          pos="absolute"
-          left={"8px"}
-          top="50%"
-          transform="translateY(-50%)"
-          onClick={() => carousel.goToPrev()}
-          zIndex={1}
-          icon={<Icon as={PrevIcon} fontSize={24} />}
-          variant="solid"
-          colorScheme="whiteAlpha"
-          bg="whiteAlpha.600"
-          color="blackAlpha.700"
-        />
-      )}
-      {carousel.next && (
-        <IconButton
-          size="xs"
-          pos="absolute"
-          right={"8px"}
-          top="50%"
-          transform="translateY(-50%)"
-          onClick={() => carousel.goToNext()}
-          zIndex={1}
-          icon={<Icon as={NextIcon} fontSize={24} />}
-          variant="solid"
-          colorScheme="whiteAlpha"
-          bg="whiteAlpha.600"
-          color="blackAlpha.700"
-        />
-      )}
+      <IconButton
+        isDisabled={!carousel.prev}
+        size="xs"
+        pos="absolute"
+        left={"8px"}
+        top="50%"
+        transform="translateY(-50%)"
+        onClick={() => carousel.goToPrev()}
+        zIndex={1}
+        icon={<Icon as={PrevIcon} fontSize={24} />}
+        variant="solid"
+        colorScheme="whiteAlpha"
+        bg="whiteAlpha.600"
+        color="blackAlpha.700"
+        style={{
+          opacity: carousel.prev ? 1 : 0,
+        }}
+      />
+      <IconButton
+        isDisabled={!carousel.next}
+        size="xs"
+        pos="absolute"
+        right={"8px"}
+        top="50%"
+        transform="translateY(-50%)"
+        onClick={() => carousel.goToNext()}
+        zIndex={1}
+        icon={<Icon as={NextIcon} fontSize={24} />}
+        variant="solid"
+        colorScheme="whiteAlpha"
+        bg="whiteAlpha.600"
+        color="blackAlpha.700"
+        style={{
+          opacity: carousel.next ? 1 : 0,
+        }}
+      />
     </Flex>
   );
 };

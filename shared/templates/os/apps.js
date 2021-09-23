@@ -20,6 +20,7 @@ import { ContactForm, ContactSection } from "./Contact";
 import { useLightbox } from "shared/components/Lightbox";
 import { useEffect } from "react";
 import { autorun } from "mobx";
+import DateViewer from "shared/components/DateViewer";
 
 const apps = {
   finder: {
@@ -102,7 +103,7 @@ const apps = {
       return (
         <Box h="100%" overflow="auto">
           <Carousel defaultItems={about.images.items} height="75%" />
-          <Stack p="5%" maxW="720px" m="0 auto">
+          <Stack p="5%" maxW="760px" m="0 auto">
             <Flex justify="space-between" align="center">
               <Heading size="xl">
                 {about.firstName} {about.lastName}
@@ -146,8 +147,18 @@ const apps = {
         <Box h="100%" overflow="auto">
           <Carousel defaultItems={project.images.items} height="75%" />
           <Stack p="5%">
-            <Heading size="xl">{project.name}</Heading>
-            {project.summary && <Heading size="md">{project.summary}</Heading>}
+            <Heading size="xl">{project.name} </Heading>
+            {/* <HStack flexWrap="wrap"> */}
+            <Heading size="md">
+              <DateViewer
+                startDate={project.startDate}
+                endDate={project.endDate}
+              />
+            </Heading>
+            {/* <Text fontSize="xl">•</Text> */}
+            {/* {project.summary && <Heading size="md">{project.summary}</Heading>} */}
+            {/* </HStack> */}
+
             {/* <Heading size="md">{about.summary}</Heading> */}
             <RichtextViewer value={project.description} />
           </Stack>

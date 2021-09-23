@@ -63,6 +63,7 @@ const Thumbnail = ({
       flex={0}
       spacing={2}
       cursor="pointer"
+      maxW="70px"
       {...otherProps}
     >
       <Box h={size} w={size} pos="relative">
@@ -75,6 +76,8 @@ const Thumbnail = ({
           w="100%"
           textAlign="center"
           color={color}
+          noOfLines={2}
+          title={node.name}
         >
           {node.name}
         </Text>

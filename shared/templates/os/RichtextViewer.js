@@ -15,7 +15,7 @@ const Element = ({ attributes, children, element }) => {
         <Link
           color="primary.500"
           as={"a"}
-          size="lg"
+          fontSize="inherit"
           {...attributes}
           href={element.url}
           target="_blank"

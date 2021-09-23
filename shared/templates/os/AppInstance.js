@@ -73,9 +73,8 @@ const AppInstance = observer(({ instance }) => {
         }}
         exit={{ scale: 0, opacity: -1 }}
       >
-        <Flex h="28px">
+        <HStack h="28px" justify="space-between" px={2}>
           <HStack
-            p={2}
             onPointerDown={(e) => {
               e.stopPropagation();
               e.preventDefault();
@@ -122,12 +121,10 @@ const AppInstance = observer(({ instance }) => {
               cursor="pointer"
             />
           </HStack>
-          <Center>
-            <Text color="primary.50" size="xs">
-              {instance.node.label}
-            </Text>
-          </Center>
-        </Flex>
+          <Text color="primary.50" size="xs">
+            {instance.node.name}
+          </Text>
+        </HStack>
         <Box
           h="calc(100% - 24px)"
           bg="primary.50"

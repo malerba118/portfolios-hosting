@@ -53,8 +53,14 @@ const Element = ({ attributes, children, element }) => {
   }
 };
 
-const RichtextViewer = ({ value }) => {
-  return <RichtextViewerBase value={value} elementComponent={Element} />;
+const RichtextViewer = ({ value, defaultValue }) => {
+  return (
+    <RichtextViewerBase
+      value={value}
+      elementComponent={Element}
+      defaultValue={defaultValue}
+    />
+  );
 };
 
 export default RichtextViewer;

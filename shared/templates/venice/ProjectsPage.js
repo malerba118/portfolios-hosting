@@ -152,7 +152,7 @@ const ProjectCard = ({ project, onSelect, labelSide }) => {
           </Box>
           <ScrollReveal
             persist
-            h={["calc(100% - 50px)", "calc(100% - 50px)", "100%"]}
+            h={["calc(100% - 50px)", "calc(100% - 50px)", "90%"]}
             minW={["100%", "100%", 0]}
             maxW={["100%", "100%", 800]}
             flex={1}
@@ -174,7 +174,7 @@ const ProjectCard = ({ project, onSelect, labelSide }) => {
         <>
           <ScrollReveal
             persist
-            h={["calc(100% - 50px)", "calc(100% - 50px)", "100%"]}
+            h={["calc(100% - 50px)", "calc(100% - 50px)", "90%"]}
             minW={["100%", "100%", 0]}
             maxW={["100%", "100%", 800]}
             flex={1}
@@ -224,7 +224,7 @@ const ProjectsPage = ({ projects }) => {
       <Page id="projects" title="Projects">
         <AnimatePresence>
           {!selected && (
-            <Stack spacing={8} p={8}>
+            <Stack spacing={12} p={12}>
               {projects.map((project, i) => (
                 <ProjectCard
                   key={project.id}

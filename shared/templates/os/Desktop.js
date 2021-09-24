@@ -9,8 +9,11 @@ import Thumbnail, { renderers } from "./Thumbnail";
 import Clock from "./Clock";
 import { os } from "./utils";
 import { AnimatePresence } from "framer-motion";
+import { usePortfolio } from "shared/components/PortfolioProvider";
 
 const Navbar = () => {
+  const portfolio = usePortfolio();
+  const about = portfolio.data.content.about;
   return (
     <Flex
       backdropFilter="blur(5px)"
@@ -22,7 +25,7 @@ const Navbar = () => {
       justify="space-between"
     >
       <Text fontWeight="600" fontSize="sm" color="primary.100">
-        Austin Malerba
+        {about.firstName} {about.lastName}
       </Text>
       <Text fontWeight="600" fontSize="xs" color="primary.100">
         <Clock />

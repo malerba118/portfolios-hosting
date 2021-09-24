@@ -50,8 +50,6 @@ function App() {
     return null;
   }
 
-  const { about, projects, contact } = portfolio.data.content;
-
   return (
     <FsProvider fs={fs}>
       <Desktop />

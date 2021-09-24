@@ -10,11 +10,18 @@ import {
 import { Editable, withReact, Slate } from "slate-react";
 import { createEditor } from "slate";
 
+export const createDefaultNode = (str) => {
+  return JSON.stringify([{ type: "paragraph", children: [{ text: str }] }]);
+};
+
 const DEFAULT_VALUE = JSON.stringify([
   { type: "paragraph", children: [{ text: "" }] },
 ]);
 
 export const isEmpty = (value) => {
+  if (!value) {
+    return true;
+  }
   try {
     const parsed = JSON.parse(value);
     if (
@@ -32,12 +39,17 @@ export const isEmpty = (value) => {
 
 const RichtextViewer = ({
   value,
+  defaultValue,
   elementComponent: Element = DefaultElement,
   leafComponent: Leaf = DefaultLeaf,
 }) => {
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   const [editor] = useState(() => withReact(createEditor()), []);
+
+  if (isEmpty(value) && defaultValue) {
+    value = defaultValue;
+  }
 
   const parsed = useMemo(() => {
     try {

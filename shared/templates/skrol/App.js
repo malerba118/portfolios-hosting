@@ -38,6 +38,7 @@ import * as api from "client/api";
 import useAsync from "shared/hooks/useAsync";
 import { useDraftMode } from "shared/components/DraftModeProvider";
 import { IoMdReturnLeft } from "react-icons/io";
+import { createDefaultNode } from "shared/components/RichtextViewer";
 
 const keyframes = {
   intro: ({ page }) => ({
@@ -197,10 +198,11 @@ function App() {
                 spacing={{ base: 3, md: 3 }}
               >
                 <Heading maxW="800px" size="3xl" textTransform="uppercase">
-                  {about.summary}
+                  {about.summary || "Tell us about you in a sentence"}
                 </Heading>
                 <Heading maxW="600px" size="sm" pb={2}>
-                  {about.firstName + " " + about.lastName} • {about.title}
+                  {about.firstName + " " + about.lastName} {"  "}•{"  "}
+                  {about.title || "Your occupation"}
                 </Heading>
                 <HStack alignSelf="start" spacing={4}>
                   <Button
@@ -251,7 +253,10 @@ function App() {
                     </Button>
                   )}
                 </Flex>
-                <RichtextViewer value={about.description} />
+                <RichtextViewer
+                  value={about.description}
+                  defaultValue={createDefaultNode("Tell us all about you")}
+                />
               </Box>
             </Center>
           </Parallax.Box>
@@ -362,12 +367,7 @@ const ContactSection = () => {
     <Center pos="relative" flexDirection="column" minH="100vh" p={8}>
       {mode === null && (
         <Stack spacing={6}>
-          <Heading
-            size="3xl"
-            color="secondary.400"
-            textAlign="center"
-            // textTransform="uppercase"
-          >
+          <Heading size="3xl" color="secondary.400" textAlign="center">
             <Link
               onClick={(e) => {
                 e.preventDefault();
@@ -388,12 +388,7 @@ const ContactSection = () => {
           >
             Or
           </Heading>
-          <Heading
-            size="3xl"
-            color="secondary.400"
-            textAlign="center"
-            // textTransform="uppercase"
-          >
+          <Heading size="3xl" color="secondary.400" textAlign="center">
             <Link
               onClick={(e) => {
                 e.preventDefault();
@@ -424,16 +419,14 @@ const ContactSection = () => {
   );
 };
 
-const ContactForm = () => {
-  const portfolio = usePortfolio();
-  const draftMode = useDraftMode();
+const useContactForm = () => {
   const [form, setForm] = useState({
     name: "",
     email: "",
     message: "",
   });
 
-  const resetForm = () => {
+  const reset = () => {
     setForm({
       name: "",
       email: "",
@@ -446,7 +439,6 @@ const ContactForm = () => {
     email: null,
     message: null,
   });
-  const requests = { contact: useAsync(api.portfolio.contact) };
 
   const setField = (key, val) => {
     setForm((prev) => ({
@@ -463,6 +455,60 @@ const ContactForm = () => {
     }));
   };
 
+  return {
+    form,
+    errors,
+    reset,
+    setField,
+    setError,
+    setErrors,
+  };
+};
+
+const isEmpty = (errors) => {
+  return Object.values(errors).every((err) => !err);
+};
+
+const ContactForm = () => {
+  const portfolio = usePortfolio();
+  const draftMode = useDraftMode();
+  const contactForm = useContactForm();
+  // const [form, setForm] = useState({
+  //   name: "",
+  //   email: "",
+  //   message: "",
+  // });
+
+  // const resetForm = () => {
+  //   setForm({
+  //     name: "",
+  //     email: "",
+  //     message: "",
+  //   });
+  // };
+
+  // const [errors, setErrors] = useState({
+  //   name: null,
+  //   email: null,
+  //   message: null,
+  // });
+  const requests = { contact: useAsync(api.portfolio.contact) };
+
+  // const setField = (key, val) => {
+  //   setForm((prev) => ({
+  //     ...prev,
+  //     [key]: val,
+  //   }));
+  //   setError(key, null);
+  // };
+
+  // const setError = (key, val) => {
+  //   setErrors((prev) => ({
+  //     ...prev,
+  //     [key]: val,
+  //   }));
+  // };
+
   return (
     <Stack
       as="form"
@@ -473,14 +519,14 @@ const ContactForm = () => {
       maxW="420px"
       onSubmit={(e) => {
         e.preventDefault();
-        const errors = validate(form);
-        setErrors(errors);
-        const isSubmitable = Object.values(errors).every((err) => !err);
+        const errors = validate(contactForm.form);
+        contactForm.setErrors(errors);
+        const isSubmitable = isEmpty(errors);
         if (isSubmitable) {
           requests.contact
-            .execute(portfolio.id, form, { useDraft: draftMode })
+            .execute(portfolio.id, contactForm.form, { useDraft: draftMode })
             .then(() => {
-              resetForm();
+              contactForm.reset();
             })
             .finally(() => {
               setTimeout(() => {
@@ -493,41 +539,41 @@ const ContactForm = () => {
       <Heading textAlign="start" size="xl">
         Leave a Message
       </Heading>
-      <FormControl isInvalid={!!errors.name} id="name">
+      <FormControl isInvalid={!!contactForm.errors.name} id="name">
         <FormLabel as={Text}>Your Name</FormLabel>
         <Input
-          value={form.name}
+          value={contactForm.form.name}
           onChange={(e) => {
-            setField("name", e.target.value);
+            contactForm.setField("name", e.target.value);
           }}
           variant="filled"
           placeholder="Name"
         />
-        <FormErrorMessage>{errors.name}</FormErrorMessage>
+        <FormErrorMessage>{contactForm.errors.name}</FormErrorMessage>
       </FormControl>
-      <FormControl id="email" isInvalid={!!errors.email}>
+      <FormControl id="email" isInvalid={!!contactForm.errors.email}>
         <FormLabel as={Text}>Your Email</FormLabel>
         <Input
-          value={form.email}
+          value={contactForm.form.email}
           onChange={(e) => {
-            setField("email", e.target.value);
+            contactForm.setField("email", e.target.value);
           }}
           variant="filled"
           placeholder="Email"
         />
-        <FormErrorMessage>{errors.email}</FormErrorMessage>
+        <FormErrorMessage>{contactForm.errors.email}</FormErrorMessage>
       </FormControl>
-      <FormControl id="message" isInvalid={!!errors.message}>
+      <FormControl id="message" isInvalid={!!contactForm.errors.message}>
         <FormLabel as={Text}>Your Message for Me</FormLabel>
         <Textarea
-          value={form.message}
+          value={contactForm.form.message}
           onChange={(e) => {
-            setField("message", e.target.value);
+            contactForm.setField("message", e.target.value);
           }}
           variant="filled"
           placeholder="Message"
         />
-        <FormErrorMessage>{errors.message}</FormErrorMessage>
+        <FormErrorMessage>{contactForm.errors.message}</FormErrorMessage>
       </FormControl>
       <Box py={2}>
         <Button
@@ -542,11 +588,6 @@ const ContactForm = () => {
             !requests.contact.state.rejected &&
             "Submit"}
         </Button>
-        {requests.contact.state.rejected && (
-          <FormErrorMessage>
-            {JSON.stringify(requests.contact.state.result)}
-          </FormErrorMessage>
-        )}
       </Box>
     </Stack>
   );

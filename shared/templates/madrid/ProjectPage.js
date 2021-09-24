@@ -5,8 +5,13 @@ import { MotionBox } from "shared/components/animation";
 import MotionImage from "shared/components/MotionImage";
 import RichtextViewer, { isEmpty } from "shared/components/RichtextViewer";
 import Toolbar from "./Toolbar";
+import { Redirect } from "react-router-dom";
 
 const ProjectPage = ({ project }) => {
+  if (!project) {
+    return <Redirect to="/" />;
+  }
+
   const media = project.images.items[0];
   const isDescription = !isEmpty(project.description);
   const pageSizes = {

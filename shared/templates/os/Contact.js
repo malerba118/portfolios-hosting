@@ -54,7 +54,7 @@ export const ContactSection = ({ ...otherProps }) => {
   // If no info, jsut show form
   if (!hasInfo) {
     return (
-      <Center pos="relative" flexDirection="column" pos="absolute" inset={0}>
+      <Center pos="relative" flexDirection="column" p={8} {...otherProps}>
         <ContactForm />
       </Center>
     );

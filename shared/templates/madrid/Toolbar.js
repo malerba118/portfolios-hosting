@@ -4,6 +4,7 @@ import { MotionFlex } from "shared/components/animation";
 import Logo from "shared/components/Logo";
 import Link from "shared/components/Link";
 import { usePortfolio } from "shared/components/PortfolioProvider";
+import MediaLogo from "shared/components/MediaLogo";
 
 const Toolbar = ({ animate, variants, initial = "hidden" }) => {
   const portfolio = usePortfolio();
@@ -23,11 +24,15 @@ const Toolbar = ({ animate, variants, initial = "hidden" }) => {
     >
       <Box>
         <Link to={{ pathname: "/", state: { disableAnimations: true } }}>
-          <Logo
-            charOne={portfolio.data.content.about.firstName[0]}
-            charTwo={portfolio.data.content.about.lastName[0]}
-            color="primary.700"
-          />
+          {portfolio.data.content.about.logo.items.length ? (
+            <MediaLogo media={portfolio.data.content.about.logo.items[0]} />
+          ) : (
+            <Logo
+              charOne={portfolio.data.content.about.firstName[0]}
+              charTwo={portfolio.data.content.about.lastName[0]}
+              color="primary.700"
+            />
+          )}
         </Link>
       </Box>
       <HStack

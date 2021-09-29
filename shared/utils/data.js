@@ -40,6 +40,9 @@ export const getPreviewablePortfolio = ({ name }) => {
               ],
             },
             resume: null,
+            logo: {
+              items: [],
+            },
           },
           projects: [
             {
@@ -229,6 +232,7 @@ export const _About = types.model("About", {
   summary: types.optional(types.string, ""),
   description: types.optional(types.string, ""),
   images: types.optional(Medias, { items: [] }),
+  logo: types.optional(Medias, { items: [] }),
   resume: types.maybeNull(Resume),
 });
 

@@ -24,23 +24,26 @@ const portfolio = {
                 x: 4.104197901049509,
                 y: 0,
                 width: 88.42707552473763,
-                height: 40.740625
+                height: 40.740625,
               },
               zoom: 1,
               width: 1645,
-              height: 1234
-            }
-          ]
+              height: 1234,
+            },
+          ],
         },
         resume: {
           name: "malerba-resume.pdf",
           url:
-            "https://firebasestorage.googleapis.com/v0/b/portfolios-8be96.appspot.com/o/users%2F23ZIQKNd42bJydGnIlYFb6Btnq43%2Fpublic%2Fresume-malerba-resume.pdf?alt=media&token=44e61b3f-f9fe-4486-88b3-46cc00064761"
-        }
+            "https://firebasestorage.googleapis.com/v0/b/portfolios-8be96.appspot.com/o/users%2F23ZIQKNd42bJydGnIlYFb6Btnq43%2Fpublic%2Fresume-malerba-resume.pdf?alt=media&token=44e61b3f-f9fe-4486-88b3-46cc00064761",
+        },
+        logo: {
+          items: [],
+        },
       },
       contact: {
         email: "malerba118@gmail.com",
-        phone: "518-243-9134"
+        phone: "518-243-9134",
       },
       projects: [
         {
@@ -59,7 +62,7 @@ const portfolio = {
                 crop: null,
                 zoom: null,
                 width: 1920,
-                height: 1344
+                height: 1344,
               },
               {
                 id: "-ntN9RoWK2_5iznvilbjB",
@@ -69,12 +72,12 @@ const portfolio = {
                 crop: null,
                 zoom: null,
                 width: 3340,
-                height: 1836
-              }
-            ]
+                height: 1836,
+              },
+            ],
           },
           startDate: 1598940000000,
-          endDate: null
+          endDate: null,
         },
         {
           id: "BvvT-ch4kOWR6Kg8VuZXB",
@@ -92,12 +95,12 @@ const portfolio = {
                 crop: null,
                 zoom: null,
                 width: 800,
-                height: 390
-              }
-            ]
+                height: 390,
+              },
+            ],
           },
           startDate: 1627797600000,
-          endDate: null
+          endDate: null,
         },
         {
           id: "SAQrywURBzFQ4I_cyo78q",
@@ -114,12 +117,12 @@ const portfolio = {
                 crop: null,
                 zoom: null,
                 width: 1824,
-                height: 1216
-              }
-            ]
+                height: 1216,
+              },
+            ],
           },
           startDate: 1630476000000,
-          endDate: 1619848800000
+          endDate: 1619848800000,
         },
         {
           id: "0.14531344198085439",
@@ -137,7 +140,7 @@ const portfolio = {
                 crop: null,
                 zoom: null,
                 width: 1824,
-                height: 1216
+                height: 1216,
               },
               {
                 id: "CgOpKOeo978sp7O2_KRMy",
@@ -147,7 +150,7 @@ const portfolio = {
                 crop: null,
                 zoom: null,
                 width: 1824,
-                height: 1216
+                height: 1216,
               },
               {
                 id: "DIIF4O0vKLxzM-hGNYqte",
@@ -157,7 +160,7 @@ const portfolio = {
                 crop: null,
                 zoom: null,
                 width: 920,
-                height: 640
+                height: 640,
               },
               {
                 id: "vgVKU9HmKiGK1m2XzxoLn",
@@ -170,16 +173,16 @@ const portfolio = {
                   x: 0,
                   y: 22.715624999999978,
                   width: 100,
-                  height: 49.35390624999999
+                  height: 49.35390624999999,
                 },
                 zoom: 1,
                 width: 1439,
-                height: 1920
-              }
-            ]
+                height: 1920,
+              },
+            ],
           },
           startDate: 1609484400000,
-          endDate: 1619848800000
+          endDate: 1619848800000,
         },
         {
           id: "0.5596382356762701",
@@ -200,11 +203,11 @@ const portfolio = {
                   x: 0,
                   y: 0,
                   width: 100,
-                  height: 63.7625
+                  height: 63.7625,
                 },
                 zoom: 1,
                 width: 1155,
-                height: 1732
+                height: 1732,
               },
               {
                 id: "kgVeGgP0-zq4AZFLlvWzY",
@@ -214,7 +217,7 @@ const portfolio = {
                 crop: null,
                 zoom: null,
                 width: 1155,
-                height: 1732
+                height: 1732,
               },
               {
                 id: "dp5tk3DmILMWaZUJTArJv",
@@ -224,7 +227,7 @@ const portfolio = {
                 crop: null,
                 zoom: null,
                 width: 1154,
-                height: 1732
+                height: 1732,
               },
               {
                 id: "rOf8aNI2_OMEyXPInYv_y",
@@ -234,39 +237,39 @@ const portfolio = {
                 crop: null,
                 zoom: null,
                 width: 1155,
-                height: 1732
-              }
-            ]
+                height: 1732,
+              },
+            ],
           },
           startDate: 1590991200000,
-          endDate: null
-        }
-      ]
+          endDate: null,
+        },
+      ],
     },
     template: "skrol",
     templateSettingsMap: {
       madrid: {
         headingFont: "Josefin Sans",
         paragraphFont: "PT Sans",
-        palette: "desert"
+        palette: "desert",
       },
       venice: {
         headingFont: "Montserrat",
         paragraphFont: "Ubuntu",
-        palette: "ocean"
+        palette: "ocean",
       },
       skrol: {
         headingFont: "Montserrat",
         paragraphFont: "Lato",
-        palette: "desert"
-      }
+        palette: "desert",
+      },
     },
     templateSettings: {
       headingFont: "Montserrat",
       paragraphFont: "Lato",
-      palette: "desert"
-    }
-  }
+      palette: "desert",
+    },
+  },
 };
 
 export default portfolio;

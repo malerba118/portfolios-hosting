@@ -42,6 +42,7 @@ const MotionImage = ({
         h="100%"
         w="100%"
         objectFit="cover"
+        objectPosition="center"
         initial={{ scale: (1 / initialScale) * scaleFactor }}
         animate={{
           scale: status !== "loading" ? 1 : (1 / initialScale) * scaleFactor,

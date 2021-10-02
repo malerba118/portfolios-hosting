@@ -31,6 +31,15 @@ import Hammer from "react-hammerjs";
 //   id: string | number;
 // }
 
+const imgVariants = {
+  image: {
+    hover: {
+      scale: 1.04,
+      transition: transitions.two(0.4),
+    },
+  },
+};
+
 const DefaultComponent = ({ item: media }) => {
   const downX = useRef(null);
   const handleMouseDown = (e) => {
@@ -45,7 +54,9 @@ const DefaultComponent = ({ item: media }) => {
       return;
     }
 
-    lightbox.open({ id: media.id });
+    if (media) {
+      lightbox.open({ id: media.id });
+    }
   };
   const lightbox = useLightbox();
   return (
@@ -57,10 +68,10 @@ const DefaultComponent = ({ item: media }) => {
       initialScale={1}
       hoverScale={1.04}
       scaleFactor={1}
-      cursor="pointer"
       onMouseDown={handleMouseDown}
       onClick={handleClick}
       draggable="false"
+      variants={imgVariants}
     />
   );
 };

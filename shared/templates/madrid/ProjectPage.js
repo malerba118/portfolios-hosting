@@ -43,7 +43,6 @@ const ProjectPage = ({ project }) => {
           <Toolbar />
           <MotionImage
             width={"100%"}
-            hoverScale={1}
             flex={1}
             src={media?.processedUrl || media?.rawUrl}
           />
@@ -89,7 +88,6 @@ const ProjectPage = ({ project }) => {
           >
             <Center h="100%" w="100%">
               <MotionImage
-                initialScale={1}
                 src={
                   media?.processedUrl ||
                   media?.rawUrl ||

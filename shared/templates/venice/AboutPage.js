@@ -4,6 +4,7 @@ import { Box, Heading, Stack, Center } from "@chakra-ui/react";
 import MotionImage from "shared/components/MotionImage";
 import Entrance from "shared/components/Entrance";
 import RichtextViewer from "shared/components/RichtextViewer";
+import { variants } from "./styles";
 
 const AboutPage = ({ about }) => {
   const media = about.images.items[0];
@@ -18,6 +19,9 @@ const AboutPage = ({ about }) => {
                 src={media.processedUrl || media.rawUrl}
                 width="100%"
                 height="400"
+                variants={{
+                  image: variants.image,
+                }}
                 marginBottom={4}
               />
             )}

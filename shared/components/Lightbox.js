@@ -17,19 +17,32 @@ import {
 import { AnimatePresence } from "framer-motion";
 import { MotionBox, transitions } from "./animation/chakra";
 import Hammer from "react-hammerjs";
+import MotionImage from "./MotionImage";
 
 // interface Item extends {
 //   id: string | number;
 // }
 
+const imgVariants = {
+  container: {
+    loading: {
+      opacity: 0,
+    },
+    loaded: {
+      opacity: 1,
+    },
+  },
+};
+
 const DefaultComponent = ({ item: media }) => {
   return (
-    <Image
+    <MotionImage
       src={media?.processedUrl || media?.rawUrl}
       w="100%"
       h="100%"
       objectFit="contain"
       draggable="false"
+      variants={imgVariants}
     />
   );
 };

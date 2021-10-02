@@ -137,7 +137,6 @@ const LandingPage = () => {
               <ParallaxLayer key={project.id} offset={i + 1} speed={0.25}>
                 <Center h="100%" w="100%">
                   <MotionImage
-                    initialScale={1}
                     src={
                       media?.processedUrl ||
                       media?.rawUrl ||
@@ -150,6 +149,7 @@ const LandingPage = () => {
                     m={{ base: 0, md: 12 }}
                     bg="primary.50"
                     position="absolute"
+                    cursor="pointer"
                     // boxShadow="lg"
                   />
                 </Center>

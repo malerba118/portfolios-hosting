@@ -16,6 +16,7 @@ import RichtextViewer from "./RichtextViewer";
 import { IoMdReturnLeft } from "react-icons/io";
 import { useLightbox } from "shared/components/Lightbox";
 import { useEffect } from "react";
+import { variants } from "./styles";
 
 const keyframes = {
   intro: ({ page }) => ({
@@ -101,6 +102,9 @@ const ProjectPage = ({ history, match }) => {
         >
           <Center h="100%" pos="relative">
             <MotionImage
+              variants={{
+                image: variants.image,
+              }}
               src={media?.processedUrl || media?.rawUrl}
               h="100%"
               w="100%"
@@ -176,6 +180,9 @@ const ProjectPage = ({ history, match }) => {
                   cursor="pointer"
                   onClick={() => {
                     lightbox.open({ id: media.id });
+                  }}
+                  variants={{
+                    image: variants.image,
                   }}
                 />
               </Box>

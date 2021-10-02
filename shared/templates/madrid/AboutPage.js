@@ -32,7 +32,6 @@ const AboutPage = ({ about }) => {
           <Toolbar />
           <MotionImage
             width={"100%"}
-            hoverScale={1}
             flex={1}
             src={media?.processedUrl || media?.rawUrl}
           />

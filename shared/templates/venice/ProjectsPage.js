@@ -19,6 +19,7 @@ import Entrance from "shared/components/Entrance";
 import { MotionBox, transitions } from "shared/components/animation";
 import DateViewer from "shared/components/DateViewer";
 import RichtextViewer from "shared/components/RichtextViewer";
+import { variants } from "./styles";
 
 const Label = ({ side, title, subtitle }) => {
   if (side === "left") {
@@ -104,8 +105,9 @@ const ProjectPage = ({ project }) => {
         src={media?.processedUrl || media?.rawUrl || "/image-unavailable.svg"}
         width="100%"
         height="380"
-        initialScale={1.03}
-        initialOpacity={1}
+        variants={{
+          image: variants.image,
+        }}
       />
       <Stack p={8}>
         <Entrance initialY={40} initialOpacity={0}>
@@ -162,7 +164,10 @@ const ProjectCard = ({ project, onSelect, labelSide }) => {
               cursor="pointer"
               width="100%"
               height="100%"
-              initialScale={0.9}
+              // initialScale={0.9}
+              variants={{
+                image: variants.image,
+              }}
               src={
                 media?.processedUrl || media?.rawUrl || "/image-unavailable.svg"
               }
@@ -184,7 +189,9 @@ const ProjectCard = ({ project, onSelect, labelSide }) => {
               cursor="pointer"
               width="100%"
               height="100%"
-              initialScale={0.9}
+              variants={{
+                image: variants.image,
+              }}
               src={
                 media?.processedUrl || media?.rawUrl || "/image-unavailable.svg"
               }

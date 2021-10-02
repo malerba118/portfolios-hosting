@@ -1,5 +1,6 @@
 import { types } from "mobx-state-tree";
 import { nanoid } from "nanoid";
+import { isEmpty, createDefaultNode } from "shared/components/RichtextViewer";
 
 export const getPreviewablePortfolio = ({ name }) => {
   return processPortfolio(
@@ -237,11 +238,21 @@ export const _About = types.model("About", {
 });
 
 const About = types.snapshotProcessor(_About, {
-  preProcessor(snapshot) {
+  postProcessor(snapshot) {
     return {
       ...snapshot,
       firstName: snapshot.firstName || "Firstname",
       lastName: snapshot.lastName || "Lastname",
+      title: snapshot.title || "Your occupation",
+      summary: snapshot.summary || "Tell us about you in a sentence",
+      description: !isEmpty(snapshot.description)
+        ? snapshot.description
+        : createDefaultNode("Tell us all about you"),
+      images: {
+        items: snapshot.images.items.length
+          ? snapshot.images.items
+          : [DEFAULT_MEDIA],
+      },
     };
   },
 });
@@ -262,10 +273,19 @@ export const _Project = types.model("Project", {
 });
 
 const Project = types.snapshotProcessor(_Project, {
-  preProcessor(snapshot) {
+  postProcessor(snapshot) {
     return {
       ...snapshot,
-      name: snapshot.name || "Untitled Project",
+      name: snapshot.name || "Project Name",
+      summary: snapshot.summary || "Tell us about your project in a sentence",
+      description: !isEmpty(snapshot.description)
+        ? snapshot.description
+        : createDefaultNode("Tell us all about your project"),
+      images: {
+        items: snapshot.images.items.length
+          ? snapshot.images.items
+          : [DEFAULT_MEDIA],
+      },
     };
   },
 });
@@ -344,3 +364,13 @@ export const processPortfolio = (portfolio, { useDraft = false } = {}) => {
     return PublishedPortfolio.create(portfolio).toJSON();
   }
 };
+
+const DEFAULT_MEDIA = Media.create({
+  id: nanoid(),
+  rawUrl: "/image-unavailable.jpg",
+  processedUrl: null,
+  crop: null,
+  zoom: null,
+  width: null,
+  height: null,
+}).toJSON();

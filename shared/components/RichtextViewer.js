@@ -80,9 +80,9 @@ const DefaultElement = ({ attributes, children, element }) => {
     case "link":
       return (
         <Link
-          color="primary.700"
+          color="primary.500"
           as={"a"}
-          size="lg"
+          size="xl"
           {...attributes}
           href={element.url}
         >

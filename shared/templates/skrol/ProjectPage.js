@@ -10,13 +10,13 @@ import { MotionBox, transitions } from "shared/components/animation";
 import Parallax from "shared/components/animation/Parallax";
 import DateViewer from "shared/components/DateViewer";
 import Entrance from "shared/components/Entrance";
-import MotionImage from "shared/components/MotionImage";
 import { usePortfolio } from "shared/components/PortfolioProvider";
 import RichtextViewer from "./RichtextViewer";
 import { IoMdReturnLeft } from "react-icons/io";
 import { useLightbox } from "shared/components/Lightbox";
 import { useEffect } from "react";
 import { variants } from "./styles";
+import Media from "shared/components/Media";
 
 const keyframes = {
   intro: ({ page }) => ({
@@ -101,11 +101,8 @@ const ProjectPage = ({ history, match }) => {
           keyframes={keyframes.intro}
         >
           <Center h="100%" pos="relative">
-            <MotionImage
-              variants={{
-                image: variants.image,
-              }}
-              src={media?.processedUrl || media?.rawUrl}
+            <Media
+              media={media}
               h="100%"
               w="100%"
               initialScale={1.1}
@@ -113,6 +110,9 @@ const ProjectPage = ({ history, match }) => {
               cursor="pointer"
               onClick={() => {
                 lightbox.open({ id: media.id });
+              }}
+              variants={{
+                image: variants.image,
               }}
             />
           </Center>
@@ -152,7 +152,7 @@ const ProjectPage = ({ history, match }) => {
         </Parallax.Page>
         <Parallax.Page
           pageId="project-description"
-          p={{ base: 12, md: 24 }}
+          p={{ base: 8, md: 24 }}
           keyframes={keyframes.description}
         >
           <Box m="0 auto" w="100%" maxW="50em">
@@ -173,8 +173,8 @@ const ProjectPage = ({ history, match }) => {
           >
             {project.images.items.map((media) => (
               <Box key={media.id} height="400px">
-                <MotionImage
-                  src={media?.processedUrl || media?.rawUrl}
+                <Media
+                  media={media}
                   width="100%"
                   height="100%"
                   cursor="pointer"

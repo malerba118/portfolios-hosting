@@ -28,7 +28,6 @@ import {
 } from "@chakra-ui/react";
 import Parallax from "shared/components/animation/Parallax";
 import Logo from "shared/components/Logo";
-import MotionImage from "shared/components/MotionImage";
 import RichtextViewer from "./RichtextViewer";
 import Link from "shared/components/Link";
 import ScrollRoute from "./ScrollRoute";
@@ -39,6 +38,7 @@ import useAsync from "shared/hooks/useAsync";
 import { useDraftMode } from "shared/components/DraftModeProvider";
 import { IoMdReturnLeft } from "react-icons/io";
 import { createDefaultNode } from "shared/components/RichtextViewer";
+import Media from "shared/components/Media";
 
 const keyframes = {
   intro: ({ page }) => ({
@@ -162,7 +162,7 @@ function App() {
               pos="relative"
               zIndex={1}
               h="150px"
-              px={{ base: 12, md: 24 }}
+              px={{ base: 8, md: 24 }}
               justify="space-between"
               align="center"
             >
@@ -194,15 +194,15 @@ function App() {
             <Center pos="absolute" top="50px" left={0} right={0} bottom={0}>
               <Stack
                 w="100%"
-                px={{ base: 12, md: 24 }}
+                px={{ base: 8, md: 24 }}
                 spacing={{ base: 3, md: 3 }}
               >
                 <Heading maxW="800px" size="3xl" textTransform="uppercase">
-                  {about.summary || "Tell us about you in a sentence"}
+                  {about.summary}
                 </Heading>
                 <Heading maxW="600px" size="sm" pb={2}>
                   {about.firstName + " " + about.lastName} {"  "}•{"  "}
-                  {about.title || "Your occupation"}
+                  {about.title}
                 </Heading>
                 <HStack alignSelf="start" spacing={4}>
                   <Button
@@ -233,7 +233,7 @@ function App() {
             <Center
               flexDirection="column"
               h="100%"
-              px={{ base: 12, md: 24 }}
+              px={{ base: 8, md: 24 }}
               py={{ base: 6, md: 12 }}
               pos="relative"
             >
@@ -276,11 +276,11 @@ function App() {
                 pos="absolute"
                 inset={0}
               >
-                <Center h="100%" p={{ base: 12, md: 24 }} pos="relative">
+                <Center h="100%" p={{ base: 0, md: 24 }} pos="relative">
                   <Box w="100%" h="100%" overflow="hidden">
                     <Parallax.Box keyframes={keyframes.image} h="100%" w="100%">
-                      <MotionImage
-                        src={media?.processedUrl || media?.rawUrl}
+                      <Media
+                        media={media}
                         h="100%"
                         w="100%"
                         objectFit="cover"
@@ -316,12 +316,6 @@ function App() {
         <Parallax.Page ref={contactPageRef} pageId={`contact-page`}>
           <Parallax.Box keyframes={keyframes.contact}>
             <ContactSection />
-            {/* {(contact.email || contact.phone) && (
-                <Text size="md" textAlign="center">
-                  Or reach me:{" "}
-                  {[contact.email, contact.phone].filter((x) => !!x).join(", ")}
-                </Text>
-              )} */}
           </Parallax.Box>
         </Parallax.Page>
       </Parallax>

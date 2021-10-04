@@ -18,6 +18,7 @@ import { AnimatePresence } from "framer-motion";
 import { MotionBox, transitions } from "./animation/chakra";
 import Hammer from "react-hammerjs";
 import MotionImage from "./MotionImage";
+import Media from "./Media";
 
 // interface Item extends {
 //   id: string | number;
@@ -36,8 +37,8 @@ const imgVariants = {
 
 const DefaultComponent = ({ item: media }) => {
   return (
-    <MotionImage
-      src={media?.processedUrl || media?.rawUrl}
+    <Media
+      media={media}
       w="100%"
       h="100%"
       objectFit="contain"

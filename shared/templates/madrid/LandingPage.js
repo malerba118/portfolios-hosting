@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Box, Heading, Flex, Text, Center } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 // import { Parallax, ParallaxLayer } from "@react-spring/parallax";
@@ -16,6 +16,7 @@ import Link from "shared/components/Link";
 import { useLocation } from "react-router-dom";
 import { usePortfolio } from "shared/components/PortfolioProvider";
 import Parallax from "shared/components/animation/Parallax";
+import ScrollRoute from "./ScrollRoute";
 
 const keyframes = {
   intro: ({ page }) => ({
@@ -92,6 +93,8 @@ const LandingPage = () => {
   const portfolio = usePortfolio();
   let { about, projects } = portfolio.data.content;
   const location = useLocation();
+  const introPageRef = useRef(null);
+  const firstProjectRef = useRef(null);
 
   const animations = {
     content: useAnimation("content"),
@@ -112,6 +115,24 @@ const LandingPage = () => {
 
   return (
     <AnimatePresence initial={"hidden"}>
+      <ScrollRoute
+        path="/"
+        exact
+        onMatch={(match) => {
+          if (match) {
+            introPageRef.current?.scrollIntoView();
+          }
+        }}
+      />
+      <ScrollRoute
+        path="/projects"
+        exact
+        onMatch={(match) => {
+          if (match) {
+            firstProjectRef.current?.scrollIntoView();
+          }
+        }}
+      />
       <Parallax
         style={{
           height: "100vh",
@@ -123,12 +144,12 @@ const LandingPage = () => {
         }}
       >
         <Parallax.Page
-          keyframes={keyframes.intro}
+          ref={introPageRef}
           h="100vh"
           pageId="intro"
           pos="relative"
         >
-          <Box h="100%" bg="primary.50">
+          <Parallax.Box keyframes={keyframes.intro} h="100%" bg="primary.50">
             <Toolbar
               initial={location.state?.disableAnimations ? "visible" : "hidden"}
               variants={variants.nav}
@@ -158,17 +179,19 @@ const LandingPage = () => {
                 <Text size="xl">{about.title}</Text>
               </MotionBox>
             </Flex>
-          </Box>
+          </Parallax.Box>
         </Parallax.Page>
         {projects.map((project, i) => {
           const media = project.images.items[0];
 
           return (
             <Parallax.Page
+              ref={i === 0 ? firstProjectRef : undefined}
               key={project.id}
               pageId={"project-" + project.id}
               h="100vh"
               pos="relative"
+              overflow="hidden"
             >
               <Parallax.Box
                 pos="absolute"

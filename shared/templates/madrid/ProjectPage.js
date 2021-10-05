@@ -16,7 +16,7 @@ const keyframes = {
       y: 0,
     },
     [page.y + page.height]: {
-      y: -200,
+      y: -180,
     },
   }),
   introTitle: ({ page }) => ({
@@ -96,7 +96,7 @@ const ProjectPage = ({ project }) => {
           pointerEvents="none"
         >
           <Heading
-            size="4xl"
+            size="3xl"
             textTransform="uppercase"
             color="white"
             textShadow="2px 4px 0px var(--chakra-colors-primary-200), 4px 8px 0px var(--chakra-colors-primary-300)"

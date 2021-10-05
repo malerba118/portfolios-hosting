@@ -23,7 +23,7 @@ const keyframes = {
       y: 0,
     },
     [page.y + page.height]: {
-      y: -200,
+      y: -180,
     },
   }),
   projectTitle: ({ page, container }) => ({

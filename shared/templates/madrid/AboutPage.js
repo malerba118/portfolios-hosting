@@ -1,49 +1,70 @@
 import React, { useState, useEffect } from "react";
 import { Box, Heading, Flex } from "@chakra-ui/react";
-import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import { MotionBox } from "shared/components/animation";
 import MotionImage from "shared/components/MotionImage";
 import RichtextViewer from "shared/components/RichtextViewer";
 import Toolbar from "./Toolbar";
+import Parallax from "shared/components/animation/Parallax";
+
+const keyframes = {
+  introImage: ({ page }) => ({
+    [page.y]: {
+      y: 0,
+    },
+    [page.y + page.height]: {
+      y: -180,
+    },
+  }),
+  introTitle: ({ page }) => ({
+    [page.y]: {
+      y: 0,
+    },
+    [page.y + page.height]: {
+      y: 50,
+    },
+  }),
+  description: ({ page, container }) => ({
+    [page.y]: {
+      y: 0,
+    },
+    [page.y + page.height]: {
+      y: 0,
+    },
+  }),
+};
 
 const AboutPage = ({ about }) => {
   const media = about.images.items[0];
   return (
     <Parallax
-      pages={2}
+      height="100vh"
       style={{
-        height: "100vh",
+        backgroundColor: "var(--chakra-colors-primary-100)",
+        backgroundImage: 'url("/templates/madrid/topography.svg")',
+        backgroundBlendMode: "soft-light",
+        backgroundSize: "30%",
+        backgroundRepeat: "repeat",
       }}
     >
-      <ParallaxLayer
-        offset={0}
-        factor={100}
-        speed={0.1}
-        style={{
-          backgroundColor: "var(--chakra-colors-primary-100)",
-          backgroundImage: 'url("/templates/madrid/topography.svg")',
-          backgroundBlendMode: "soft-light",
-          backgroundSize: "30%",
-          backgroundRepeat: "repeat",
-        }}
-      />
-      <ParallaxLayer offset={0} speed={0.4}>
-        <Flex flexDirection="column" pos="absolute" inset={0} bg="primary.50">
-          <Toolbar />
-          <MotionImage
-            width={"100%"}
-            flex={1}
-            src={media?.processedUrl || media?.rawUrl}
-          />
-        </Flex>
-      </ParallaxLayer>
-      <ParallaxLayer speed={0} style={{ zIndex: 1, pointerEvents: "none" }}>
-        <MotionBox
-          initial="hidden"
+      <Parallax.Page pageId="intro" h="100vh">
+        <Parallax.Box keyframes={keyframes.introImage} h="100%">
+          <Flex flexDirection="column" pos="absolute" inset={0} bg="primary.50">
+            <Toolbar />
+            <MotionImage
+              width={"100%"}
+              flex={1}
+              src={media?.processedUrl || media?.rawUrl}
+            />
+          </Flex>
+        </Parallax.Box>
+        <Parallax.Box
+          keyframes={keyframes.introTitle}
           pos="absolute"
           top="70%"
           w="100%"
           textAlign="center"
+          zIndex={1}
+          pointerEvents="none"
         >
           <Heading
             size="xl"
@@ -62,18 +83,13 @@ const AboutPage = ({ about }) => {
           >
             {about.firstName}
           </Heading>
-        </MotionBox>
-      </ParallaxLayer>
-      <ParallaxLayer
-        factor={1}
-        offset={1}
-        speed={0.2}
-        style={{ overflow: "auto" }}
-      >
-        <Box px={16} py={8} maxWidth="900" margin="0 auto">
+        </Parallax.Box>
+      </Parallax.Page>
+      <Parallax.Page pageId="description" keyframes={keyframes.description}>
+        <Box p={16} maxWidth="900" margin="0 auto">
           <RichtextViewer value={about.description} />
         </Box>
-      </ParallaxLayer>
+      </Parallax.Page>
     </Parallax>
   );
 };

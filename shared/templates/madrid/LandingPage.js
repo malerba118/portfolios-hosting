@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Heading, Flex, Text, Center } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
-import { Parallax, ParallaxLayer } from "@react-spring/parallax";
+// import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import ImageReveal from "./ImageReveal";
 import {
   MotionBox,
@@ -15,6 +15,40 @@ import Toolbar from "./Toolbar";
 import Link from "shared/components/Link";
 import { useLocation } from "react-router-dom";
 import { usePortfolio } from "shared/components/PortfolioProvider";
+import Parallax from "shared/components/animation/Parallax";
+
+const keyframes = {
+  intro: ({ page }) => ({
+    [page.y]: {
+      y: 0,
+    },
+    [page.y + page.height]: {
+      y: -200,
+    },
+  }),
+  projectTitle: ({ page, container }) => ({
+    [page.y - container.height]: {
+      y: 220,
+    },
+    [page.y]: {
+      y: 0,
+    },
+    [page.y + page.height]: {
+      y: -220,
+    },
+  }),
+  projectImage: ({ page, container }) => ({
+    [page.y - container.height]: {
+      y: 100,
+    },
+    [page.y]: {
+      y: 0,
+    },
+    [page.y + page.height]: {
+      y: -50,
+    },
+  }),
+};
 
 const variants = {
   nav: {
@@ -79,24 +113,21 @@ const LandingPage = () => {
   return (
     <AnimatePresence initial={"hidden"}>
       <Parallax
-        pages={projects.length + 1}
         style={{
           height: "100vh",
+          backgroundColor: "var(--chakra-colors-primary-100)",
+          backgroundImage: 'url("/templates/madrid/topography.svg")',
+          backgroundBlendMode: "soft-light",
+          backgroundSize: "30%",
+          backgroundRepeat: "repeat",
         }}
       >
-        <ParallaxLayer
-          offset={0}
-          factor={100}
-          speed={0.1}
-          style={{
-            backgroundColor: "var(--chakra-colors-primary-100)",
-            backgroundImage: 'url("/templates/madrid/topography.svg")',
-            backgroundBlendMode: "soft-light",
-            backgroundSize: "30%",
-            backgroundRepeat: "repeat",
-          }}
-        />
-        <ParallaxLayer offset={0} speed={0.4}>
+        <Parallax.Page
+          keyframes={keyframes.intro}
+          h="100vh"
+          pageId="intro"
+          pos="relative"
+        >
           <Box h="100%" bg="primary.50">
             <Toolbar
               initial={location.state?.disableAnimations ? "visible" : "hidden"}
@@ -128,13 +159,22 @@ const LandingPage = () => {
               </MotionBox>
             </Flex>
           </Box>
-        </ParallaxLayer>
+        </Parallax.Page>
         {projects.map((project, i) => {
           const media = project.images.items[0];
 
           return (
-            <>
-              <ParallaxLayer key={project.id} offset={i + 1} speed={0.25}>
+            <Parallax.Page
+              key={project.id}
+              pageId={"project-" + project.id}
+              h="100vh"
+              pos="relative"
+            >
+              <Parallax.Box
+                pos="absolute"
+                inset={0}
+                keyframes={keyframes.projectImage}
+              >
                 <Center h="100%" w="100%">
                   <MotionImage
                     src={
@@ -153,8 +193,13 @@ const LandingPage = () => {
                     // boxShadow="lg"
                   />
                 </Center>
-              </ParallaxLayer>
-              <ParallaxLayer key={project.id} offset={i + 1} speed={0.45}>
+              </Parallax.Box>
+              <Parallax.Box
+                key={project.id}
+                pos="absolute"
+                inset={0}
+                keyframes={keyframes.projectTitle}
+              >
                 <Center h="100%" w="100%">
                   <Link to={`/projects/${project.id}`}>
                     <MotionHeading
@@ -169,8 +214,8 @@ const LandingPage = () => {
                     </MotionHeading>
                   </Link>
                 </Center>
-              </ParallaxLayer>
-            </>
+              </Parallax.Box>
+            </Parallax.Page>
           );
         })}
       </Parallax>

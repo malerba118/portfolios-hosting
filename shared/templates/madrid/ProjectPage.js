@@ -1,60 +1,99 @@
 import React, { useState, useEffect } from "react";
 import { Box, Heading, Flex, Center } from "@chakra-ui/react";
-import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import { MotionBox } from "shared/components/animation";
 import MotionImage from "shared/components/MotionImage";
 import RichtextViewer, { isEmpty } from "shared/components/RichtextViewer";
 import Toolbar from "./Toolbar";
 import { Redirect } from "react-router-dom";
+import Parallax from "shared/components/animation/Parallax";
+import { useLightbox } from "shared/components/Lightbox";
+import Media from "shared/components/Media";
+import { variants } from "./styles";
+
+const keyframes = {
+  introImage: ({ page }) => ({
+    [page.y]: {
+      y: 0,
+    },
+    [page.y + page.height]: {
+      y: -200,
+    },
+  }),
+  introTitle: ({ page }) => ({
+    [page.y]: {
+      y: 0,
+    },
+    [page.y + page.height]: {
+      y: 100,
+    },
+  }),
+  about: ({ page, container }) => ({
+    [page.y]: {
+      y: 0,
+    },
+    [page.y + page.height]: {
+      y: 50,
+    },
+  }),
+  media: ({ page, container }) => ({
+    [page.y - container.height]: {
+      y: 100,
+    },
+    [page.y]: {
+      y: 0,
+    },
+    [page.y + page.height]: {
+      y: -20,
+    },
+  }),
+};
 
 const ProjectPage = ({ project }) => {
+  const lightbox = useLightbox();
+
+  useEffect(() => {
+    const medias = project?.images?.items;
+    if (medias) {
+      lightbox.setItems(medias);
+    }
+  }, []);
+
   if (!project) {
     return <Redirect to="/" />;
   }
 
   const media = project.images.items[0];
   const isDescription = !isEmpty(project.description);
-  const pageSizes = {
-    intro: 1,
-    description: isDescription ? 1 : 0,
-    images: project.images.items.length,
-  };
   return (
     <Parallax
-      pages={pageSizes.intro + pageSizes.description + pageSizes.images}
+      h="100vh"
       style={{
-        height: "100vh",
+        backgroundColor: "var(--chakra-colors-primary-100)",
+        backgroundImage: 'url("/templates/madrid/topography.svg")',
+        backgroundBlendMode: "soft-light",
+        backgroundSize: "30%",
+        backgroundRepeat: "repeat",
       }}
     >
-      <ParallaxLayer
-        offset={0}
-        factor={100}
-        speed={0.1}
-        style={{
-          backgroundColor: "var(--chakra-colors-primary-100)",
-          backgroundImage: 'url("/templates/madrid/topography.svg")',
-          backgroundBlendMode: "soft-light",
-          backgroundSize: "30%",
-          backgroundRepeat: "repeat",
-        }}
-      />
-      <ParallaxLayer offset={0} speed={0.4}>
-        <Flex flexDirection="column" pos="absolute" inset={0} bg="primary.50">
-          <Toolbar />
-          <MotionImage
-            width={"100%"}
-            flex={1}
-            src={media?.processedUrl || media?.rawUrl}
-          />
-        </Flex>
-      </ParallaxLayer>
-      <ParallaxLayer speed={0} style={{ zIndex: 1, pointerEvents: "none" }}>
-        <MotionBox
-          initial="hidden"
+      <Parallax.Page pageId="intro" h="100vh">
+        <Parallax.Box keyframes={keyframes.introImage} h="100%">
+          <Flex flexDirection="column" pos="absolute" inset={0} bg="primary.50">
+            <Toolbar />
+            <MotionImage
+              width={"100%"}
+              flex={1}
+              src={media?.processedUrl || media?.rawUrl}
+            />
+          </Flex>
+        </Parallax.Box>
+        <Parallax.Box
+          keyframes={keyframes.introTitle}
           pos="absolute"
           top="70%"
           w="100%"
           textAlign="center"
+          zIndex={1}
+          pointerEvents="none"
         >
           <Heading
             size="4xl"
@@ -65,34 +104,26 @@ const ProjectPage = ({ project }) => {
           >
             {project.name}
           </Heading>
-        </MotionBox>
-      </ParallaxLayer>
-      <ParallaxLayer
-        factor={pageSizes.description}
-        offset={1}
-        speed={0.2}
-        style={{ overflow: "auto" }}
-      >
+        </Parallax.Box>
+      </Parallax.Page>
+      <Parallax.Page keyframes={keyframes.about} pageId="about">
         {isDescription && (
           <Box p={16} maxWidth="900" margin="0 auto">
             <RichtextViewer value={project.description} />
           </Box>
         )}
-      </ParallaxLayer>
+      </Parallax.Page>
       {project.images.items.map((media, i) => {
         return (
-          <ParallaxLayer
-            key={project.id}
-            offset={pageSizes.intro + pageSizes.description + i}
-            speed={0.25}
+          <Parallax.Page
+            keyframes={keyframes.media}
+            h="100vh"
+            pageId={"media-" + media.id}
+            key={media.id}
           >
             <Center h="100%" w="100%">
-              <MotionImage
-                src={
-                  media?.processedUrl ||
-                  media?.rawUrl ||
-                  "/image-unavailable.jpg"
-                }
+              <Media
+                media={media}
                 maxHeight="90%"
                 width={{ base: "100%", md: "60%" }}
                 left={i % 2 === 0 ? 0 : undefined}
@@ -100,10 +131,16 @@ const ProjectPage = ({ project }) => {
                 m={{ base: 0, md: 12 }}
                 bg="primary.50"
                 position="absolute"
-                // boxShadow="lg"
+                cursor="pointer"
+                onClick={() => {
+                  lightbox.open({ id: media.id });
+                }}
+                variants={{
+                  image: variants.image,
+                }}
               />
             </Center>
-          </ParallaxLayer>
+          </Parallax.Page>
         );
       })}
     </Parallax>

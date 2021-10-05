@@ -18,7 +18,7 @@ const Toolbar = ({ animate, variants, initial = "hidden" }) => {
       justify="space-between"
       h="128px"
       minH="128px"
-      px={16}
+      px={{ base: 4, md: 16 }}
       align="center"
       color="gray.600"
     >
@@ -36,10 +36,10 @@ const Toolbar = ({ animate, variants, initial = "hidden" }) => {
         </Link>
       </Box>
       <HStack
-        spacing={4}
-        fontSize="xs"
+        spacing={{ base: 2, md: 4 }}
         textTransform="uppercase"
         fontWeight="bold"
+        fontSize="xs"
       >
         <Link
           to={{ pathname: "/about", state: { disableAnimations: true } }}

@@ -324,6 +324,7 @@ export const Box = forwardRef(({ keyframes, children, ...otherProps }, ref) => {
       ref={ref}
       {...otherProps}
       style={{
+        ...otherProps.style,
         y: springs.y,
         x: springs.x,
         scale: springs.scale,

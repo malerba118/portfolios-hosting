@@ -108,7 +108,7 @@ const ProjectPage = ({ project }) => {
       </Parallax.Page>
       <Parallax.Page keyframes={keyframes.about} pageId="about">
         {isDescription && (
-          <Box p={16} maxWidth="900" margin="0 auto">
+          <Box p={{ base: 8, md: 16 }} maxWidth="900" margin="0 auto">
             <RichtextViewer value={project.description} />
           </Box>
         )}
@@ -125,10 +125,10 @@ const ProjectPage = ({ project }) => {
               <Media
                 media={media}
                 maxHeight="90%"
-                width={{ base: "100%", md: "60%" }}
+                width={{ base: "100%", md: "66%" }}
                 left={i % 2 === 0 ? 0 : undefined}
                 right={i % 2 !== 0 ? 0 : undefined}
-                m={{ base: 0, md: 12 }}
+                m={{ base: 0, md: 16 }}
                 bg="primary.50"
                 position="absolute"
                 cursor="pointer"

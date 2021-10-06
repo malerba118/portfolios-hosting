@@ -86,7 +86,7 @@ const AboutPage = ({ about }) => {
         </Parallax.Box>
       </Parallax.Page>
       <Parallax.Page pageId="description" keyframes={keyframes.description}>
-        <Box p={16} maxWidth="900" margin="0 auto">
+        <Box p={{ base: 8, md: 16 }} maxWidth="900" margin="0 auto">
           <RichtextViewer value={about.description} />
         </Box>
       </Parallax.Page>

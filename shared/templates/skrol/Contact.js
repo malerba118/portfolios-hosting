@@ -13,7 +13,6 @@ import {
   Text,
   FormErrorMessage,
   IconButton,
-  Flex,
 } from "@chakra-ui/react";
 import Link from "shared/components/Link";
 import * as api from "client/api";
@@ -21,26 +20,8 @@ import useAsync from "shared/hooks/useAsync";
 import { useDraftMode } from "shared/components/DraftModeProvider";
 import { IoMdReturnLeft } from "react-icons/io";
 import useContactForm, { validate, isEmpty } from "shared/hooks/useContactForm";
-import Toolbar from "./Toolbar";
 
-const ContactPage = ({ subdomain }) => {
-  return (
-    <Flex
-      h="100vh"
-      flexDirection="column"
-      pos="absolute"
-      inset={0}
-      bg="primary.50"
-    >
-      <Toolbar />
-      <Box flex={1}>
-        <ContactSection />
-      </Box>
-    </Flex>
-  );
-};
-
-const ContactSection = () => {
+export const ContactSection = () => {
   // type Mode = null | 'form' | 'info'
   const [mode, setMode] = useState(null);
   const portfolio = usePortfolio();
@@ -50,7 +31,7 @@ const ContactSection = () => {
   // If no info, jsut show form
   if (!hasInfo) {
     return (
-      <Center pos="relative" flexDirection="column" p={8}>
+      <Center pos="relative" flexDirection="column" minH="100vh" p={8}>
         <ContactForm />
       </Center>
     );
@@ -58,10 +39,10 @@ const ContactSection = () => {
 
   // Otherwise give option to choose mode
   return (
-    <Center pos="relative" flexDirection="column" p={8}>
+    <Center pos="relative" flexDirection="column" minH="100vh" p={8}>
       {mode === null && (
         <Stack spacing={6}>
-          <Heading size="2xl" color="secondary.400" textAlign="center">
+          <Heading size="3xl" color="secondary.400" textAlign="center">
             <Link
               onClick={(e) => {
                 e.preventDefault();
@@ -79,11 +60,10 @@ const ContactSection = () => {
             textTransform="uppercase"
             textAlign="center"
             color="primary.500"
-            size="lg"
           >
             Or
           </Heading>
-          <Heading size="2xl" color="secondary.400" textAlign="center">
+          <Heading size="3xl" color="secondary.400" textAlign="center">
             <Link
               onClick={(e) => {
                 e.preventDefault();
@@ -105,8 +85,8 @@ const ContactSection = () => {
         <IconButton
           onClick={() => setMode(null)}
           pos="absolute"
-          top={0}
-          left={{ base: 4, md: 16 }}
+          top={4}
+          left={4}
           icon={<IoMdReturnLeft />}
         />
       )}
@@ -218,5 +198,3 @@ const ContactInfo = () => {
     </Stack>
   );
 };
-
-export default ContactPage;

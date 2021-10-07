@@ -31,18 +31,8 @@ import * as api from "client/api";
 import useAsync from "shared/hooks/useAsync";
 import { useDraftMode } from "shared/components/DraftModeProvider";
 import { IoMdReturnLeft } from "react-icons/io";
-
-const validate = (form) => {
-  let errors = {};
-  Object.keys(form).forEach((key) => {
-    if (!form[key]) {
-      errors[key] = "Field is required";
-    } else {
-      errors[key] = null;
-    }
-  });
-  return errors;
-};
+import useContactForm, { validate, isEmpty } from "shared/hooks/useContactForm";
+import SocialLinks from "shared/components/SocialLinks";
 
 export const ContactSection = ({ ...otherProps }) => {
   // type Mode = null | 'form' | 'info'
@@ -56,6 +46,13 @@ export const ContactSection = ({ ...otherProps }) => {
     return (
       <Center pos="relative" flexDirection="column" p={8} {...otherProps}>
         <ContactForm />
+        <SocialLinks
+          isInline
+          tooltipPlacement="top"
+          pos="absolute"
+          bottom={4}
+          right={4}
+        />
       </Center>
     );
   }
@@ -67,7 +64,7 @@ export const ContactSection = ({ ...otherProps }) => {
         <Stack spacing={6}>
           <Heading
             size="xl"
-            color="secondary.400"
+            color="primary.700"
             textAlign="center"
             // textTransform="uppercase"
           >
@@ -76,7 +73,7 @@ export const ContactSection = ({ ...otherProps }) => {
                 e.preventDefault();
                 setMode("info");
               }}
-              color="secondary.400"
+              color="primary.700"
               alignSelf="center"
               showUnderline
               fontSize="inherit"
@@ -93,7 +90,7 @@ export const ContactSection = ({ ...otherProps }) => {
           </Heading>
           <Heading
             size="xl"
-            color="secondary.400"
+            color="primary.700"
             textAlign="center"
             // textTransform="uppercase"
           >
@@ -102,7 +99,7 @@ export const ContactSection = ({ ...otherProps }) => {
                 e.preventDefault();
                 setMode("form");
               }}
-              color="secondary.400"
+              color="primary.700"
               alignSelf="center"
               showUnderline
               fontSize="inherit"
@@ -124,48 +121,23 @@ export const ContactSection = ({ ...otherProps }) => {
           colorScheme="primary"
         />
       )}
+      <SocialLinks
+        isInline
+        tooltipPlacement="top"
+        pos="absolute"
+        bottom={4}
+        right={4}
+      />
     </Center>
   );
 };
 
-export const ContactForm = () => {
+const ContactForm = () => {
   const portfolio = usePortfolio();
   const draftMode = useDraftMode();
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const contactForm = useContactForm();
 
-  const resetForm = () => {
-    setForm({
-      name: "",
-      email: "",
-      message: "",
-    });
-  };
-
-  const [errors, setErrors] = useState({
-    name: null,
-    email: null,
-    message: null,
-  });
   const requests = { contact: useAsync(api.portfolio.contact) };
-
-  const setField = (key, val) => {
-    setForm((prev) => ({
-      ...prev,
-      [key]: val,
-    }));
-    setError(key, null);
-  };
-
-  const setError = (key, val) => {
-    setErrors((prev) => ({
-      ...prev,
-      [key]: val,
-    }));
-  };
 
   return (
     <Stack
@@ -177,14 +149,14 @@ export const ContactForm = () => {
       maxW="420px"
       onSubmit={(e) => {
         e.preventDefault();
-        const errors = validate(form);
-        setErrors(errors);
-        const isSubmitable = Object.values(errors).every((err) => !err);
+        const errors = validate(contactForm.form);
+        contactForm.setErrors(errors);
+        const isSubmitable = isEmpty(errors);
         if (isSubmitable) {
           requests.contact
-            .execute(portfolio.id, form, { useDraft: draftMode })
+            .execute(portfolio.id, contactForm.form, { useDraft: draftMode })
             .then(() => {
-              resetForm();
+              contactForm.reset();
             })
             .finally(() => {
               setTimeout(() => {
@@ -194,47 +166,44 @@ export const ContactForm = () => {
         }
       }}
     >
-      <Heading textAlign="start" size="xl">
+      <Heading color="primary.700" textAlign="start" size="xl">
         Leave a Message
       </Heading>
-      <FormControl isInvalid={!!errors.name} id="name">
+      <FormControl isInvalid={!!contactForm.errors.name} id="name">
         <FormLabel as={Text}>Your Name</FormLabel>
         <Input
-          value={form.name}
+          value={contactForm.form.name}
           onChange={(e) => {
-            setField("name", e.target.value);
+            contactForm.setField("name", e.target.value);
           }}
           variant="filled"
           placeholder="Name"
-          size="sm"
         />
-        <FormErrorMessage>{errors.name}</FormErrorMessage>
+        <FormErrorMessage>{contactForm.errors.name}</FormErrorMessage>
       </FormControl>
-      <FormControl id="email" isInvalid={!!errors.email}>
+      <FormControl id="email" isInvalid={!!contactForm.errors.email}>
         <FormLabel as={Text}>Your Email</FormLabel>
         <Input
-          value={form.email}
+          value={contactForm.form.email}
           onChange={(e) => {
-            setField("email", e.target.value);
+            contactForm.setField("email", e.target.value);
           }}
           variant="filled"
           placeholder="Email"
-          size="sm"
         />
-        <FormErrorMessage>{errors.email}</FormErrorMessage>
+        <FormErrorMessage>{contactForm.errors.email}</FormErrorMessage>
       </FormControl>
-      <FormControl id="message" isInvalid={!!errors.message}>
+      <FormControl id="message" isInvalid={!!contactForm.errors.message}>
         <FormLabel as={Text}>Your Message for Me</FormLabel>
         <Textarea
-          value={form.message}
+          value={contactForm.form.message}
           onChange={(e) => {
-            setField("message", e.target.value);
+            contactForm.setField("message", e.target.value);
           }}
           variant="filled"
           placeholder="Message"
-          size="sm"
         />
-        <FormErrorMessage>{errors.message}</FormErrorMessage>
+        <FormErrorMessage>{contactForm.errors.message}</FormErrorMessage>
       </FormControl>
       <Box py={2}>
         <Button
@@ -249,22 +218,148 @@ export const ContactForm = () => {
             !requests.contact.state.rejected &&
             "Submit"}
         </Button>
-        {requests.contact.state.rejected && (
-          <FormErrorMessage>
-            {JSON.stringify(requests.contact.state.result)}
-          </FormErrorMessage>
-        )}
       </Box>
     </Stack>
   );
 };
+
+// export const ContactForm = () => {
+//   const portfolio = usePortfolio();
+//   const draftMode = useDraftMode();
+//   const [form, setForm] = useState({
+//     name: "",
+//     email: "",
+//     message: "",
+//   });
+
+//   const resetForm = () => {
+//     setForm({
+//       name: "",
+//       email: "",
+//       message: "",
+//     });
+//   };
+
+//   const [errors, setErrors] = useState({
+//     name: null,
+//     email: null,
+//     message: null,
+//   });
+//   const requests = { contact: useAsync(api.portfolio.contact) };
+
+//   const setField = (key, val) => {
+//     setForm((prev) => ({
+//       ...prev,
+//       [key]: val,
+//     }));
+//     setError(key, null);
+//   };
+
+//   const setError = (key, val) => {
+//     setErrors((prev) => ({
+//       ...prev,
+//       [key]: val,
+//     }));
+//   };
+
+//   return (
+//     <Stack
+//       as="form"
+//       fontSize="xl"
+//       my={6}
+//       spacing={{ base: 4, md: 4 }}
+//       w="100%"
+//       maxW="420px"
+//       onSubmit={(e) => {
+//         e.preventDefault();
+//         const errors = validate(form);
+//         setErrors(errors);
+//         const isSubmitable = Object.values(errors).every((err) => !err);
+//         if (isSubmitable) {
+//           requests.contact
+//             .execute(portfolio.id, form, { useDraft: draftMode })
+//             .then(() => {
+//               resetForm();
+//             })
+//             .finally(() => {
+//               setTimeout(() => {
+//                 requests.contact.reset();
+//               }, 3000);
+//             });
+//         }
+//       }}
+//     >
+//       <Heading textAlign="start" size="xl">
+//         Leave a Message
+//       </Heading>
+//       <FormControl isInvalid={!!errors.name} id="name">
+//         <FormLabel as={Text}>Your Name</FormLabel>
+//         <Input
+//           value={form.name}
+//           onChange={(e) => {
+//             setField("name", e.target.value);
+//           }}
+//           variant="filled"
+//           placeholder="Name"
+//           size="sm"
+//         />
+//         <FormErrorMessage>{errors.name}</FormErrorMessage>
+//       </FormControl>
+//       <FormControl id="email" isInvalid={!!errors.email}>
+//         <FormLabel as={Text}>Your Email</FormLabel>
+//         <Input
+//           value={form.email}
+//           onChange={(e) => {
+//             setField("email", e.target.value);
+//           }}
+//           variant="filled"
+//           placeholder="Email"
+//           size="sm"
+//         />
+//         <FormErrorMessage>{errors.email}</FormErrorMessage>
+//       </FormControl>
+//       <FormControl id="message" isInvalid={!!errors.message}>
+//         <FormLabel as={Text}>Your Message for Me</FormLabel>
+//         <Textarea
+//           value={form.message}
+//           onChange={(e) => {
+//             setField("message", e.target.value);
+//           }}
+//           variant="filled"
+//           placeholder="Message"
+//           size="sm"
+//         />
+//         <FormErrorMessage>{errors.message}</FormErrorMessage>
+//       </FormControl>
+//       <Box py={2}>
+//         <Button
+//           isLoading={requests.contact.state.pending}
+//           w="100%"
+//           type="submit"
+//           colorScheme="primary"
+//         >
+//           {requests.contact.state.fulfilled && "Message Sent!"}
+//           {requests.contact.state.rejected && "Failed to send"}
+//           {!requests.contact.state.fulfilled &&
+//             !requests.contact.state.rejected &&
+//             "Submit"}
+//         </Button>
+//         {requests.contact.state.rejected && (
+//           <FormErrorMessage>
+//             {JSON.stringify(requests.contact.state.result)}
+//           </FormErrorMessage>
+//         )}
+//       </Box>
+//     </Stack>
+//   );
+// };
 
 export const ContactInfo = () => {
   const portfolio = usePortfolio();
   const contact = portfolio.data.content.contact;
   return (
     <Stack>
-      <Heading textAlign="start" size="xl">
+      <Heading color="primary.700" textAlign="start" size="xl">
         Get in Touch
       </Heading>
       {contact.email && <Heading size="md">Email: {contact.email}</Heading>}

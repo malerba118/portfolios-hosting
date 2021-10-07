@@ -20,6 +20,7 @@ import useAsync from "shared/hooks/useAsync";
 import { useDraftMode } from "shared/components/DraftModeProvider";
 import { IoMdReturnLeft } from "react-icons/io";
 import useContactForm, { validate, isEmpty } from "shared/hooks/useContactForm";
+import SocialLinks from "shared/components/SocialLinks";
 
 export const ContactSection = () => {
   // type Mode = null | 'form' | 'info'
@@ -33,6 +34,13 @@ export const ContactSection = () => {
     return (
       <Center pos="relative" flexDirection="column" minH="100vh" p={8}>
         <ContactForm />
+        <SocialLinks
+          isInline
+          tooltipPlacement="top"
+          pos="absolute"
+          bottom={4}
+          right={4}
+        />
       </Center>
     );
   }
@@ -90,6 +98,13 @@ export const ContactSection = () => {
           icon={<IoMdReturnLeft />}
         />
       )}
+      <SocialLinks
+        isInline
+        tooltipPlacement="top"
+        pos="absolute"
+        bottom={4}
+        right={4}
+      />
     </Center>
   );
 };

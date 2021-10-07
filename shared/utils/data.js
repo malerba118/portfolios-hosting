@@ -257,9 +257,20 @@ const About = types.snapshotProcessor(_About, {
   },
 });
 
+export const SocialLink = types.model("SocialLink", {
+  id: types.string,
+  platform: types.maybeNull(types.string),
+  url: types.maybeNull(types.string),
+});
+
+export const SocialLinks = types.model("SocialLinks", {
+  items: types.array(SocialLink),
+});
+
 export const Contact = types.model("Contact", {
   email: hideable(types.optional(types.string, "")),
   phone: hideable(types.optional(types.string, "")),
+  socialLinks: types.optional(SocialLinks, { items: [] }),
 });
 
 export const _Project = types.model("Project", {

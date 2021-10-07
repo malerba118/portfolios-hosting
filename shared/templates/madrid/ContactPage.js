@@ -22,6 +22,7 @@ import { useDraftMode } from "shared/components/DraftModeProvider";
 import { IoMdReturnLeft } from "react-icons/io";
 import useContactForm, { validate, isEmpty } from "shared/hooks/useContactForm";
 import Toolbar from "./Toolbar";
+import SocialLinks from "shared/components/SocialLinks";
 
 const ContactPage = ({ subdomain }) => {
   return (
@@ -33,8 +34,15 @@ const ContactPage = ({ subdomain }) => {
       bg="primary.50"
     >
       <Toolbar />
-      <Box flex={1}>
+      <Box pos="relative" flex={1}>
         <ContactSection />
+        <SocialLinks
+          isInline
+          tooltipPlacement="top"
+          pos="absolute"
+          bottom={4}
+          right={4}
+        />
       </Box>
     </Flex>
   );

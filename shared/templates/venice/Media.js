@@ -9,7 +9,7 @@ const Media = ({ media, ...otherProps }) => {
   return (
     <MotionImage
       src={media.processedUrl || media.rawUrl}
-      alt={media.id}
+      alt={media.name}
       variants={{
         image: variants.image,
       }}

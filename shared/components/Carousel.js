@@ -26,6 +26,7 @@ import { MotionBox, transitions } from "./animation/chakra";
 import MotionImage from "./MotionImage";
 import Lightbox, { useLightbox } from "./Lightbox";
 import Hammer from "react-hammerjs";
+import Media from "./Media";
 
 // interface Item extends {
 //   id: string | number;
@@ -60,8 +61,8 @@ const DefaultComponent = ({ item: media }) => {
   };
   const lightbox = useLightbox();
   return (
-    <MotionImage
-      src={media?.processedUrl || media?.rawUrl}
+    <Media
+      media={media}
       w="100%"
       h="100%"
       objectFit="cover"

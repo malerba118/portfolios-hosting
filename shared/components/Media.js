@@ -1,9 +1,13 @@
 import { Box } from "@chakra-ui/react";
 import MotionImage from "./MotionImage";
 
-const Media = ({ media, ...otherProps }) => {
+const Media = ({ media, alt, ...otherProps }) => {
   return (
-    <MotionImage src={media?.processedUrl || media?.rawUrl} {...otherProps} />
+    <MotionImage
+      src={media?.processedUrl || media?.rawUrl}
+      alt={alt || media?.name}
+      {...otherProps}
+    />
   );
 };
 

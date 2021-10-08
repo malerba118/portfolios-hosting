@@ -109,6 +109,7 @@ const MotionImage = ({
   objectFit = "cover",
   objectPosition = "center",
   draggable,
+  alt,
   ...otherProps
 }) => {
   const [status, setStatus] = useState("loading");
@@ -143,6 +144,7 @@ const MotionImage = ({
         onLoad={() => setStatus("loaded")}
         onError={() => setStatus("error")}
         draggable={draggable}
+        alt={alt}
       />
       <Box pos="absolute" inset={0} pointerEvents={overlayPointerEvents}>
         <DefaultOverlay status={status} />

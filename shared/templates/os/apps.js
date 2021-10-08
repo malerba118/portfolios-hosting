@@ -104,7 +104,7 @@ const apps = {
         <Box h="100%" overflow="auto">
           <Carousel defaultItems={about.images.items} height="75%" />
           <Stack p="5%" maxW="760px" m="0 auto">
-            <Flex justify="space-between" align="center">
+            <Flex justify="space-between" align="center" flexWrap="wrap">
               <Heading size="xl">
                 {about.firstName} {about.lastName}
               </Heading>
@@ -117,7 +117,9 @@ const apps = {
                   variant="outline"
                   size="sm"
                 >
-                  View Resume
+                  <Text numOfLines={1} w="100%" isTruncated title="View Resume">
+                    View Resume
+                  </Text>
                 </Button>
               )}
             </Flex>

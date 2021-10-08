@@ -177,16 +177,16 @@ const getAnimationForProperty = (property, keyframes) => {
   if (!values.length) {
     return null;
   }
-  // const anim = animation({
-  //   to: values.length === 1 ? values[0] : values,
-  //   offset: values.length === 1 ? offsets[0] : offsets,
-  //   duration: 1
-  // });
   const anim = animation({
-    to: values,
-    offset: offsets,
+    to: values.length === 1 ? values[0] : values,
+    offset: offsets.length === 1 ? offsets[0] : offsets,
     duration: 1,
   });
+  // const anim = animation({
+  //   to: values,
+  //   offset: offsets,
+  //   duration: 1,
+  // });
   return {
     get(progress) {
       return anim.next(progress).value;

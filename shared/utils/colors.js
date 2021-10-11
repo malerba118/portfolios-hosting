@@ -1,4 +1,41 @@
 import DEFAULT_THEME from "@chakra-ui/theme";
+import { theme as CHAKRA_THEME } from "@chakra-ui/react";
+import * as ant from "@ant-design/colors";
+
+// Convert ant colors to chakra palette
+const colorsToPalette = (colors) => ({
+  50: colors[0],
+  100: colors[1],
+  200: colors[2],
+  300: colors[3],
+  400: colors[4],
+  500: colors[5],
+  600: colors[6],
+  700: colors[7],
+  800: colors[8],
+  900: colors[9],
+});
+
+export const invert = (palette) => ({
+  50: palette[900],
+  100: palette[800],
+  200: palette[700],
+  300: palette[600],
+  400: palette[500],
+  500: palette[400],
+  600: palette[300],
+  700: palette[200],
+  800: palette[100],
+  900: palette[50],
+});
+
+const generate = (color, { backgroundColor, theme = "light" } = {}) => {
+  const colors = ant.generate(color, {
+    theme,
+    backgroundColor,
+  });
+  return colorsToPalette(colors);
+};
 
 export const palettes = {
   desert: {
@@ -24,17 +61,26 @@ export const palettes = {
   gray: {
     primary: DEFAULT_THEME.colors.gray,
   },
+  blackRed: {
+    primary: generate(CHAKRA_THEME.colors.red[50], {
+      backgroundColor: "#090909",
+      theme: "dark",
+    }),
+    secondary: DEFAULT_THEME.colors.red,
+  },
+  purplePink: {
+    primary: invert(DEFAULT_THEME.colors.purple),
+    secondary: DEFAULT_THEME.colors.pink,
+  },
+  blueGreen: {
+    primary: invert(DEFAULT_THEME.colors.telegram),
+    secondary: DEFAULT_THEME.colors.whatsapp,
+  },
 };
 
-export const invert = (palette) => ({
-  50: palette[900],
-  100: palette[800],
-  200: palette[700],
-  300: palette[600],
-  400: palette[500],
-  500: palette[400],
-  600: palette[300],
-  700: palette[200],
-  800: palette[100],
-  900: palette[50],
-});
+export const selectPalettes = (paletteNames) => {
+  return paletteNames.map((name) => ({
+    id: name,
+    ...palettes[name],
+  }));
+};

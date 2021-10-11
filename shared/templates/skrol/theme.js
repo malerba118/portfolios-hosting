@@ -25,14 +25,11 @@ const generate = (color, { backgroundColor, theme = "light" } = {}) => {
 
 export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
   extendTheme({
-    // colors: palettes[palette],
-    colors: {
-      primary: generate(CHAKRA_THEME.colors.red[50], {
-        backgroundColor: "#090909",
-        theme: "dark",
-      }),
-      secondary: CHAKRA_THEME.colors.red,
-    },
+    colors: palettes[palette],
+    // colors: {
+    //   primary: palette.primary,
+    //   secondary: palette.secondary,
+    // },
     fonts: {
       heading: headingFont,
       body: paragraphFont,

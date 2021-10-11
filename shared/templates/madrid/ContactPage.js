@@ -69,13 +69,12 @@ const ContactSection = () => {
     <Center pos="relative" flexDirection="column" p={8}>
       {mode === null && (
         <Stack spacing={6}>
-          <Heading size="2xl" color="secondary.400" textAlign="center">
+          <Heading size="2xl" textAlign="center">
             <Link
               onClick={(e) => {
                 e.preventDefault();
                 setMode("info");
               }}
-              color="secondary.400"
               alignSelf="center"
               showUnderline
               fontSize="inherit"
@@ -86,18 +85,17 @@ const ContactSection = () => {
           <Heading
             textTransform="uppercase"
             textAlign="center"
-            color="primary.500"
-            size="lg"
+            color="primary.400"
+            size="md"
           >
             Or
           </Heading>
-          <Heading size="2xl" color="secondary.400" textAlign="center">
+          <Heading size="2xl" textAlign="center">
             <Link
               onClick={(e) => {
                 e.preventDefault();
                 setMode("form");
               }}
-              color="secondary.400"
               alignSelf="center"
               showUnderline
               fontSize="inherit"
@@ -116,6 +114,7 @@ const ContactSection = () => {
           top={0}
           left={{ base: 4, md: 16 }}
           icon={<IoMdReturnLeft />}
+          colorScheme="primary"
         />
       )}
     </Center>
@@ -200,7 +199,7 @@ const ContactForm = () => {
           isLoading={requests.contact.state.pending}
           w="100%"
           type="submit"
-          colorScheme="secondary"
+          colorScheme="primary"
         >
           {requests.contact.state.fulfilled && "Message Sent!"}
           {requests.contact.state.rejected && "Failed to send"}

@@ -13,11 +13,16 @@ import Link from "./Link";
 import VernosLogo from "./VernosLogo";
 import { CgClose as CloseIcon } from "react-icons/cg";
 import { usePortfolio } from "./PortfolioProvider";
+import { observable } from "mobx";
+import { observer } from "mobx-react";
 
-const Advertisement = ({ ...otherProps }) => {
+const state = observable({
+  hidden: false,
+});
+
+const Advertisement = observer(({ ...otherProps }) => {
   const portfolio = usePortfolio();
   const breakpoint = useBreakpoint();
-  const [hidden, setHidden] = useState(false);
 
   if (portfolio.advertisementsDisabled) {
     return null;
@@ -25,7 +30,7 @@ const Advertisement = ({ ...otherProps }) => {
 
   return (
     <AnimatePresence>
-      {!hidden && (
+      {!state.hidden && (
         <MotionBox
           bg="primary.900"
           minHeight="64px"
@@ -80,13 +85,13 @@ const Advertisement = ({ ...otherProps }) => {
                 bg: "primary.700",
               }}
               icon={<CloseIcon />}
-              onClick={() => setHidden(true)}
+              onClick={() => (state.hidden = true)}
             />
           </HStack>
         </MotionBox>
       )}
     </AnimatePresence>
   );
-};
+});
 
 export default Advertisement;

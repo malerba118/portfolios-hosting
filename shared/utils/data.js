@@ -147,35 +147,47 @@ export const getPreviewablePortfolio = ({ name }) => {
 export const templates = {
   venice: {
     label: "Venice",
+    img: `/templates/venice.png`,
     defaults: {
       headingFont: "Ubuntu",
       paragraphFont: "Ubuntu",
-      palette: "ocean",
+      palette: "gray",
     },
+    palettes: ["desert", "gray"],
+    locked: false,
   },
   madrid: {
     label: "Madrid",
+    img: `/templates/madrid.png`,
     defaults: {
       headingFont: "Montserrat",
       paragraphFont: "Lato",
       palette: "desert",
     },
+    locked: false,
+    palettes: ["desert", "gray"],
   },
   skrol: {
     label: "Skrol",
+    img: `/templates/skrol.png`,
     defaults: {
       headingFont: "Montserrat",
       paragraphFont: "Lato",
-      palette: "desert",
+      palette: "purplePink",
     },
+    palettes: ["blackRed", "purplePink", "blueGreen"],
+    locked: true,
   },
   os: {
     label: "Operating System",
+    img: `/templates/os.png`,
     defaults: {
       headingFont: "Ubuntu Mono",
       paragraphFont: "Ubuntu Mono",
-      palette: "desert",
+      palette: "gray",
     },
+    palettes: ["gray", "desert", "pink"],
+    locked: true,
   },
 };
 

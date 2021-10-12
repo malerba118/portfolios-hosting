@@ -284,7 +284,9 @@ export const Box = forwardRef(({ keyframes, children, ...otherProps }, ref) => {
       damping: 20,
     }),
     scale: useSpring(animations.scale?.get(0) ?? "1", {
-      mass: 0.1,
+      restDelta: 0.5,
+      restSpeed: 0.5,
+      mass: 0.005,
       damping: 20,
     }),
     skewX: useSpring(animations.skewX?.get(0) ?? "0", {

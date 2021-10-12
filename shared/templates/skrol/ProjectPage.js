@@ -117,10 +117,8 @@ const ProjectPage = ({ history, match }) => {
             />
           </Center>
           <Center flexDirection="column" pos="absolute" inset={0}>
-            {/* <Entrance initialY={250} delay={0.35}> */}
             <Parallax.Box keyframes={keyframes.introBanner} boxShadow="xl">
               <Box p={4} backgroundColor="secondary.400">
-                {/* <Entrance delay={0.6} initialY={100}> */}
                 <Heading
                   size="4xl"
                   color="primary.50"
@@ -129,24 +127,22 @@ const ProjectPage = ({ history, match }) => {
                 >
                   {project.name}
                 </Heading>
-                {/* </Entrance> */}
               </Box>
-              <Box w="100%" p={4} backgroundColor="primary.50">
-                {/* <Entrance delay={0.6} initialY={100}> */}
-                <Heading
-                  size="xl"
-                  color="secondary.400"
-                  textTransform="uppercase"
-                  textAlign="center"
-                >
-                  <DateViewer
-                    startDate={project.startDate}
-                    endDate={project.endDate}
-                  />
-                </Heading>
-                {/* </Entrance> */}
-              </Box>
-              {/* </Entrance> */}
+              {(project.startDate || project.endDate) && (
+                <Box w="100%" p={4} backgroundColor="primary.50">
+                  <Heading
+                    size="xl"
+                    color="secondary.400"
+                    textTransform="uppercase"
+                    textAlign="center"
+                  >
+                    <DateViewer
+                      startDate={project.startDate}
+                      endDate={project.endDate}
+                    />
+                  </Heading>
+                </Box>
+              )}
             </Parallax.Box>
           </Center>
         </Parallax.Page>

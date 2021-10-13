@@ -185,6 +185,16 @@ export const templates = {
       headingFont: "Ubuntu Mono",
       paragraphFont: "Ubuntu Mono",
       palette: "gray",
+      wallpaper: {
+        items: [
+          {
+            id: nanoid(),
+            name: "wallpaper-light.jpg",
+            type: "image/jpeg",
+            rawUrl: "https://vernos.us/templates/os/wallpaper-light.jpg",
+          },
+        ],
+      },
     },
     palettes: ["gray", "desert", "pink"],
     locked: true,
@@ -321,18 +331,98 @@ export const Content = types.model("Content", {
   projects: types.optional(types.array(Project), []),
 });
 
-const TemplateSettings = types.model("TemplateSettings", {
-  headingFont: types.string,
-  paragraphFont: types.string,
-  palette: types.string,
-});
+// const TemplateSettings = types.model("TemplateSettings", {
+//   headingFont: types.string,
+//   paragraphFont: types.string,
+//   palette: types.string,
+// });
 
-const TemplateSettingsMap = types.model("TemplateSettingsMap", {
-  madrid: types.optional(TemplateSettings, templates.madrid.defaults),
-  venice: types.optional(TemplateSettings, templates.venice.defaults),
-  skrol: types.optional(TemplateSettings, templates.skrol.defaults),
-  os: types.optional(TemplateSettings, templates.os.defaults),
-});
+// const TemplateSettingsMap = types.model("TemplateSettingsMap", {
+//   madrid: types.optional(TemplateSettings, templates.madrid.defaults),
+//   venice: types.optional(TemplateSettings, templates.venice.defaults),
+//   skrol: types.optional(TemplateSettings, templates.skrol.defaults),
+//   os: types.optional(TemplateSettings, templates.os.defaults),
+// });
+
+const templateModels = {
+  os: types.snapshotProcessor(
+    types.model("OsSettings", {
+      headingFont: types.optional(
+        types.string,
+        templates.os.defaults.headingFont
+      ),
+      paragraphFont: types.optional(
+        types.string,
+        templates.os.defaults.paragraphFont
+      ),
+      palette: types.optional(types.string, templates.os.defaults.palette),
+      wallpaper: types.optional(Medias, templates.os.defaults.wallpaper),
+    }),
+    {
+      postProcessor(snapshot) {
+        return {
+          ...snapshot,
+          wallpaper: {
+            items: snapshot.wallpaper.items.length
+              ? snapshot.wallpaper.items
+              : [DEFAULT_MEDIA],
+          },
+        };
+      },
+    }
+  ),
+  madrid: types.model("MadridSettings", {
+    headingFont: types.optional(
+      types.string,
+      templates.madrid.defaults.headingFont
+    ),
+    paragraphFont: types.optional(
+      types.string,
+      templates.madrid.defaults.paragraphFont
+    ),
+    palette: types.optional(types.string, templates.madrid.defaults.palette),
+  }),
+
+  skrol: types.model("SkrolSettings", {
+    headingFont: types.optional(
+      types.string,
+      templates.skrol.defaults.headingFont
+    ),
+    paragraphFont: types.optional(
+      types.string,
+      templates.skrol.defaults.paragraphFont
+    ),
+    palette: types.optional(types.string, templates.skrol.defaults.palette),
+  }),
+  venice: types.model("VeniceSettings", {
+    headingFont: types.optional(
+      types.string,
+      templates.venice.defaults.headingFont
+    ),
+    paragraphFont: types.optional(
+      types.string,
+      templates.venice.defaults.paragraphFont
+    ),
+    palette: types.optional(types.string, templates.venice.defaults.palette),
+  }),
+};
+
+const TemplateSettingsMap = types
+  .model("TemplateSettingsMap", {
+    madrid: types.optional(templateModels.madrid, {}),
+    venice: types.optional(templateModels.venice, {}),
+    skrol: types.optional(templateModels.skrol, {}),
+    os: types.optional(templateModels.os, {}),
+  })
+  .actions((self) => ({
+    set: (patch) => {
+      Object.entries(patch).forEach(([key, val]) => {
+        if (val !== undefined) {
+          self[key] = val;
+        }
+      });
+    },
+  }));
 
 export const _PortfolioData = types.model("PortfolioData", {
   content: types.optional(Content, {}),

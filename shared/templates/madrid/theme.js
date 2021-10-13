@@ -33,35 +33,59 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
         sizes: {
           xs: {
             color: "primary.700",
-            fontSize: "xl",
+            fontSize: {
+              base: "md",
+              md: "xl",
+            },
           },
           sm: {
             color: "primary.700",
-            fontSize: "2xl",
+            fontSize: {
+              base: "lg",
+              md: "2xl",
+            },
           },
           md: {
             color: "primary.700",
-            fontSize: "3xl",
+            fontSize: {
+              base: "xl",
+              md: "3xl",
+            },
           },
           lg: {
             color: "primary.700",
-            fontSize: "4xl",
+            fontSize: {
+              base: "2xl",
+              md: "4xl",
+            },
           },
           xl: {
             color: "primary.700",
-            fontSize: "5xl",
+            fontSize: {
+              base: "3xl",
+              md: "5xl",
+            },
           },
           "2xl": {
             color: "primary.700",
-            fontSize: "6xl",
+            fontSize: {
+              base: "4xl",
+              md: "6xl",
+            },
           },
           "3xl": {
             color: "primary.700",
-            fontSize: "7xl",
+            fontSize: {
+              base: "5xl",
+              md: "7xl",
+            },
           },
           "4xl": {
             color: "primary.700",
-            fontSize: "8xl",
+            fontSize: {
+              base: "6xl",
+              md: "8xl",
+            },
           },
         },
       },

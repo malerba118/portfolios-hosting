@@ -51,12 +51,13 @@ const Desktop = observer(() => {
   const fs = useFs();
   const portfolio = usePortfolio();
   const about = portfolio.data.content.about;
+  const wallpaper = portfolio.data.templateSettings?.wallpaper?.items?.[0];
   return (
     <Flex
       direction="column"
       pos="fixed"
       inset={0}
-      bgImage="url(/templates/os/wallpaper-light.jpg)"
+      bgImage={`url(${wallpaper?.processedUrl || wallpaper?.rawUrl})`}
       bgSize="cover"
       overflow="hidden"
     >

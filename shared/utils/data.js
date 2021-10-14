@@ -199,6 +199,17 @@ export const templates = {
     palettes: ["gray", "desert", "pink"],
     locked: true,
   },
+  gallery: {
+    label: "Gallery",
+    img: `/templates/gallery.png`,
+    defaults: {
+      headingFont: "Crimson Text",
+      paragraphFont: "EB Garamond",
+      palette: "gray",
+    },
+    palettes: ["gray", "pink", "desert"],
+    locked: false,
+  },
 };
 
 // SCHEMAS
@@ -405,6 +416,17 @@ const templateModels = {
     ),
     palette: types.optional(types.string, templates.venice.defaults.palette),
   }),
+  gallery: types.model("GallerySettings", {
+    headingFont: types.optional(
+      types.string,
+      templates.gallery.defaults.headingFont
+    ),
+    paragraphFont: types.optional(
+      types.string,
+      templates.gallery.defaults.paragraphFont
+    ),
+    palette: types.optional(types.string, templates.gallery.defaults.palette),
+  }),
 };
 
 const TemplateSettingsMap = types
@@ -412,6 +434,7 @@ const TemplateSettingsMap = types
     madrid: types.optional(templateModels.madrid, {}),
     venice: types.optional(templateModels.venice, {}),
     skrol: types.optional(templateModels.skrol, {}),
+    gallery: types.optional(templateModels.gallery, {}),
     os: types.optional(templateModels.os, {}),
   })
   .actions((self) => ({

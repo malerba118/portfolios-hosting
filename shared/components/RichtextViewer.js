@@ -99,7 +99,7 @@ const DefaultElement = ({ attributes, children, element }) => {
       );
     case "heading-two":
       return (
-        <Heading size="xs" {...attributes}>
+        <Heading size="sm" {...attributes}>
           {children}
         </Heading>
       );

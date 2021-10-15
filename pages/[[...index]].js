@@ -8,7 +8,7 @@ import useData from "shared/hooks/useData";
 import { useRouter } from "next/router";
 import { getPreviewablePortfolio, processPortfolio } from "shared/utils/data";
 
-const isDev = process.env.NODE_ENV === "development";
+const isLocal = process.env.NEXT_PUBLIC_IS_LOCAL === "true";
 
 export const getServerSideProps = async (ctx) => {
   try {
@@ -29,7 +29,7 @@ export const getServerSideProps = async (ctx) => {
       };
     }
     const db = await Database({ token: null });
-    const subdomain = isDev
+    const subdomain = isLocal
       ? ctx.query.subdomain
       : getSubdomain(ctx.req.headers.host);
     let portfolio;

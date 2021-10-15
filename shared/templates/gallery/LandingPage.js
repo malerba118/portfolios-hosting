@@ -2,15 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Box, Heading, Flex, Text, Center, SimpleGrid } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 // import { Parallax, ParallaxLayer } from "@react-spring/parallax";
-import ImageReveal from "./ImageReveal";
-import {
-  MotionBox,
-  MotionHeading,
-  MotionFlex,
-  transitions,
-  useAnimation,
-} from "shared/components/animation";
-import MotionImage from "shared/components/MotionImage";
+import { transitions } from "shared/components/animation";
 import Toolbar from "./Toolbar";
 import Link from "shared/components/Link";
 import { useHistory, useLocation } from "react-router-dom";
@@ -155,12 +147,17 @@ const LandingPage = () => {
                 />
                 {/* </Link> */}
                 <Box mt={2}>
-                  <Heading fontSize="2xs">
-                    <Link w="100%" to={`/projects/${project.id}`} showUnderline>
+                  <Heading fontSize="md">
+                    <Link
+                      fontSize="inherit"
+                      w="100%"
+                      to={`/projects/${project.id}`}
+                      showUnderline
+                    >
                       {project.name}
                     </Link>
                   </Heading>
-                  <Text fontSize="sm">{project.summary}</Text>
+                  <Text fontSize="md">{project.summary}</Text>
                 </Box>
               </Box>
             );

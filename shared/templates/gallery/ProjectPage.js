@@ -116,12 +116,14 @@ const ProjectPage = ({ project }) => {
           margin="0 auto"
         >
           <Heading size="3xl">{project.name}</Heading>
-          <Heading color="primary.600" size="xs">
-            <DateViewer
-              startDate={project.startDate}
-              endDate={project.endDate}
-            />
-          </Heading>
+          {(project.startDate || project.endDate) && (
+            <Heading color="primary.600" size="lg">
+              <DateViewer
+                startDate={project.startDate}
+                endDate={project.endDate}
+              />
+            </Heading>
+          )}
           <Box>
             {isDescription && <RichtextViewer value={project.description} />}
           </Box>

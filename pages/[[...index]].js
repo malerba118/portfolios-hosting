@@ -23,7 +23,8 @@ export const getServerSideProps = async (ctx) => {
       return {
         props: {
           portfolio: getPreviewablePortfolio({
-            name: ctx.query.template,
+            template: ctx.query.template,
+            persona: ctx.query.persona,
           }),
         },
       };

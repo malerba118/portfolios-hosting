@@ -228,7 +228,7 @@ function App() {
             >
               <Box w="100%" maxW="50em">
                 <Flex justify="space-between" align="center" my={2}>
-                  <Heading size="xl">About</Heading>
+                  <Heading size="lg">About</Heading>
                   {about?.resume?.url && (
                     <Button
                       onClick={() => {

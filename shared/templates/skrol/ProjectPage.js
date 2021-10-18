@@ -152,9 +152,11 @@ const ProjectPage = ({ history, match }) => {
           keyframes={keyframes.description}
         >
           <Box m="0 auto" w="100%" maxW="50em">
-            <Heading size="xl" my={2}>
-              About the Project
-            </Heading>
+            {project.summary && (
+              <Heading size="lg" my={2}>
+                {project.summary}
+              </Heading>
+            )}
             <RichtextViewer value={project.description} />
           </Box>
         </Parallax.Page>

@@ -116,6 +116,7 @@ const LandingPage = () => {
   return (
     <AnimatePresence initial={"hidden"}>
       <ScrollRoute
+        key="home-route"
         path="/"
         exact
         onMatch={(match) => {
@@ -125,6 +126,7 @@ const LandingPage = () => {
         }}
       />
       <ScrollRoute
+        key="projects-route"
         path="/projects"
         exact
         onMatch={(match) => {
@@ -134,6 +136,7 @@ const LandingPage = () => {
         }}
       />
       <Parallax
+        key="parallax-container"
         style={{
           height: "100vh",
           backgroundColor: "var(--chakra-colors-primary-100)",

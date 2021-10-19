@@ -49,11 +49,11 @@ const Toolbar = ({ animate, variants, initial = "hidden" }) => {
           About
         </Link>
         <Link
-          to={{ pathname: "/projects", state: { disableAnimations: true } }}
+          to={{ pathname: "/work", state: { disableAnimations: true } }}
           preserveQuery
           showUnderline
         >
-          Projects
+          Work
         </Link>
         <Link
           to={{ pathname: "/contact", state: { disableAnimations: true } }}

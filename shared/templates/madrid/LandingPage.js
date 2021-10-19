@@ -127,7 +127,7 @@ const LandingPage = () => {
       />
       <ScrollRoute
         key="projects-route"
-        path="/projects"
+        path="/work"
         exact
         onMatch={(match) => {
           if (match) {
@@ -227,7 +227,7 @@ const LandingPage = () => {
                 keyframes={keyframes.projectTitle}
               >
                 <Center h="100%" w="100%">
-                  <Link to={`/projects/${project.id}`}>
+                  <Link to={`/work/${project.id}`}>
                     <MotionHeading
                       size="xl"
                       fontSize="6xl"

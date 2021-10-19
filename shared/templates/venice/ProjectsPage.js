@@ -228,7 +228,7 @@ const ProjectsPage = ({ projects }) => {
 
   return (
     <AnimateSharedLayout type="switch">
-      <Page id="projects" title="Projects">
+      <Page id="projects" title="Work">
         <AnimatePresence>
           {!selected && (
             <Stack spacing={12} p={12}>

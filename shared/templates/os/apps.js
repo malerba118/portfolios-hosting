@@ -132,7 +132,7 @@ const apps = {
     },
   },
   project: {
-    name: "Project",
+    name: "Work",
     getInstanceKey: ({ node }) => "project-" + node?.data?.id,
     App: ({ node }) => {
       const lightbox = useLightbox();

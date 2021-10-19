@@ -1377,11 +1377,11 @@ const Project = types.snapshotProcessor(_Project, {
   postProcessor(snapshot) {
     return {
       ...snapshot,
-      name: snapshot.name || "Project Name",
-      summary: snapshot.summary || "Tell us about your project in a sentence",
+      name: snapshot.name || "Untitled Work",
+      summary: snapshot.summary || "Tell us about this work in a sentence",
       description: !isEmpty(snapshot.description)
         ? snapshot.description
-        : createDefaultNode("Tell us all about your project"),
+        : createDefaultNode("Tell us all about this work"),
       images: {
         items: snapshot.images.items.length
           ? snapshot.images.items

@@ -24,7 +24,7 @@ export const portfolioToNodes = (portfolio) => {
   const projects = new Node({
     id: "projects",
     type: "folder",
-    name: "Projects",
+    name: "Work",
     parent: desktop,
   });
   const about = new Node({

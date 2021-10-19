@@ -36,8 +36,8 @@ const Toolbar = ({}) => {
         <Link to="/about" preserveQuery showUnderline>
           About
         </Link>
-        <Link to="/projects" preserveQuery showUnderline>
-          Projects
+        <Link to="/work" preserveQuery showUnderline>
+          Work
         </Link>
         <Link to="/contact" preserveQuery showUnderline>
           Contact

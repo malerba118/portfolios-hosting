@@ -104,7 +104,7 @@ const LandingPage = () => {
         }}
       />
       <ScrollRoute
-        path="/projects"
+        path="/work"
         exact
         onMatch={(match) => {
           if (match) {
@@ -135,13 +135,13 @@ const LandingPage = () => {
           {projects.map((project) => {
             return (
               <Box key={project.id}>
-                {/* <Link w="100%" to={`/projects/${project.id}`}> */}
+                {/* <Link w="100%" to={`/work/${project.id}`}> */}
                 <Media
                   w="100%"
                   height="300px"
                   media={project.images.items[0]}
                   onClick={() => {
-                    history.push(`/projects/${project.id}`);
+                    history.push(`/work/${project.id}`);
                   }}
                   cursor="pointer"
                 />
@@ -151,7 +151,7 @@ const LandingPage = () => {
                     <Link
                       fontSize="inherit"
                       w="100%"
-                      to={`/projects/${project.id}`}
+                      to={`/work/${project.id}`}
                       showUnderline
                     >
                       {project.name}

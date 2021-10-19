@@ -16,7 +16,7 @@ const App = () => {
   const matches = {
     about: useRouteMatch("/about"),
     contact: useRouteMatch("/contact"),
-    projectDetail: useRouteMatch("/projects/:id"),
+    projectDetail: useRouteMatch("/work/:id"),
     home: useRouteMatch("/"),
   };
 

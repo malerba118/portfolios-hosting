@@ -127,7 +127,7 @@ function App() {
         }}
       />
       <ScrollRoute
-        path="/projects"
+        path="/work"
         exact
         onMatch={(match) => {
           if (match) {
@@ -168,9 +168,9 @@ function App() {
                     About
                   </Heading>
                 </Link>
-                <Link to="/projects" showUnderline color="secondary.400">
+                <Link to="/work" showUnderline color="secondary.400">
                   <Heading color="secondary.400" size="xs">
-                    Projects
+                    Work
                   </Heading>
                 </Link>
                 <Link to="/contact" showUnderline color="secondary.400">
@@ -205,12 +205,12 @@ function App() {
 
                   <Button
                     onClick={() => {
-                      history.push("/projects");
+                      history.push("/work");
                     }}
                     colorScheme="secondary"
                     variant="outline"
                   >
-                    See Projects
+                    See Work
                   </Button>
                 </HStack>
               </Stack>
@@ -282,7 +282,7 @@ function App() {
                     cursor="pointer"
                     tabIndex={0}
                     onClick={() => {
-                      history.push(`/projects/${project.id}`);
+                      history.push(`/work/${project.id}`);
                     }}
                     keyframes={keyframes.projectTitle}
                   >
@@ -310,7 +310,7 @@ function App() {
       </Parallax>
       <AnimatePresence exitBeforeEnter initial={false}>
         <Switch location={location} key={location.pathname}>
-          <Route path="/projects/:id" component={ProjectPage} />
+          <Route path="/work/:id" component={ProjectPage} />
         </Switch>
       </AnimatePresence>
     </>

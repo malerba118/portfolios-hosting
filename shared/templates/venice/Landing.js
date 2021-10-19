@@ -46,8 +46,8 @@ export default function Landing(props) {
           <Link as={ReactRouterLink} to="/about">
             About
           </Link>
-          <Link as={ReactRouterLink} to="/projects">
-            Projects
+          <Link as={ReactRouterLink} to="/work">
+            Work
           </Link>
           <Link as={ReactRouterLink} to="/contact">
             Contact

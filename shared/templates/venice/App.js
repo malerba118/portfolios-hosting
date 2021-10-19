@@ -46,13 +46,9 @@ export default function App(props) {
   const { about, projects, contact } = props.portfolio.content;
   const location = useLocation();
 
-  const expanded = [
-    "/about",
-    "/projects",
-    "/work",
-    "/education",
-    "/contact",
-  ].includes(location?.pathname);
+  const expanded = ["/about", "/work", "/education", "/contact"].includes(
+    location?.pathname
+  );
 
   const fonts = useFonts(["Archivo", "Karla"]);
 
@@ -119,7 +115,7 @@ export default function App(props) {
           transition={{ delay: 0.26, duration: 0.4 }}
         >
           {location?.pathname === "/about" && <AboutPage about={about} />}
-          {location?.pathname === "/projects" && (
+          {location?.pathname === "/work" && (
             <ProjectsPage projects={projects} />
           )}
           {location?.pathname === "/contact" && <ContactPage />}

@@ -190,7 +190,7 @@ const ProjectPage = ({ history, match }) => {
       </Parallax>
       <IconButton
         onClick={() => {
-          history.push({ pathname: "/projects", state: { noScroll: true } });
+          history.push({ pathname: "/work", state: { noScroll: true } });
         }}
         pos="absolute"
         top={4}

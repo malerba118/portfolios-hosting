@@ -1780,6 +1780,11 @@ anymatch@~3.1.1:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
+arc-text@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/arc-text/-/arc-text-1.0.1.tgz#8d7162a47a17365b8a3f5a9d2d42348c2f1ec7f2"
+  integrity sha512-cnK4gxPY2qm4PWdzA0PS2JkPEq1kSTgc04vLKuY0srOQNqfpSlFqJ4zalELeUPT+L5NXufHACCr8lsvgj4hnvQ==
+
 argparse@^1.0.7:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/argparse/-/argparse-1.0.10.tgz#bcd6791ea5ae09725e17e5ad988134cd40b3d911"
@@ -4070,6 +4075,11 @@ lodash.sortby@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
   integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
+
+lodash.throttle@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
+  integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
 
 lodash.truncate@^4.4.2:
   version "4.4.2"

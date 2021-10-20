@@ -107,11 +107,14 @@ const ProjectPage = ({ project }) => {
         </Parallax.Box>
       </Parallax.Page>
       <Parallax.Page keyframes={keyframes.about} pageId="about">
-        {isDescription && (
-          <Box p={{ base: 8, md: 16 }} maxWidth="900" margin="0 auto">
-            <RichtextViewer value={project.description} />
-          </Box>
-        )}
+        <Box p={{ base: 8, md: 16 }} maxWidth="900" margin="0 auto">
+          {project.summary && (
+            <Heading size="lg" my={6}>
+              {project.summary}
+            </Heading>
+          )}
+          {isDescription && <RichtextViewer value={project.description} />}
+        </Box>
       </Parallax.Page>
       {project.images.items.map((media, i) => {
         return (

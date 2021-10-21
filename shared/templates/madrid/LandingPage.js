@@ -10,10 +10,11 @@ import {
   transitions,
   useAnimation,
 } from "shared/components/animation";
-import MotionImage from "shared/components/MotionImage";
+import Media from "shared/components/Media";
 import Toolbar from "./Toolbar";
 import Link from "shared/components/Link";
 import { useLocation } from "react-router-dom";
+import DateViewer from "shared/components/DateViewer";
 import { usePortfolio } from "shared/components/PortfolioProvider";
 import Parallax from "shared/components/animation/Parallax";
 import ScrollRoute from "./ScrollRoute";
@@ -179,14 +180,17 @@ const LandingPage = () => {
                 <Heading size="2xl">
                   {about.firstName} {about.lastName}
                 </Heading>
-                <Text size="xl">{about.title}</Text>
+                <Text size="xl" pb="10px">
+                  {about.title}
+                </Text>
+                <Text size="2xl">{about.summary}</Text>
               </MotionBox>
             </Flex>
           </Parallax.Box>
         </Parallax.Page>
+
         {projects.map((project, i) => {
           const media = project.images.items[0];
-
           return (
             <Parallax.Page
               ref={i === 0 ? firstProjectRef : undefined}
@@ -202,12 +206,11 @@ const LandingPage = () => {
                 keyframes={keyframes.projectImage}
               >
                 <Center h="100%" w="100%">
-                  <MotionImage
-                    src={
-                      media?.processedUrl ||
-                      media?.rawUrl ||
-                      "/image-unavailable.jpg"
-                    }
+                  <Media
+                    cursor="pointer"
+                    onClick={() => {
+                      history.push(`/work/${project.id}`);
+                    }}
                     maxHeight="90%"
                     width={{ base: "100%", md: "55%" }}
                     left={i % 2 === 0 ? 0 : undefined}
@@ -215,8 +218,7 @@ const LandingPage = () => {
                     m={{ base: 0, md: 12 }}
                     bg="primary.50"
                     position="absolute"
-                    cursor="pointer"
-                    // boxShadow="lg"
+                    media={media}
                   />
                 </Center>
               </Parallax.Box>
@@ -238,6 +240,20 @@ const LandingPage = () => {
                     >
                       {project.name}
                     </MotionHeading>
+                    {(project.startDate || project.endDate) && (
+                      <Heading
+                        size="lg"
+                        textTransform="uppercase"
+                        color="white"
+                        textShadow="2px 4px 0px var(--chakra-colors-primary-300), 4px 8px 0px var(--chakra-colors-primary-400)"
+                        textAlign="center"
+                      >
+                        <DateViewer
+                          startDate={project.startDate}
+                          endDate={project.endDate}
+                        />
+                      </Heading>
+                    )}
                   </Link>
                 </Center>
               </Parallax.Box>

@@ -8,6 +8,7 @@ import { Redirect } from "react-router-dom";
 import Parallax from "shared/components/animation/Parallax";
 import { useLightbox } from "shared/components/Lightbox";
 import Media from "shared/components/Media";
+import DateViewer from "shared/components/DateViewer";
 import { variants } from "./styles";
 
 const keyframes = {
@@ -101,9 +102,25 @@ const ProjectPage = ({ project }) => {
             color="white"
             textShadow="2px 4px 0px var(--chakra-colors-primary-200), 4px 8px 0px var(--chakra-colors-primary-300)"
             textAlign="center"
+            pb="10px"
           >
             {project.name}
           </Heading>
+
+          {(project.startDate || project.endDate) && (
+            <Heading
+              size="lg"
+              textTransform="uppercase"
+              color="white"
+              textShadow="2px 4px 0px var(--chakra-colors-primary-300), 4px 8px 0px var(--chakra-colors-primary-400)"
+              textAlign="center"
+            >
+              <DateViewer
+                startDate={project.startDate}
+                endDate={project.endDate}
+              />
+            </Heading>
+          )}
         </Parallax.Box>
       </Parallax.Page>
       <Parallax.Page keyframes={keyframes.about} pageId="about">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Heading, Flex } from "@chakra-ui/react";
+import { Box, Heading, Flex, Button, HStack } from "@chakra-ui/react";
 import { MotionBox } from "shared/components/animation";
 import MotionImage from "shared/components/MotionImage";
 import RichtextViewer from "shared/components/RichtextViewer";
@@ -88,6 +88,23 @@ const AboutPage = ({ about }) => {
       </Parallax.Page>
       <Parallax.Page pageId="description" keyframes={keyframes.description}>
         <Box p={{ base: 8, md: 16 }} maxWidth="900" margin="0 auto">
+          <HStack spacing="12px" alignItems="start" mb="20px">
+            <Heading flex="1" size="md">
+              {about.summary}
+            </Heading>
+            {about.resume && (
+              <Button
+                onClick={() => {
+                  window.open(about?.resume?.url, "_blank");
+                }}
+                colorScheme="primary"
+                variant="solid"
+                size="md"
+              >
+                Resume
+              </Button>
+            )}
+          </HStack>
           <RichtextViewer value={about.description} />
         </Box>
       </Parallax.Page>

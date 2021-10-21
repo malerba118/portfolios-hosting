@@ -139,7 +139,9 @@ function LandingPage() {
             </Flex>
             <Box width="100%" maxW="900px" margin="0 auto">
               <CircularCard
-                text={about.firstName + " " + about.lastName}
+                text={
+                  about.firstName + " " + about.lastName + " • " + about.title
+                }
                 src={profileMedia?.processedUrl || profileMedia?.rawUrl}
                 radius={breakpoint === "base" ? 180 : 280}
                 degreePerChar={9}

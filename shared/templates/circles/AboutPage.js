@@ -44,7 +44,7 @@ const keyframes = {
       rotate: "0deg",
       scale: 1.6,
     },
-    [page.y + container.height * 1.25]: {
+    [page.y + container.height * 1]: {
       rotate: "-25deg",
       scale: 2.2,
     },
@@ -56,7 +56,7 @@ const keyframes = {
       scale: 0.95,
       y: 175,
     },
-    [page.y < 1 ? page.y : 1]: {
+    [page.y < 1 ? page.y : 1.0001]: {
       opacity: 1,
       skewY: "0deg",
       scale: 1,
@@ -66,13 +66,13 @@ const keyframes = {
   gallery: ({ page, container }) => ({
     [page.y - container.height]: {
       opacity: 0,
-      skewY: "4deg",
+      // skewY: "4deg",
       scale: 0.8,
       y: 200,
     },
     [page.y < 1 ? page.y : 1]: {
       opacity: 1,
-      skewY: "0deg",
+      // skewY: "0deg",
       scale: 1,
       y: 0,
     },
@@ -107,7 +107,9 @@ const AboutPage = ({ about }) => {
         >
           <Center h="100%" pos="relative">
             <CircularCard
-              text={about.firstName + " " + about.lastName}
+              text={
+                about.firstName + " " + about.lastName + " • " + about.title
+              }
               src={media?.processedUrl || media?.rawUrl}
               radius={window.innerHeight / 2 - 50}
               onClick={() => {

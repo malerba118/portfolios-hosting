@@ -66,13 +66,13 @@ const keyframes = {
   gallery: ({ page, container }) => ({
     [page.y - container.height]: {
       opacity: 0,
-      // skewY: "4deg",
+      skewY: "4deg",
       scale: 0.8,
       y: 200,
     },
     [page.y < 1 ? page.y : 1]: {
       opacity: 1,
-      // skewY: "0deg",
+      skewY: "0deg",
       scale: 1,
       y: 0,
     },

@@ -180,7 +180,7 @@ const LandingPage = () => {
                 <Heading size="2xl">
                   {about.firstName} {about.lastName}
                 </Heading>
-                <Text size="xl" pb="10px">
+                <Text size="xl" mb="3">
                   {about.title}
                 </Text>
                 <Text size="2xl">{about.summary}</Text>

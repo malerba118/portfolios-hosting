@@ -115,6 +115,10 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
             color: "primary.700",
             fontSize: "xl",
           },
+          "2xl": {
+            color: "primary.700",
+            fontSize: "2xl",
+          },
         },
       },
       Link: {

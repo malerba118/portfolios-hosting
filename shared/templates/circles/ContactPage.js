@@ -21,6 +21,7 @@ import { useDraftMode } from "shared/components/DraftModeProvider";
 import { IoMdReturnLeft } from "react-icons/io";
 import useContactForm, { validate, isEmpty } from "shared/hooks/useContactForm";
 import SocialLinks from "shared/components/SocialLinks";
+import { useHistory } from "react-router-dom";
 
 export const ContactSection = () => {
   // type Mode = null | 'form' | 'info'
@@ -87,9 +88,23 @@ export const ContactSection = () => {
           </Heading>
         </Stack>
       )}
-      {mode === "form" && <ContactForm />}
-      {mode === "info" && <ContactInfo />}
-      {mode !== null && (
+      {mode === "form" && (
+        <ContactForm
+          showBackButton
+          onBack={() => {
+            setMode(null);
+          }}
+        />
+      )}
+      {mode === "info" && (
+        <ContactInfo
+          showBackButton
+          onBack={() => {
+            setMode(null);
+          }}
+        />
+      )}
+      {/* {mode !== null && (
         <IconButton
           onClick={() => setMode(null)}
           pos="absolute"
@@ -97,7 +112,7 @@ export const ContactSection = () => {
           left={4}
           icon={<IoMdReturnLeft />}
         />
-      )}
+      )} */}
       <SocialLinks
         isInline
         tooltipPlacement="top"
@@ -109,7 +124,7 @@ export const ContactSection = () => {
   );
 };
 
-const ContactForm = () => {
+const ContactForm = ({ onBack, showBackButton }) => {
   const portfolio = usePortfolio();
   const draftMode = useDraftMode();
   const contactForm = useContactForm();
@@ -118,6 +133,7 @@ const ContactForm = () => {
 
   return (
     <Stack
+      position="relative"
       as="form"
       fontSize="xl"
       spacing={{ base: 4, md: 4 }}
@@ -146,6 +162,16 @@ const ContactForm = () => {
       <Heading textAlign="start" size="xl">
         Leave a Message
       </Heading>
+      {showBackButton && (
+        <IconButton
+          onClick={() => onBack()}
+          pos="absolute"
+          top={"-2px"}
+          left={"-44px"}
+          size="sm"
+          icon={<IoMdReturnLeft />}
+        />
+      )}
       <FormControl isInvalid={!!contactForm.errors.name} id="name">
         <FormLabel as={Text}>Your Name</FormLabel>
         <Input
@@ -200,16 +226,47 @@ const ContactForm = () => {
   );
 };
 
-const ContactInfo = () => {
+const ContactInfo = ({ onBack, showBackButton = false }) => {
   const portfolio = usePortfolio();
   const contact = portfolio.data.content.contact;
   return (
-    <Stack>
+    <Stack pos="relative">
       <Heading textAlign="start" size="xl">
         Get in Touch
       </Heading>
+      {showBackButton && (
+        <IconButton
+          onClick={() => onBack()}
+          pos="absolute"
+          top={"1px"}
+          left={"-48px"}
+          size="sm"
+          icon={<IoMdReturnLeft />}
+        />
+      )}
       {contact.email && <Heading size="md">Email: {contact.email}</Heading>}
       {contact.phone && <Heading size="md">Phone: {contact.phone}</Heading>}
     </Stack>
   );
 };
+
+const ContactPage = () => {
+  const history = useHistory();
+  return (
+    <Box minH="100vh">
+      <ContactSection />
+      <IconButton
+        onClick={() => {
+          history.push({ pathname: "/work", state: { noScroll: true } });
+        }}
+        pos="absolute"
+        top={4}
+        left={4}
+        // color="primary.900"
+        icon={<IoMdReturnLeft />}
+      />
+    </Box>
+  );
+};
+
+export default ContactPage;

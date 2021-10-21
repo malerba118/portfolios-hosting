@@ -309,15 +309,19 @@ export const Box = forwardRef(({ keyframes, children, ...otherProps }, ref) => {
   };
 
   useLayoutEffect(() => {
-    const updateSprings = throttle((progress) => {
-      springs.x.set(animations.x?.get(progress) ?? "0");
-      springs.y.set(animations.y?.get(progress) ?? "0");
-      springs.scale.set(animations.scale?.get(progress) ?? "1");
-      springs.skewX.set(animations.skewX?.get(progress) ?? "0");
-      springs.skewY.set(animations.skewY?.get(progress) ?? "0");
-      springs.rotate.set(animations.rotate?.get(progress) ?? "0");
-      springs.opacity.set(animations.opacity?.get(progress) ?? "1");
-    }, 80);
+    const updateSprings = throttle(
+      (progress) => {
+        springs.x.set(animations.x?.get(progress) ?? "0");
+        springs.y.set(animations.y?.get(progress) ?? "0");
+        springs.scale.set(animations.scale?.get(progress) ?? "1");
+        springs.skewX.set(animations.skewX?.get(progress) ?? "0");
+        springs.skewY.set(animations.skewY?.get(progress) ?? "0");
+        springs.rotate.set(animations.rotate?.get(progress) ?? "0");
+        springs.opacity.set(animations.opacity?.get(progress) ?? "1");
+      },
+      90,
+      { leading: true, trailing: true }
+    );
     updateSprings(scroll.progress.position.y.get());
     return scroll.progress.position.y.onChange(updateSprings);
   }, [scroll.progress.position.y, animations]);

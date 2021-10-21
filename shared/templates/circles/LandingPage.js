@@ -29,7 +29,6 @@ import ProjectPage from "./ProjectPage";
 import { AnimatePresence } from "framer-motion";
 import { createDefaultNode } from "shared/components/RichtextViewer";
 import Media from "shared/components/Media";
-import { ContactSection } from "./Contact";
 import MotionImage from "shared/components/MotionImage";
 import CircularCard from "./CircularCard";
 
@@ -110,15 +109,6 @@ function LandingPage() {
         onMatch={(match) => {
           if (match) {
             firstProjectRef.current.scrollIntoView();
-          }
-        }}
-      />
-      <ScrollRoute
-        path="/contact"
-        exact
-        onMatch={(match) => {
-          if (match) {
-            contactPageRef.current.scrollIntoView();
           }
         }}
       />
@@ -246,7 +236,7 @@ function LandingPage() {
                 width="100%"
                 maxW="900px"
                 margin="0 auto"
-                justifyContent={i % 2 === 0 ? "end" : "start"}
+                justifyContent={i % 2 === 0 ? "flex-end" : "flex-start"}
               >
                 <Parallax.Box
                   display="inline-block"

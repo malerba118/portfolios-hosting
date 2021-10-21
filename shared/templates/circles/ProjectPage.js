@@ -190,7 +190,12 @@ const ProjectPage = ({ project }) => {
             spacing={{ base: 6, md: 12 }}
           >
             {project.images.items.map((media) => (
-              <AspectRatio key={media.id} width="100%" ratio={1 / 1}>
+              <AspectRatio
+                key={media.id}
+                width="100%"
+                ratio={1 / 1}
+                transform="translateZ(0)"
+              >
                 <Media
                   media={media}
                   width="100%"

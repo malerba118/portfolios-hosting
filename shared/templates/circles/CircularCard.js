@@ -63,6 +63,7 @@ const CircularCard = ({
         height={`calc(${radius * 2}px - 6rem)`}
         borderRadius="100%"
         overflow="hidden"
+        transform="translateZ(0)"
       >
         <Parallax.Box width={"100%"} height={"100%"} keyframes={imageKeyframes}>
           <MotionImage

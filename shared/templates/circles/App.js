@@ -10,7 +10,7 @@ import LandingPage from "./LandingPage";
 import ProjectPage from "./ProjectPage";
 import { Center, Heading } from "@chakra-ui/react";
 import Logo from "shared/components/Logo";
-// import ContactPage from "./ContactPage";
+import ContactPage from "./ContactPage";
 
 const App = () => {
   const portfolio = usePortfolio();
@@ -37,12 +37,12 @@ const App = () => {
         <TransitionPage key="about">
           <AboutPage about={portfolio.data.content.about} />
         </TransitionPage>
-      )}
-      {matches.contact && (
-        <TransitionPage key="contact">
-          <ContactPage />
-        </TransitionPage>
       )} */}
+      {matches.contact && (
+        <SkewTransitionPage key="contact">
+          <ContactPage />
+        </SkewTransitionPage>
+      )}
       {matches.projectDetail && (
         <SkewTransitionPage key="project-detail">
           <ProjectPage

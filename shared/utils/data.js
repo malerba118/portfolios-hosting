@@ -870,7 +870,7 @@ const EXAMPLE_PORTFOLIOS = {
             items: [],
           },
           summary:
-            "I'm passionate about intentional architecture created through conceptual clarity, and an honesty and simplicity of form and material.",
+            "I'm passionate about intentional architecture and emergent design.",
           lastName: "Martin",
           firstName: "Jordan",
           images: {
@@ -903,7 +903,7 @@ const EXAMPLE_PORTFOLIOS = {
           },
           title: "Intentional Architect",
           description:
-            '[{"type":"heading-two","children":[{"text":"I\'m "},{"text":"Jordan Martin","bold":true},{"text":" and I am passionate about intentional architecture. "}]},{"type":"paragraph","children":[{"text":""}]},{"type":"paragraph","children":[{"text":"My objective is to simplify development, extensibility and usability through efficient, clever, and inspirational architectural design."}]},{"type":"paragraph","children":[{"text":""}]},{"type":"paragraph","children":[{"text":"All my work is purposeful and created through planned architectural strategies and initiatives, which enhance solution design, performance, and usability and provide guidance for inter-team design and implementation synchronization. "}]}]',
+            '[{"type":"paragraph","children":[{"text":"Hi, I\'m Jordan and my objective is to simplify development, extensibility and usability through efficient, clever, and inspirational architectural design."}]},{"type":"paragraph","children":[{"text":""}]},{"type":"paragraph","children":[{"text":"All my work is purposeful and created through planned architectural strategies and initiatives, which enhance solution design, performance, and usability and provide guidance for inter-team design and implementation synchronization. "}]}]',
         },
         contact: {
           email: {

@@ -6,7 +6,7 @@ import SkewTransitionPage from "shared/components/SkewTransitionPage";
 import Advertisement from "shared/components/Advertisement";
 import { usePortfolio } from "shared/components/PortfolioProvider";
 import LandingPage from "./LandingPage";
-// import AboutPage from "./AboutPage";
+import AboutPage from "./AboutPage";
 import ProjectPage from "./ProjectPage";
 import { Center, Heading } from "@chakra-ui/react";
 import Logo from "shared/components/Logo";
@@ -33,11 +33,11 @@ const App = () => {
 
   return (
     <AnimatePresence initial={false} exitBeforeEnter>
-      {/* {matches.about && (
-        <TransitionPage key="about">
+      {matches.about && (
+        <SkewTransitionPage key="about">
           <AboutPage about={portfolio.data.content.about} />
-        </TransitionPage>
-      )} */}
+        </SkewTransitionPage>
+      )}
       {matches.contact && (
         <SkewTransitionPage key="contact">
           <ContactPage />

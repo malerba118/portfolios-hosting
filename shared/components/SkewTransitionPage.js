@@ -1,5 +1,5 @@
 import React from "react";
-import { MotionBox } from "./animation/chakra";
+import { MotionBox, transitions } from "./animation/chakra";
 
 const Enter = ({ children, duration }) => {
   return (
@@ -11,7 +11,7 @@ const Enter = ({ children, duration }) => {
       animate={{
         y: "110vh",
         scale: 1,
-        transition: { duration },
+        transition: transitions.one(duration),
       }}
     >
       {children}
@@ -30,7 +30,7 @@ const Exit = ({ children, duration }) => {
       exit={{
         y: 0,
         scale: 1,
-        transition: { duration },
+        transition: transitions.one(duration),
       }}
     >
       {children}
@@ -39,7 +39,7 @@ const Exit = ({ children, duration }) => {
 };
 
 const SkewTransitionPage = ({
-  transitionDuration = 0.8,
+  transitionDuration = 0.85,
   transitionChildren,
   ...otherProps
 }) => {

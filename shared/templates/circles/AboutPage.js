@@ -3,7 +3,7 @@ import {
   Box,
   Center,
   SimpleGrid,
-  Stack,
+  CloseButton,
   IconButton,
   AspectRatio,
 } from "@chakra-ui/react";
@@ -56,7 +56,7 @@ const keyframes = {
       scale: 0.95,
       y: 175,
     },
-    [page.y]: {
+    [page.y < 1 ? page.y : 1]: {
       opacity: 1,
       skewY: "0deg",
       scale: 1,
@@ -79,21 +79,18 @@ const keyframes = {
   }),
 };
 
-const ProjectPage = ({ project }) => {
+const AboutPage = ({ about }) => {
   const lightbox = useLightbox();
   const history = useHistory();
 
   useEffect(() => {
-    const medias = project.images.items;
+    const medias = about.images.items;
     if (medias) {
       lightbox.setItems(medias);
     }
   }, []);
 
-  if (!project) {
-    return null;
-  }
-  const media = project.images.items[0];
+  const media = about.images.items[0];
   return (
     <Box
       // initial={{ opacity: 0, scale: 1.1 }}
@@ -105,12 +102,12 @@ const ProjectPage = ({ project }) => {
       <Parallax h="100%">
         <Parallax.Page
           h="100vh"
-          pageId="project-intro"
+          pageId="about-intro"
           keyframes={keyframes.intro}
         >
           <Center h="100%" pos="relative">
             <CircularCard
-              text={project.name}
+              text={about.firstName + " " + about.lastName}
               src={media?.processedUrl || media?.rawUrl}
               radius={window.innerHeight / 2 - 50}
               onClick={() => {
@@ -164,28 +161,20 @@ const ProjectPage = ({ project }) => {
           </Center> */}
         </Parallax.Page>
         <Parallax.Page
-          pageId="project-description"
+          pageId="about-description"
           p={{ base: 8, md: 24 }}
           keyframes={keyframes.description}
         >
           <Box m="0 auto" w="100%" maxW="50em">
-            <Stack mb={3} spacing={1}>
-              {project.summary && (
-                <Heading size="lg">{project.summary}</Heading>
-              )}
-              {(project.startDate || project.endDate) && (
-                <Heading color="primary.600" size="md">
-                  <DateViewer
-                    startDate={project.startDate}
-                    endDate={project.endDate}
-                  />
-                </Heading>
-              )}
-            </Stack>
-            <RichtextViewer value={project.description} />
+            {about.summary && (
+              <Heading size="lg" mb={3}>
+                {about.summary}
+              </Heading>
+            )}
+            <RichtextViewer value={about.description} />
           </Box>
         </Parallax.Page>
-        <Parallax.Page
+        {/* <Parallax.Page
           pageId="project-gallery"
           keyframes={keyframes.gallery}
           p={{ base: 6 }}
@@ -220,7 +209,7 @@ const ProjectPage = ({ project }) => {
               </AspectRatio>
             ))}
           </SimpleGrid>
-        </Parallax.Page>
+        </Parallax.Page> */}
       </Parallax>
       <IconButton
         onClick={() => {
@@ -236,4 +225,4 @@ const ProjectPage = ({ project }) => {
   );
 };
 
-export default withRouter(ProjectPage);
+export default withRouter(AboutPage);

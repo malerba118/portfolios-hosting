@@ -4,11 +4,11 @@ export const variants = {
   image: {
     hover: {
       scale: 1.05,
-      transition: transitions.two(0.33),
+      transition: transitions.two(0.41),
     },
     loading: {
       opacity: 0,
-      scale: 1.25,
+      scale: 1.2,
     },
     loaded: {
       opacity: 1,

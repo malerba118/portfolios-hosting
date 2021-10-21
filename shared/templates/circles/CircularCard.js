@@ -3,6 +3,7 @@ import { Box, Center } from "@chakra-ui/react";
 import ArcText from "shared/components/ArcText";
 import Parallax from "shared/components/animation/Parallax";
 import MotionImage from "shared/components/MotionImage";
+import { variants } from "./styles";
 
 const keyframes = {
   circleText: ({ page, container }) => ({
@@ -18,7 +19,7 @@ const keyframes = {
   }),
   circleImage: ({ page, container }) => ({
     [page.y - container.height * 1.25]: {
-      rotate: "-13deg",
+      rotate: "13deg",
       scale: 1,
     },
     [page.y]: {
@@ -71,6 +72,10 @@ const CircularCard = ({
             src={src}
             width={"100%"}
             height={"100%"}
+            variants={{
+              image: variants.image,
+            }}
+            cursor="pointer"
           />
         </Parallax.Box>
       </Box>

@@ -62,9 +62,7 @@ const keyframes = {
 
 function LandingPage() {
   const introPageRef = useRef(null);
-  const aboutPageRef = useRef(null);
   const firstProjectRef = useRef(null);
-  const contactPageRef = useRef(null);
   const history = useHistory();
   const location = useLocation();
   const portfolio = usePortfolio();
@@ -91,15 +89,6 @@ function LandingPage() {
         onMatch={(match) => {
           if (match) {
             introPageRef.current.scrollIntoView();
-          }
-        }}
-      />
-      <ScrollRoute
-        path="/about"
-        exact
-        onMatch={(match) => {
-          if (match) {
-            aboutPageRef.current.scrollIntoView();
           }
         }}
       />
@@ -154,6 +143,9 @@ function LandingPage() {
                 src={profileMedia?.processedUrl || profileMedia?.rawUrl}
                 radius={breakpoint === "base" ? 180 : 280}
                 degreePerChar={9}
+                onClick={() => {
+                  history.push(`/about`);
+                }}
               />
               {/* <Stack
                 w="100%"

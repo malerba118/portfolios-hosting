@@ -20,7 +20,6 @@
     "@react-three/fiber": "^7.0.1",
     "@rooks/use-window-size": "^4.11.2",
     "@stripe/stripe-js": "^1.15.0",
-    "arc-text": "^1.0.1",
     "axios": "^0.21.1",
     "babel-plugin-superjson-next": "^0.3.0",
     "dateformat": "^5.0.1",

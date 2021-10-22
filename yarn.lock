@@ -1780,11 +1780,6 @@ anymatch@~3.1.1:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-arc-text@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/arc-text/-/arc-text-1.0.1.tgz#8d7162a47a17365b8a3f5a9d2d42348c2f1ec7f2"
-  integrity sha512-cnK4gxPY2qm4PWdzA0PS2JkPEq1kSTgc04vLKuY0srOQNqfpSlFqJ4zalELeUPT+L5NXufHACCr8lsvgj4hnvQ==
-
 argparse@^1.0.7:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/argparse/-/argparse-1.0.10.tgz#bcd6791ea5ae09725e17e5ad988134cd40b3d911"

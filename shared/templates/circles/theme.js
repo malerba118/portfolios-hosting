@@ -1,35 +1,9 @@
-import { extendTheme, theme as CHAKRA_THEME } from "@chakra-ui/react";
-import { palettes, invert } from "shared/utils/colors";
-import * as ant from "@ant-design/colors";
-
-const colorsToPalette = (colors) => ({
-  50: colors[0],
-  100: colors[1],
-  200: colors[2],
-  300: colors[3],
-  400: colors[4],
-  500: colors[5],
-  600: colors[6],
-  700: colors[7],
-  800: colors[8],
-  900: colors[9],
-});
-
-const generate = (color, { backgroundColor, theme = "light" } = {}) => {
-  const colors = ant.generate(color, {
-    theme,
-    backgroundColor,
-  });
-  return colorsToPalette(colors);
-};
+import { extendTheme } from "@chakra-ui/react";
+import { palettes } from "shared/utils/colors";
 
 export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
   extendTheme({
     colors: palettes[palette],
-    // colors: {
-    //   primary: palette.primary,
-    //   secondary: palette.secondary,
-    // },
     fonts: {
       heading: headingFont,
       body: paragraphFont,

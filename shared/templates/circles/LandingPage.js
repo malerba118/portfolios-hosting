@@ -101,7 +101,7 @@ function LandingPage() {
           }
         }}
       />
-      <Parallax h="100vh">
+      <Parallax h="var(--app-height)">
         <Parallax.Page ref={introPageRef} pageId="intro-page">
           <Box h="100%">
             <Flex

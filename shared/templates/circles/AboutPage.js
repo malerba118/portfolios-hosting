@@ -82,10 +82,10 @@ const AboutPage = ({ about }) => {
 
   const media = about.images.items[0];
   return (
-    <Box h="100vh" bg="primary.50">
+    <Box h="var(--app-height)" bg="primary.50">
       <Parallax h="100%">
         <Parallax.Page
-          h="100vh"
+          h="var(--app-height)"
           pageId="about-intro"
           keyframes={keyframes.intro}
         >
@@ -95,7 +95,7 @@ const AboutPage = ({ about }) => {
                 about.firstName + " " + about.lastName + " • " + about.title
               }
               src={media?.processedUrl || media?.rawUrl}
-              radius={window.innerHeight / 2 - 50}
+              radius={Math.min(window.innerHeight, window.innerWidth) / 2 - 24}
               onClick={() => {
                 lightbox.open({ id: media.id });
               }}

@@ -12,6 +12,14 @@ import { Center, Heading } from "@chakra-ui/react";
 import Logo from "shared/components/Logo";
 import ContactPage from "./ContactPage";
 
+const syncAppHeight = () =>
+  document.documentElement.style.setProperty(
+    "--app-height",
+    `${window.innerHeight}px`
+  );
+window.addEventListener("resize", syncAppHeight);
+syncAppHeight();
+
 const App = () => {
   const portfolio = usePortfolio();
 

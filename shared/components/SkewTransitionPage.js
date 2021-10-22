@@ -39,7 +39,7 @@ const Exit = ({ children, duration }) => {
 };
 
 const SkewTransitionPage = ({
-  transitionDuration = 0.85,
+  transitionDuration = 0.9,
   transitionChildren,
   ...otherProps
 }) => {

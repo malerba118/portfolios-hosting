@@ -46,13 +46,7 @@ const SkewTransitionPage = ({
   const duration = transitionDuration / 2;
   return (
     <>
-      <MotionBox
-        position="relative"
-        initial={{ opacity: 0.999 }}
-        animate={{ opacity: 1, transition: { duration } }}
-        exit={{ opacity: 0.999, transition: { duration } }}
-        {...otherProps}
-      />
+      <MotionBox position="relative" {...otherProps} />
       <Enter duration={duration} children={transitionChildren} />
       <Exit duration={duration} children={transitionChildren} />
     </>

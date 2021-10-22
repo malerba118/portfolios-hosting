@@ -95,13 +95,7 @@ const ProjectPage = ({ project }) => {
   }
   const media = project.images.items[0];
   return (
-    <Box
-      // initial={{ opacity: 0, scale: 1.1 }}
-      // animate={{ opacity: 1, scale: 1, transition: transitions.two(0.5) }}
-      // exit={{ opacity: 0, scale: 0.85, transition: transitions.two(0.5) }}
-      h="100vh"
-      bg="primary.50"
-    >
+    <Box h="100vh" bg="primary.50">
       <Parallax h="100%">
         <Parallax.Page
           h="100vh"
@@ -118,50 +112,7 @@ const ProjectPage = ({ project }) => {
               }}
               imageKeyframes={keyframes.circleImage}
             />
-            {/* <Media
-              media={media}
-              h="100%"
-              w="100%"
-              initialScale={1.1}
-              objectFit="cover"
-              cursor="pointer"
-              onClick={() => {
-                lightbox.open({ id: media.id });
-              }}
-              variants={{
-                image: variants.image,
-              }}
-            /> */}
           </Center>
-          {/* <Center flexDirection="column" pos="absolute" inset={0}>
-            <Parallax.Box keyframes={keyframes.introBanner} boxShadow="xl">
-              <Box p={4} backgroundColor="secondary.400">
-                <Heading
-                  size="4xl"
-                  color="primary.50"
-                  textTransform="uppercase"
-                  textAlign="center"
-                >
-                  {project.name}
-                </Heading>
-              </Box>
-              {(project.startDate || project.endDate) && (
-                <Box w="100%" p={4} backgroundColor="primary.50">
-                  <Heading
-                    size="xl"
-                    color="secondary.400"
-                    textTransform="uppercase"
-                    textAlign="center"
-                  >
-                    <DateViewer
-                      startDate={project.startDate}
-                      endDate={project.endDate}
-                    />
-                  </Heading>
-                </Box>
-              )}
-            </Parallax.Box>
-          </Center> */}
         </Parallax.Page>
         <Parallax.Page
           pageId="project-description"

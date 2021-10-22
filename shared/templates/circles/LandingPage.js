@@ -149,75 +149,9 @@ function LandingPage() {
                   history.push(`/about`);
                 }}
               />
-              {/* <Stack
-                w="100%"
-                px={{ base: 8, md: 24 }}
-                spacing={{ base: 3, md: 3 }}
-              >
-                <Heading maxW="800px" size="3xl" textTransform="uppercase">
-                  {about.summary}
-                </Heading>
-                <Heading maxW="600px" size="sm" pb={2}>
-                  {about.firstName + " " + about.lastName} {"  "}•{"  "}
-                  {about.title}
-                </Heading>
-                <HStack alignSelf="start" spacing={4}>
-                  <Button
-                    onClick={() => {
-                      history.push("/about");
-                    }}
-                    colorScheme="secondary"
-                  >
-                    About Me
-                  </Button>
-
-                  <Button
-                    onClick={() => {
-                      history.push("/work");
-                    }}
-                    colorScheme="secondary"
-                    variant="outline"
-                  >
-                    See Work
-                  </Button>
-                </HStack>
-              </Stack> */}
             </Box>
           </Box>
         </Parallax.Page>
-        {/* <Parallax.Page ref={aboutPageRef} pageId={`about-page`}>
-          <Parallax.Box keyframes={keyframes.about}>
-            <Center
-              flexDirection="column"
-              h="100%"
-              px={{ base: 8, md: 24 }}
-              py={{ base: 6, md: 12 }}
-              pos="relative"
-            >
-              <Box w="100%" maxW="50em">
-                <Flex justify="space-between" align="center" my={2}>
-                  <Heading size="lg">About</Heading>
-                  {about?.resume?.url && (
-                    <Button
-                      onClick={() => {
-                        window.open(about?.resume?.url, "_blank");
-                      }}
-                      colorScheme="secondary"
-                      variant="outline"
-                      size="md"
-                    >
-                      View Resume
-                    </Button>
-                  )}
-                </Flex>
-                <RichtextViewer
-                  value={about.description}
-                  defaultValue={createDefaultNode("Tell us all about you")}
-                />
-              </Box>
-            </Center>
-          </Parallax.Box>
-        </Parallax.Page> */}
         {portfolio.data.content.projects.map((project, i) => {
           const media = project.images.items[0];
           return (
@@ -251,17 +185,7 @@ function LandingPage() {
             </Parallax.Page>
           );
         })}
-        {/* <Parallax.Page ref={contactPageRef} pageId={`contact-page`}>
-          <Parallax.Box keyframes={keyframes.contact}>
-            <ContactSection />
-          </Parallax.Box>
-        </Parallax.Page> */}
       </Parallax>
-      {/* <AnimatePresence exitBeforeEnter initial={false}>
-        <Switch location={location} key={location.pathname}>
-          <Route path="/work/:id" component={ProjectPage} />
-        </Switch>
-      </AnimatePresence> */}
     </>
   );
 }

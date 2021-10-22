@@ -54,6 +54,9 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
           solid: {
             backgroundColor: "secondary.400",
             color: "primary.50",
+            _hover: {
+              backgroundColor: "secondary.500",
+            },
           },
           outline: {
             color: "secondary.400",

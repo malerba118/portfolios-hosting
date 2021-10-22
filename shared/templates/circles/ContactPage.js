@@ -33,7 +33,12 @@ export const ContactSection = () => {
   // If no info, jsut show form
   if (!hasInfo) {
     return (
-      <Center pos="relative" flexDirection="column" minH="100vh" p={8}>
+      <Center
+        pos="relative"
+        flexDirection="column"
+        minH="var(--app-height)"
+        p={8}
+      >
         <ContactForm />
         <SocialLinks
           isInline
@@ -48,7 +53,12 @@ export const ContactSection = () => {
 
   // Otherwise give option to choose mode
   return (
-    <Center pos="relative" flexDirection="column" minH="100vh" p={8}>
+    <Center
+      pos="relative"
+      flexDirection="column"
+      minH="var(--app-height)"
+      p={8}
+    >
       {mode === null && (
         <Stack spacing={6}>
           <Heading size="3xl" color="secondary.400" textAlign="center">
@@ -253,7 +263,7 @@ const ContactInfo = ({ onBack, showBackButton = false }) => {
 const ContactPage = () => {
   const history = useHistory();
   return (
-    <Box minH="100vh">
+    <Box minH="var(--app-height)">
       <ContactSection />
       <IconButton
         onClick={() => {

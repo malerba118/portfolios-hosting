@@ -95,10 +95,10 @@ const ProjectPage = ({ project }) => {
   }
   const media = project.images.items[0];
   return (
-    <Box h="100vh" bg="primary.50">
+    <Box h="var(--app-height)" bg="primary.50">
       <Parallax h="100%">
         <Parallax.Page
-          h="100vh"
+          h="var(--app-height)"
           pageId="project-intro"
           keyframes={keyframes.intro}
         >
@@ -106,7 +106,7 @@ const ProjectPage = ({ project }) => {
             <CircularCard
               text={project.name}
               src={media?.processedUrl || media?.rawUrl}
-              radius={window.innerHeight / 2 - 50}
+              radius={Math.min(window.innerHeight, window.innerWidth) / 2 - 24}
               onClick={() => {
                 lightbox.open({ id: media.id });
               }}

@@ -65,6 +65,7 @@ const MotionImage = ({
       animate={status}
       whileHover="hover"
       whileTap="tap"
+      transform="translateZ(0)"
       {...otherProps}
     >
       <CMotionImage

@@ -17,6 +17,7 @@ import { useScroll, ScrollProvider } from "./ScrollProvider";
 import { MotionBox } from "./chakra";
 import { keyframes as animation } from "popmotion";
 import flattenChildren from "react-keyed-flatten-children";
+import throttle from "lodash.throttle";
 
 const sum = (nums) => {
   return nums.reduce((a, b) => a + b, 0);
@@ -284,9 +285,9 @@ export const Box = forwardRef(({ keyframes, children, ...otherProps }, ref) => {
       damping: 20,
     }),
     scale: useSpring(animations.scale?.get(0) ?? "1", {
-      restDelta: 0.5,
-      restSpeed: 0.5,
-      mass: 0.005,
+      restDelta: 0.000000001,
+      restSpeed: 0.000000001,
+      mass: 0.05,
       damping: 20,
     }),
     skewX: useSpring(animations.skewX?.get(0) ?? "0", {
@@ -308,15 +309,19 @@ export const Box = forwardRef(({ keyframes, children, ...otherProps }, ref) => {
   };
 
   useLayoutEffect(() => {
-    const updateSprings = (progress) => {
-      springs.x.set(animations.x?.get(progress) ?? "0");
-      springs.y.set(animations.y?.get(progress) ?? "0");
-      springs.scale.set(animations.scale?.get(progress) ?? "1");
-      springs.skewX.set(animations.skewX?.get(progress) ?? "0");
-      springs.skewY.set(animations.skewY?.get(progress) ?? "0");
-      springs.rotate.set(animations.rotate?.get(progress) ?? "0");
-      springs.opacity.set(animations.opacity?.get(progress) ?? "1");
-    };
+    const updateSprings = throttle(
+      (progress) => {
+        springs.x.set(animations.x?.get(progress) ?? "0");
+        springs.y.set(animations.y?.get(progress) ?? "0");
+        springs.scale.set(animations.scale?.get(progress) ?? "1");
+        springs.skewX.set(animations.skewX?.get(progress) ?? "0");
+        springs.skewY.set(animations.skewY?.get(progress) ?? "0");
+        springs.rotate.set(animations.rotate?.get(progress) ?? "0");
+        springs.opacity.set(animations.opacity?.get(progress) ?? "1");
+      },
+      90,
+      { leading: true, trailing: true }
+    );
     updateSprings(scroll.progress.position.y.get());
     return scroll.progress.position.y.onChange(updateSprings);
   }, [scroll.progress.position.y, animations]);

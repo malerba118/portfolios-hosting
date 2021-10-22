@@ -737,7 +737,7 @@ const EXAMPLE_PORTFOLIOS = {
             id: "RpKVGECTOSWUv6KAXS40v",
             name: "Prospect Building ",
             startDate: 1546326000000,
-            summary: "",
+            summary: "Redesign of the Prospect Building",
             description:
               '[{"type":"paragraph","children":[{"text":"I worked as a consultant for the recent renovations to this historic building. The Prospect Building was built in 1954 and my team and I aimed to preserve the mid-century architecture while adding contemporary accents. "}]}]',
             endDate: 1567317600000,
@@ -795,7 +795,7 @@ const EXAMPLE_PORTFOLIOS = {
             },
           },
           {
-            summary: "",
+            summary: "Skyline Mall Revitalization",
             startDate: 1601532000000,
             id: "L8ARGH1ZLHIQOEK1dCrBL",
             endDate: 1614582000000,
@@ -870,7 +870,7 @@ const EXAMPLE_PORTFOLIOS = {
             items: [],
           },
           summary:
-            "I'm passionate about intentional architecture created through conceptual clarity, and an honesty and simplicity of form and material.",
+            "I'm passionate about intentional architecture and emergent design.",
           lastName: "Martin",
           firstName: "Jordan",
           images: {
@@ -903,7 +903,7 @@ const EXAMPLE_PORTFOLIOS = {
           },
           title: "Intentional Architect",
           description:
-            '[{"type":"heading-two","children":[{"text":"I\'m "},{"text":"Jordan Martin","bold":true},{"text":" and I am passionate about intentional architecture. "}]},{"type":"paragraph","children":[{"text":""}]},{"type":"paragraph","children":[{"text":"My objective is to simplify development, extensibility and usability through efficient, clever, and inspirational architectural design."}]},{"type":"paragraph","children":[{"text":""}]},{"type":"paragraph","children":[{"text":"All my work is purposeful and created through planned architectural strategies and initiatives, which enhance solution design, performance, and usability and provide guidance for inter-team design and implementation synchronization. "}]}]',
+            '[{"type":"paragraph","children":[{"text":"Hi, I\'m Jordan and my objective is to simplify development, extensibility and usability through efficient, clever, and inspirational architectural design."}]},{"type":"paragraph","children":[{"text":""}]},{"type":"paragraph","children":[{"text":"All my work is purposeful and created through planned architectural strategies and initiatives, which enhance solution design, performance, and usability and provide guidance for inter-team design and implementation synchronization. "}]}]',
         },
         contact: {
           email: {
@@ -975,6 +975,11 @@ const EXAMPLE_PORTFOLIOS = {
           palette: "purplePink",
           headingFont: "Montserrat",
           paragraphFont: "Lato",
+        },
+        circles: {
+          palette: "blackRed",
+          headingFont: "IBM Plex Mono",
+          paragraphFont: "IBM Plex Mono",
         },
       },
       template: "madrid",
@@ -1233,6 +1238,17 @@ export const templates = {
     palettes: ["blackRed", "purplePink", "blueGreen"],
     locked: true,
   },
+  circles: {
+    label: "Circles",
+    img: `/templates/circles.png`,
+    defaults: {
+      headingFont: "Montserrat",
+      paragraphFont: "Lato",
+      palette: "whiteBlack",
+    },
+    palettes: ["blackRed", "purplePink", "blueGreen", "whiteBlack"],
+    locked: true,
+  },
   os: {
     label: "Operating System",
     img: `/templates/os.png`,
@@ -1448,7 +1464,6 @@ const templateModels = {
     ),
     palette: types.optional(types.string, templates.madrid.defaults.palette),
   }),
-
   skrol: types.model("SkrolSettings", {
     headingFont: types.optional(
       types.string,
@@ -1459,6 +1474,17 @@ const templateModels = {
       templates.skrol.defaults.paragraphFont
     ),
     palette: types.optional(types.string, templates.skrol.defaults.palette),
+  }),
+  circles: types.model("CirclesSettings", {
+    headingFont: types.optional(
+      types.string,
+      templates.circles.defaults.headingFont
+    ),
+    paragraphFont: types.optional(
+      types.string,
+      templates.circles.defaults.paragraphFont
+    ),
+    palette: types.optional(types.string, templates.circles.defaults.palette),
   }),
   venice: types.model("VeniceSettings", {
     headingFont: types.optional(
@@ -1489,6 +1515,7 @@ const TemplateSettingsMap = types
     madrid: types.optional(templateModels.madrid, {}),
     venice: types.optional(templateModels.venice, {}),
     skrol: types.optional(templateModels.skrol, {}),
+    circles: types.optional(templateModels.circles, {}),
     gallery: types.optional(templateModels.gallery, {}),
     os: types.optional(templateModels.os, {}),
   })

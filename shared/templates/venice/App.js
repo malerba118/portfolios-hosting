@@ -27,6 +27,9 @@ import ProjectsPage from "./ProjectsPage";
 import ContactPage from "./ContactPage";
 import useFonts from "shared/hooks/useFonts";
 import { transitions } from "shared/components/animation";
+import { initGoodies } from "shared/utils";
+
+initGoodies();
 
 const history = createBrowserHistory();
 

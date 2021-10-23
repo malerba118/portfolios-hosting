@@ -9,6 +9,9 @@ import LandingPage from "./LandingPage";
 import AboutPage from "./AboutPage";
 import ProjectPage from "./ProjectPage";
 import ContactPage from "./ContactPage";
+import { initGoodies } from "shared/utils";
+
+initGoodies();
 
 const App = () => {
   const portfolio = usePortfolio();

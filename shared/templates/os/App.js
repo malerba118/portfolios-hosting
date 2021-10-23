@@ -15,6 +15,9 @@ import Desktop from "./Desktop";
 import { FileSystem, portfolioToNodes, os, getPath } from "./utils";
 import FsProvider from "./FsProvider";
 import { autorun } from "mobx";
+import { initGoodies } from "shared/utils";
+
+initGoodies();
 
 function App() {
   const history = useHistory();

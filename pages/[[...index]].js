@@ -7,6 +7,7 @@ import { getSubdomain } from "shared/utils/url";
 import useData from "shared/hooks/useData";
 import { useRouter } from "next/router";
 import { getPreviewablePortfolio, processPortfolio } from "shared/utils/data";
+import Seo from "shared/components/Seo";
 
 const isLocal = process.env.NEXT_PUBLIC_IS_LOCAL === "true";
 
@@ -73,11 +74,14 @@ const Home = ({ portfolio }) => {
   if (portfolio && Template) {
     // force remount when updating
     return (
-      <Template
-        key={Math.random()}
-        portfolio={portfolio}
-        draftMode={draftMode}
-      />
+      <>
+        <Seo portfolio={portfolio} />
+        <Template
+          key={Math.random()}
+          portfolio={portfolio}
+          draftMode={draftMode}
+        />
+      </>
     );
   }
   return <h1>Not Found</h1>;

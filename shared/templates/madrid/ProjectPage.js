@@ -43,7 +43,7 @@ const keyframes = {
     [Math.min(page.y, 1)]: {
       y: 0,
     },
-    [Math.min(page.y + page.height, 1.01)]: {
+    [Math.min(page.y + page.height, 1.5)]: {
       y: -20,
     },
   }),

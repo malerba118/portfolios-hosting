@@ -12,6 +12,7 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
       global: {
         body: {
           bg: "primary.50",
+          overflow: "hidden",
         },
         ".js-focus-visible :focus:not([data-focus-visible-added])": {
           outline: "none",

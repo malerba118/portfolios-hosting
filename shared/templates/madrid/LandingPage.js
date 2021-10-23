@@ -42,7 +42,7 @@ const keyframes = {
     [Math.min(page.y, 1)]: {
       y: 0,
     },
-    [Math.min(page.y + page.height, 1.01)]: {
+    [Math.min(page.y + page.height, 1.5)]: {
       y: -220,
     },
   }),
@@ -53,7 +53,7 @@ const keyframes = {
     [Math.min(page.y, 1)]: {
       y: 0,
     },
-    [Math.min(page.y + page.height, 1.01)]: {
+    [Math.min(page.y + page.height, 1.5)]: {
       y: -50,
     },
   }),
@@ -130,7 +130,7 @@ const LandingPage = () => {
         exact
         onMatch={(match) => {
           if (match) {
-            introPageRef.current?.scrollIntoView();
+            introPageRef.current?.scrollIntoView({ behavior: "smooth" });
           }
         }}
       />
@@ -140,7 +140,7 @@ const LandingPage = () => {
         exact
         onMatch={(match) => {
           if (match) {
-            firstProjectRef.current?.scrollIntoView();
+            firstProjectRef.current?.scrollIntoView({ behavior: "smooth" });
           }
         }}
       />
@@ -243,14 +243,16 @@ const LandingPage = () => {
                 keyframes={keyframes.projectTitle}
               >
                 <Center h="100%" w="100%">
-                  <Link to={`/work/${project.id}`}>
+                  <Link to={`/work/${project.id}`} maxW="100%">
                     <MotionHeading
-                      size="xl"
-                      fontSize="6xl"
+                      size="3xl"
+                      // fontSize="6xl"
                       textTransform="uppercase"
                       color="white"
                       textShadow="2px 4px 0px var(--chakra-colors-primary-200), 4px 8px 0px var(--chakra-colors-primary-300)"
                       textAlign="center"
+                      maxW="100%"
+                      wordBreak="break-word"
                     >
                       {project.name}
                     </MotionHeading>

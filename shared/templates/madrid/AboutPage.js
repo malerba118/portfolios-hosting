@@ -37,7 +37,7 @@ const AboutPage = ({ about }) => {
   const media = about.images.items[0];
   return (
     <Parallax
-      height="100vh"
+      height="var(--app-height)"
       style={{
         backgroundColor: "var(--chakra-colors-primary-100)",
         backgroundImage: 'url("/templates/madrid/topography.svg")',
@@ -46,7 +46,7 @@ const AboutPage = ({ about }) => {
         backgroundRepeat: "repeat",
       }}
     >
-      <Parallax.Page pageId="intro" h="100vh">
+      <Parallax.Page pageId="intro" h="var(--app-height)">
         <Parallax.Box keyframes={keyframes.introImage} h="100%">
           <Flex flexDirection="column" pos="absolute" inset={0} bg="primary.50">
             <Toolbar />
@@ -98,8 +98,10 @@ const AboutPage = ({ about }) => {
                   window.open(about?.resume?.url, "_blank");
                 }}
                 colorScheme="primary"
-                variant="solid"
-                size="md"
+                variant="outline"
+                size="sm"
+                top="5px"
+                pos="relative"
               >
                 Resume
               </Button>

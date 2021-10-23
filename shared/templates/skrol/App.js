@@ -28,6 +28,9 @@ import { AnimatePresence } from "framer-motion";
 import { createDefaultNode } from "shared/components/RichtextViewer";
 import Media from "shared/components/Media";
 import { ContactSection } from "./Contact";
+import { initGoodies } from "shared/utils";
+
+initGoodies();
 
 const keyframes = {
   intro: ({ page }) => ({

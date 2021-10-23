@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Heading, Flex, Center } from "@chakra-ui/react";
+import { Box, Heading, Flex, Center, useBreakpoint } from "@chakra-ui/react";
 import { MotionBox } from "shared/components/animation";
 import MotionImage from "shared/components/MotionImage";
 import RichtextViewer, { isEmpty } from "shared/components/RichtextViewer";
@@ -40,10 +40,10 @@ const keyframes = {
     [page.y - container.height]: {
       y: 100,
     },
-    [page.y]: {
+    [Math.min(page.y, 1)]: {
       y: 0,
     },
-    [page.y + page.height]: {
+    [Math.min(page.y + page.height, 1.01)]: {
       y: -20,
     },
   }),
@@ -51,6 +51,7 @@ const keyframes = {
 
 const ProjectPage = ({ project }) => {
   const lightbox = useLightbox();
+  const breakpoint = useBreakpoint("base");
 
   useEffect(() => {
     const medias = project?.images?.items;
@@ -67,7 +68,7 @@ const ProjectPage = ({ project }) => {
   const isDescription = !isEmpty(project.description);
   return (
     <Parallax
-      h="100vh"
+      h="var(--app-height)"
       style={{
         backgroundColor: "var(--chakra-colors-primary-100)",
         backgroundImage: 'url("/templates/madrid/topography.svg")',
@@ -76,7 +77,7 @@ const ProjectPage = ({ project }) => {
         backgroundRepeat: "repeat",
       }}
     >
-      <Parallax.Page pageId="intro" h="100vh">
+      <Parallax.Page pageId="intro" h="var(--app-height)">
         <Parallax.Box keyframes={keyframes.introImage} h="100%">
           <Flex flexDirection="column" pos="absolute" inset={0} bg="primary.50">
             <Toolbar />
@@ -112,7 +113,7 @@ const ProjectPage = ({ project }) => {
               size="lg"
               textTransform="uppercase"
               color="white"
-              textShadow="2px 4px 0px var(--chakra-colors-primary-300), 4px 8px 0px var(--chakra-colors-primary-400)"
+              textShadow="1px 3px 0px var(--chakra-colors-primary-200), 2px 6px 0px var(--chakra-colors-primary-300)"
               textAlign="center"
             >
               <DateViewer
@@ -137,7 +138,11 @@ const ProjectPage = ({ project }) => {
         return (
           <Parallax.Page
             keyframes={keyframes.media}
-            h="100vh"
+            h={
+              breakpoint === "base"
+                ? "calc(var(--app-height) * .5)"
+                : "calc(var(--app-height) * .8)"
+            }
             pageId={"media-" + media.id}
             key={media.id}
           >
@@ -158,6 +163,8 @@ const ProjectPage = ({ project }) => {
                 variants={{
                   image: variants.image,
                 }}
+                boxShadow="2px 2px 0px 0px var(--chakra-colors-primary-100), 4px 4px 0px 0px var(--chakra-colors-primary-200)"
+                // borderRadius="4px"
               />
             </Center>
           </Parallax.Page>

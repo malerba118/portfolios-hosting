@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Box, Heading, Flex, Text, Center } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Flex,
+  Text,
+  Center,
+  useBreakpoint,
+} from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 // import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import ImageReveal from "./ImageReveal";
@@ -32,10 +39,10 @@ const keyframes = {
     [page.y - container.height]: {
       y: 220,
     },
-    [page.y]: {
+    [Math.min(page.y, 1)]: {
       y: 0,
     },
-    [page.y + page.height]: {
+    [Math.min(page.y + page.height, 1.01)]: {
       y: -220,
     },
   }),
@@ -43,10 +50,10 @@ const keyframes = {
     [page.y - container.height]: {
       y: 100,
     },
-    [page.y]: {
+    [Math.min(page.y, 1)]: {
       y: 0,
     },
-    [page.y + page.height]: {
+    [Math.min(page.y + page.height, 1.01)]: {
       y: -50,
     },
   }),
@@ -96,6 +103,7 @@ const LandingPage = () => {
   const location = useLocation();
   const introPageRef = useRef(null);
   const firstProjectRef = useRef(null);
+  const breakpoint = useBreakpoint("base");
 
   const animations = {
     content: useAnimation("content"),
@@ -139,7 +147,7 @@ const LandingPage = () => {
       <Parallax
         key="parallax-container"
         style={{
-          height: "100vh",
+          height: "var(--app-height)",
           backgroundColor: "var(--chakra-colors-primary-100)",
           backgroundImage: 'url("/templates/madrid/topography.svg")',
           backgroundBlendMode: "soft-light",
@@ -149,7 +157,7 @@ const LandingPage = () => {
       >
         <Parallax.Page
           ref={introPageRef}
-          h="100vh"
+          h="var(--app-height)"
           pageId="intro"
           pos="relative"
         >
@@ -161,7 +169,7 @@ const LandingPage = () => {
             />
             <Flex position="absolute" inset={0} py="128px" justify="center">
               <ImageReveal
-                mx={16}
+                mx={{ base: 0, md: 16 }}
                 maxWidth="900"
                 src={media?.processedUrl || media?.rawUrl}
                 disableExpandAnimation={location.state?.disableAnimations}
@@ -183,7 +191,7 @@ const LandingPage = () => {
                 <Text size="xl" mb="3">
                   {about.title}
                 </Text>
-                <Text size="2xl">{about.summary}</Text>
+                {/* <Text size="2xl">{about.summary}</Text> */}
               </MotionBox>
             </Flex>
           </Parallax.Box>
@@ -196,7 +204,11 @@ const LandingPage = () => {
               ref={i === 0 ? firstProjectRef : undefined}
               key={project.id}
               pageId={"project-" + project.id}
-              h="100vh"
+              h={
+                breakpoint === "base"
+                  ? "calc(var(--app-height) * .5)"
+                  : "calc(var(--app-height) * .8)"
+              }
               pos="relative"
               overflow="hidden"
             >
@@ -219,6 +231,8 @@ const LandingPage = () => {
                     bg="primary.50"
                     position="absolute"
                     media={media}
+                    boxShadow="2px 2px 0px 0px var(--chakra-colors-primary-100), 4px 4px 0px 0px var(--chakra-colors-primary-200)"
+                    // borderRadius="4px"
                   />
                 </Center>
               </Parallax.Box>
@@ -245,7 +259,7 @@ const LandingPage = () => {
                         size="lg"
                         textTransform="uppercase"
                         color="white"
-                        textShadow="2px 4px 0px var(--chakra-colors-primary-300), 4px 8px 0px var(--chakra-colors-primary-400)"
+                        textShadow="1px 3px 0px var(--chakra-colors-primary-200), 2px 6px 0px var(--chakra-colors-primary-300)"
                         textAlign="center"
                       >
                         <DateViewer

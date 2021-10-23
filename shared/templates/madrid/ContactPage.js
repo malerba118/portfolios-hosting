@@ -27,7 +27,7 @@ import SocialLinks from "shared/components/SocialLinks";
 const ContactPage = ({ subdomain }) => {
   return (
     <Flex
-      h="100vh"
+      h="var(--app-height)"
       flexDirection="column"
       pos="absolute"
       inset={0}
@@ -58,7 +58,7 @@ const ContactSection = () => {
   // If no info, jsut show form
   if (!hasInfo) {
     return (
-      <Center pos="relative" flexDirection="column" p={8}>
+      <Center pos="absolute" inset={0} flexDirection="column" p={8} mb={4}>
         <ContactForm />
       </Center>
     );
@@ -66,7 +66,7 @@ const ContactSection = () => {
 
   // Otherwise give option to choose mode
   return (
-    <Center pos="relative" flexDirection="column" p={8}>
+    <Center pos="absolute" inset={0} flexDirection="column" p={8} p={8} mb={4}>
       {mode === null && (
         <Stack spacing={6}>
           <Heading size="2xl" textAlign="center">
@@ -130,6 +130,7 @@ const ContactForm = () => {
 
   return (
     <Stack
+      transform="scale(.9)"
       as="form"
       fontSize="xl"
       spacing={{ base: 4, md: 4 }}
@@ -216,7 +217,7 @@ const ContactInfo = () => {
   const portfolio = usePortfolio();
   const contact = portfolio.data.content.contact;
   return (
-    <Stack>
+    <Stack transform="scale(.9)">
       <Heading textAlign="start" size="xl">
         Get in Touch
       </Heading>

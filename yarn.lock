@@ -1055,6 +1055,11 @@
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.5.0.tgz#7c9a250cd272ccb94b3069bb237b5c30c3ce70f6"
   integrity sha512-5808ztHwCy0bE154pmYSR86+uKToDcoxvM7F+nMDJ2NktxujYZLsz10e7iMXrKtyePKNP5VCVgp7s0vsViSKDA==
 
+"@fontsource/josefin-sans@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/josefin-sans/-/josefin-sans-4.5.0.tgz#95276537a4126bd93ebd74f5fa945c2e68b92345"
+  integrity sha512-JK2nKIQz5csX27gq/YAOrnjctfDt/EBh+F5ZehUek5OQnLJSi2aIhWd2iuwU3zwxFFU/GvCOuR5rvZARyzoEvQ==
+
 "@fontsource/major-mono-display@^4.5.0":
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/@fontsource/major-mono-display/-/major-mono-display-4.5.0.tgz#3987b98e881a0a223959b148c23e7c6859d9314e"

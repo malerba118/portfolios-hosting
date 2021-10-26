@@ -14,6 +14,7 @@
     "@chakra-ui/react": "^1.6.7",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@fontsource/josefin-sans": "^4.5.0",
     "@fontsource/major-mono-display": "^4.5.0",
     "@react-spring/parallax": "^9.2.4",
     "@react-three/drei": "^7.1.2",

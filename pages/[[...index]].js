@@ -8,6 +8,7 @@ import useData from "shared/hooks/useData";
 import { useRouter } from "next/router";
 import { getPreviewablePortfolio, processPortfolio } from "shared/utils/data";
 import Seo from "shared/components/Seo";
+import NotFound from "shared/components/NotFound";
 
 const isLocal = process.env.NEXT_PUBLIC_IS_LOCAL === "true";
 
@@ -84,7 +85,7 @@ const Home = ({ portfolio }) => {
       </>
     );
   }
-  return <h1>Not Found</h1>;
+  return <NotFound />;
 };
 
 export default Home;

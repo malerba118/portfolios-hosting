@@ -1238,6 +1238,17 @@ export const templates = {
     palettes: ["blackRed", "purplePink", "blueGreen"],
     locked: true,
   },
+  reveal: {
+    label: "Reveal",
+    img: `/templates/reveal.png`,
+    defaults: {
+      headingFont: "Montserrat",
+      paragraphFont: "Lato",
+      palette: "desert",
+    },
+    locked: false,
+    palettes: ["desert", "gray"],
+  },
   circles: {
     label: "Circles",
     img: `/templates/circles.png`,
@@ -1475,6 +1486,17 @@ const templateModels = {
     ),
     palette: types.optional(types.string, templates.skrol.defaults.palette),
   }),
+  reveal: types.model("RevealSettings", {
+    headingFont: types.optional(
+      types.string,
+      templates.reveal.defaults.headingFont
+    ),
+    paragraphFont: types.optional(
+      types.string,
+      templates.reveal.defaults.paragraphFont
+    ),
+    palette: types.optional(types.string, templates.reveal.defaults.palette),
+  }),
   circles: types.model("CirclesSettings", {
     headingFont: types.optional(
       types.string,
@@ -1515,6 +1537,7 @@ const TemplateSettingsMap = types
     madrid: types.optional(templateModels.madrid, {}),
     venice: types.optional(templateModels.venice, {}),
     skrol: types.optional(templateModels.skrol, {}),
+    reveal: types.optional(templateModels.reveal, {}),
     circles: types.optional(templateModels.circles, {}),
     gallery: types.optional(templateModels.gallery, {}),
     os: types.optional(templateModels.os, {}),

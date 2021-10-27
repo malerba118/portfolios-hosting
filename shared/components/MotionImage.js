@@ -43,11 +43,11 @@ const MotionImage = ({
   objectFit = "cover",
   objectPosition = "center",
   draggable,
-  alt,
+  alt = "No Image Available",
   ...otherProps
 }) => {
   const [status, setStatus] = useState("loading");
-
+  const Overlay = overlay;
   // useEffect(() => {
   //   setStatus("loading");
   // }, [src]);
@@ -82,7 +82,7 @@ const MotionImage = ({
         alt={alt}
       />
       <Box pos="absolute" inset={0} pointerEvents={overlayPointerEvents}>
-        <DefaultOverlay status={status} />
+        {Overlay && <Overlay status={status} />}
       </Box>
     </MotionBox>
   );

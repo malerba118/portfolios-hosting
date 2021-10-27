@@ -11,6 +11,7 @@ const Entrance = ({
   initialScale = 1,
   overflow = "hidden",
   transition,
+  duration = 0.6,
   delay = 0,
   children,
   ...otherProps
@@ -31,7 +32,7 @@ const Entrance = ({
         opacity: 1,
         scale: 1,
         rotate: 0,
-        transition: { duration: 0.6, delay },
+        transition: { duration, delay },
       }}
     >
       {children}

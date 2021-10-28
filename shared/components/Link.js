@@ -22,6 +22,7 @@ const Link = ({
   to,
   preserveQuery,
   showUnderline,
+  underlineWidth = "2px",
   color = "primary.600",
   ...otherProps
 }) => {
@@ -61,7 +62,7 @@ const Link = ({
             pos="absolute"
             bottom={"-1px"}
             background={color}
-            height="2px"
+            height={underlineWidth}
             transition={{
               type: "spring",
               mass: 0.1,

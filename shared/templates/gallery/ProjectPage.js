@@ -85,7 +85,15 @@ const Photo = ({
     lightbox.open({ id: photo.id });
   };
 
-  return <img key={key} style={imgStyle} {...photo} onClick={handleClick} />;
+  return (
+    <MotionImage
+      key={key}
+      style={imgStyle}
+      {...photo}
+      onClick={handleClick}
+      loading="lazy"
+    />
+  );
 };
 
 const ProjectPage = ({ project }) => {

@@ -46,7 +46,14 @@ const SocialLinks = ({ tooltipPlacement, ...otherProps }) => {
               <IconButton
                 onClick={() => {
                   if (socialLink.url) {
-                    window.open(socialLink.url, "_blank");
+                    let url = socialLink.url;
+                    if (
+                      !url.startsWith("http://") &&
+                      !url.startsWith("https://")
+                    ) {
+                      url = "https://" + url;
+                    }
+                    window.open(url, "_blank");
                   }
                 }}
                 colorScheme="primary"

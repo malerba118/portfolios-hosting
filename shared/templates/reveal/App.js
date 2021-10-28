@@ -38,8 +38,6 @@ const App = () => {
     return null;
   }
 
-  console.log(matches);
-
   return (
     <AnimatePresence initial={false} exitBeforeEnter>
       {matches.about && (

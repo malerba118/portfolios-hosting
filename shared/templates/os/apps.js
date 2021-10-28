@@ -151,12 +151,14 @@ const apps = {
           <Stack p="5%">
             <Heading size="xl">{project.name} </Heading>
             {/* <HStack flexWrap="wrap"> */}
-            <Heading size="md">
-              <DateViewer
-                startDate={project.startDate}
-                endDate={project.endDate}
-              />
-            </Heading>
+            {(project.startDate || project.endDate) && (
+              <Heading size="md">
+                <DateViewer
+                  startDate={project.startDate}
+                  endDate={project.endDate}
+                />
+              </Heading>
+            )}
             {/* <Text fontSize="xl">•</Text> */}
             {/* {project.summary && <Heading size="md">{project.summary}</Heading>} */}
             {/* </HStack> */}

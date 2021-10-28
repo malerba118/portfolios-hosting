@@ -89,7 +89,7 @@ const LandingPage = () => {
               underlineWidth="4px"
               onMouseEnter={() => {
                 setActiveImage({
-                  src: "/templates/reveal/contact-photo.jpg",
+                  src: "/templates/reveal/contact.png",
                   alt: "Corded Phone",
                 });
               }}
@@ -98,21 +98,25 @@ const LandingPage = () => {
                 Contact
               </Heading>
             </Link>
-            <Link
-              width="fit-content"
-              showUnderline
-              underlineWidth="4px"
-              onMouseEnter={() => {
-                setActiveImage({
-                  src: "/templates/reveal/resume.png",
-                  alt: "Resume",
-                });
-              }}
-            >
-              <Heading size="3xl" display="inline">
-                Resume
-              </Heading>
-            </Link>
+            {about?.resume?.url && (
+              <Link
+                to={about?.resume?.url}
+                isExternal
+                width="fit-content"
+                showUnderline
+                underlineWidth="4px"
+                onMouseEnter={() => {
+                  setActiveImage({
+                    src: "/templates/reveal/resume.png",
+                    alt: "Resume",
+                  });
+                }}
+              >
+                <Heading size="3xl" display="inline">
+                  Resume
+                </Heading>
+              </Link>
+            )}
           </Stack>
           <Box
             display={{ base: "none", md: "block" }}

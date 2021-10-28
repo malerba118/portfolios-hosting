@@ -116,7 +116,7 @@ const ContactSection = () => {
           onClick={() => setMode(null)}
           pos="absolute"
           top={0}
-          left={{ base: 4, md: 16 }}
+          left={{ base: 4, md: 8 }}
           icon={<IoMdReturnLeft />}
           colorScheme="primary"
         />

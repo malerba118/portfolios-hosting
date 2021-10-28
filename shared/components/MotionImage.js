@@ -49,6 +49,7 @@ const MotionImage = ({
   objectPosition = "center",
   draggable,
   alt = "No Image Available",
+  loading,
   ...otherProps
 }) => {
   const [status, setStatus] = useState("loading");
@@ -85,6 +86,7 @@ const MotionImage = ({
         onError={() => setStatus("error")}
         draggable={draggable}
         alt={alt}
+        loading={loading}
       />
       <Box
         zIndex={1}

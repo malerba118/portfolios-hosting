@@ -44,6 +44,7 @@ const Photo = ({
       style={imgStyle}
       {...photo}
       onClick={handleClick}
+      loading="lazy"
     />
   );
 };

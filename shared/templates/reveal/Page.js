@@ -29,7 +29,7 @@ const Page = ({ id, title, onClose, children }) => {
       flexDirection="column"
     >
       {title && (
-        <HStack p={{ base: 6, md: 8 }} align="center">
+        <HStack p={{ base: 4, md: 6 }} align="center">
           <Flex
             align="center"
             tabIndex={0}

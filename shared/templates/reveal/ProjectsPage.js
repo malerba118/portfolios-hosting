@@ -186,7 +186,11 @@ const ProjectsPage = ({ projects }) => {
     <AnimateSharedLayout type="switch">
       <Page id="projects" title="Work" onClose={() => history.push("/")}>
         <AnimatePresence>
-          <Stack spacing={{ base: 6, md: 16 }} p={{ base: 6, md: 16 }} pt={0}>
+          <Stack
+            spacing={{ base: 6, md: 16 }}
+            p={{ base: 6, md: 16 }}
+            paddingTop="0 !important"
+          >
             {projects.map((project, i) => (
               <ProjectCard
                 key={project.id}

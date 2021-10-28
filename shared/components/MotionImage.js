@@ -10,11 +10,16 @@ import { BsImage } from "react-icons/bs";
 
 const DefaultOverlay = ({ status }) => {
   return (
-    <AnimatePresence>
+    <>
       <Box pos="absolute" inset={0}>
         <MotionBox
           initial={{ opacity: 1 }}
-          animate={{ opacity: status === "loading" ? 1 : 0 }}
+          animate={{
+            opacity: status === "loading" ? 1 : 0,
+            transition: {
+              duration: 0.4,
+            },
+          }}
           bg="primary.100"
           height="100%"
           width="100%"
@@ -27,7 +32,7 @@ const DefaultOverlay = ({ status }) => {
           </Center>
         )}
       </Box>
-    </AnimatePresence>
+    </>
   );
 };
 
@@ -81,7 +86,12 @@ const MotionImage = ({
         draggable={draggable}
         alt={alt}
       />
-      <Box pos="absolute" inset={0} pointerEvents={overlayPointerEvents}>
+      <Box
+        zIndex={1}
+        pos="absolute"
+        inset={0}
+        pointerEvents={overlayPointerEvents}
+      >
         {Overlay && <Overlay status={status} />}
       </Box>
     </MotionBox>

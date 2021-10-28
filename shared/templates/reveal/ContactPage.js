@@ -23,18 +23,15 @@ import { IoMdReturnLeft } from "react-icons/io";
 import useContactForm, { validate, isEmpty } from "shared/hooks/useContactForm";
 import Toolbar from "./Toolbar";
 import SocialLinks from "shared/components/SocialLinks";
+import Page from "./Page";
+import { Box3 } from "three";
+import { useHistory } from "react-router-dom";
 
 const ContactPage = ({ subdomain }) => {
+  const history = useHistory();
   return (
-    <Flex
-      h="var(--app-height)"
-      flexDirection="column"
-      pos="absolute"
-      inset={0}
-      bg="primary.50"
-    >
-      <Toolbar />
-      <Box pos="relative" flex={1}>
+    <Page id="contact" title="Contact" onClose={() => history.push("/")}>
+      <Box>
         <ContactSection />
         <SocialLinks
           isInline
@@ -44,7 +41,7 @@ const ContactPage = ({ subdomain }) => {
           right={4}
         />
       </Box>
-    </Flex>
+    </Page>
   );
 };
 
@@ -58,7 +55,14 @@ const ContactSection = () => {
   // If no info, jsut show form
   if (!hasInfo) {
     return (
-      <Center pos="absolute" inset={0} flexDirection="column" p={8} mb={4}>
+      <Center
+        marginTop="auto"
+        pos="absolute"
+        inset={0}
+        flexDirection="column"
+        p={8}
+        mb={4}
+      >
         <ContactForm />
       </Center>
     );

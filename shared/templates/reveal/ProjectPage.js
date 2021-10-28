@@ -1,52 +1,71 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Page from "./Page";
-import { Heading, Box } from "@chakra-ui/react";
+import { Heading, Stack } from "@chakra-ui/react";
 import MotionImage from "shared/components/MotionImage";
 import Entrance from "shared/components/Entrance";
 import { MotionBox, transitions } from "shared/components/animation";
 import RichtextViewer from "shared/components/RichtextViewer";
 import { variants } from "./styles";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
+import { useLightbox } from "shared/components/Lightbox";
+import Gallery from "react-photo-gallery";
+
+const Photo = ({
+  index,
+  onClick,
+  photo,
+  margin,
+  direction,
+  top,
+  left,
+  key,
+}) => {
+  const imgStyle = {
+    margin: margin,
+    display: "block",
+    objectFit: "cover",
+    cursor: "pointer",
+  };
+  if (direction === "column") {
+    imgStyle.position = "absolute";
+    imgStyle.left = left;
+    imgStyle.top = top;
+  }
+  const lightbox = useLightbox();
+
+  const handleClick = (event) => {
+    lightbox.open({ id: photo.id });
+  };
+
+  return (
+    <MotionImage
+      variants={{ image: variants.image }}
+      key={key}
+      style={imgStyle}
+      {...photo}
+      onClick={handleClick}
+    />
+  );
+};
 
 const ProjectPage = ({ project }) => {
   const history = useHistory();
-  const media = project.images.items[0];
-  return (
-    // <Page
-    //   title={project.name}
-    //   onClose={() => {
-    //     history.push("/work");
-    //   }}
-    // >
-    //   <MotionBox
-    //     initial={{ opacity: 0, y: 0 }}
-    //     animate={{ opacity: 1, y: 0, transition: transitions.two(0.6) }}
-    //     exit={{ opacity: 0 }}
-    //   >
-    //     <MotionImage
-    //       src={media?.processedUrl || media?.rawUrl || "/image-unavailable.svg"}
-    //       width="100%"
-    //       height="380"
-    //       variants={{
-    //         image: variants.image,
-    //       }}
-    //     />
-    //     <Stack p={8}>
-    //       <Entrance initialY={40} initialOpacity={0}>
-    //         <Heading fontSize="3xl">{project.name}</Heading>
-    //       </Entrance>
-    //       <Entrance initialY={30} initialOpacity={0} delay={0.1}>
-    //         <Heading color="gray.700" fontSize="lg">
-    //           {project.summary}
-    //         </Heading>
-    //       </Entrance>
-    //       <Entrance initialY={12} initialOpacity={0} delay={0.45}>
-    //         <RichtextViewer value={project.description} />
-    //       </Entrance>
-    //     </Stack>
-    //   </MotionBox>
-    // </Page>
+  const lightbox = useLightbox();
 
+  useEffect(() => {
+    const medias = project?.images?.items;
+    if (medias) {
+      lightbox.setItems(medias);
+    }
+  }, []);
+
+  if (!project) {
+    return <Redirect to="/" />;
+  }
+
+  const media = project.images.items[0];
+
+  return (
     <Page
       title={project.name}
       onClose={() => {
@@ -63,13 +82,18 @@ const ProjectPage = ({ project }) => {
           variants={{
             image: variants.image,
           }}
+          onClick={(event) => {
+            lightbox.open({ id: media.id });
+          }}
+          cursor="pointer"
         />
       )}
-      <Box
+      <Stack
         p={{ base: 6, md: 16 }}
         margin="0 auto"
         maxWidth="900px"
         pos="relative"
+        spacing={12}
       >
         <Entrance
           overflow="visible"
@@ -95,7 +119,18 @@ const ProjectPage = ({ project }) => {
               }}
             /> */}
         </Entrance>
-      </Box>
+        <Entrance>
+          <Gallery
+            photos={project.images.items.map((media, i) => ({
+              id: media.id,
+              src: media.processedUrl || media.rawUrl,
+              width: media.width,
+              height: media.height,
+            }))}
+            renderImage={Photo}
+          />
+        </Entrance>
+      </Stack>
     </Page>
   );
 };

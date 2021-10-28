@@ -30,6 +30,8 @@ import ScrollRoute from "./ScrollRoute";
 import Page from "./Page";
 import { variants } from "./styles";
 import MotionImage from "shared/components/MotionImage";
+import MediaLogo from "shared/components/MediaLogo";
+import Logo from "shared/components/Logo";
 
 const LandingPage = () => {
   const portfolio = usePortfolio();
@@ -44,7 +46,7 @@ const LandingPage = () => {
   return (
     <Page>
       <Center pos="absolute" inset={0}>
-        <HStack spacing={24}>
+        <HStack spacing={24} transform="scale(.9)">
           <Stack py={12} spacing={8} flex={1}>
             <Link
               to="/about"
@@ -96,7 +98,17 @@ const LandingPage = () => {
                 Contact
               </Heading>
             </Link>
-            <Link width="fit-content" showUnderline underlineWidth="4px">
+            <Link
+              width="fit-content"
+              showUnderline
+              underlineWidth="4px"
+              onMouseEnter={() => {
+                setActiveImage({
+                  src: "/templates/reveal/resume.png",
+                  alt: "Resume",
+                });
+              }}
+            >
               <Heading size="3xl" display="inline">
                 Resume
               </Heading>
@@ -127,10 +139,23 @@ const LandingPage = () => {
             </AnimatePresence>
           </Box>
         </HStack>
+        <Box pos="absolute" top={4} left={4}>
+          <Link to={{ pathname: "/", state: { disableAnimations: true } }}>
+            {portfolio.data.content.about.logo.items.length ? (
+              <MediaLogo media={portfolio.data.content.about.logo.items[0]} />
+            ) : (
+              <Logo
+                charOne={portfolio.data.content.about.firstName[0]}
+                charTwo={portfolio.data.content.about.lastName[0]}
+                color="primary.700"
+              />
+            )}
+          </Link>
+        </Box>
         <Heading
           pos="absolute"
           left={3}
-          top={2}
+          bottom={2}
           style={{
             // writingMode: "vertical-lr",
             // transform: "rotate(0deg)",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Page from "./Page";
 import { Box, Heading, Stack, Center } from "@chakra-ui/react";
 import MotionImage from "shared/components/MotionImage";
@@ -7,10 +7,19 @@ import RichtextViewer from "shared/components/RichtextViewer";
 import { variants } from "./styles";
 import { useHistory } from "react-router-dom";
 import { MotionBox, transitions } from "shared/components/animation";
+import { useLightbox } from "shared/components/Lightbox";
 
 const AboutPage = ({ about }) => {
   const media = about.images.items[0];
   const history = useHistory();
+  const lightbox = useLightbox();
+
+  useEffect(() => {
+    const medias = about?.images?.items;
+    if (medias) {
+      lightbox.setItems(medias);
+    }
+  }, []);
 
   return (
     <Page id="about" title="About" onClose={() => history.push("/")}>
@@ -23,6 +32,10 @@ const AboutPage = ({ about }) => {
           variants={{
             image: variants.image,
           }}
+          onClick={(event) => {
+            lightbox.open({ id: media.id });
+          }}
+          cursor="pointer"
         />
       )}
       <Box

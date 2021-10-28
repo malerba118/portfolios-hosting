@@ -441,11 +441,6 @@ const EXAMPLE_PORTFOLIOS = {
           palette: "desert",
           headingFont: "Montserrat",
         },
-        venice: {
-          headingFont: "Ubuntu",
-          paragraphFont: "Ubuntu",
-          palette: "gray",
-        },
         os: {
           palette: "gray",
           paragraphFont: "Ubuntu Mono",
@@ -489,11 +484,6 @@ const EXAMPLE_PORTFOLIOS = {
           palette: "gray",
           paragraphFont: "EB Garamond",
           headingFont: "Crimson Text",
-        },
-        venice: {
-          paragraphFont: "Ubuntu",
-          palette: "gray",
-          headingFont: "Ubuntu",
         },
         skrol: {
           headingFont: "Montserrat",
@@ -966,11 +956,6 @@ const EXAMPLE_PORTFOLIOS = {
           palette: "gray",
           paragraphFont: "Ubuntu Mono",
         },
-        venice: {
-          paragraphFont: "Ubuntu",
-          palette: "gray",
-          headingFont: "Ubuntu",
-        },
         skrol: {
           palette: "purplePink",
           headingFont: "Montserrat",
@@ -1179,11 +1164,6 @@ const EXAMPLE_PORTFOLIOS = {
             ],
           },
         },
-        venice: {
-          palette: "gray",
-          paragraphFont: "Ubuntu",
-          headingFont: "Ubuntu",
-        },
       },
     },
   },
@@ -1205,17 +1185,6 @@ export const getPreviewablePortfolio = ({
 };
 
 export const templates = {
-  venice: {
-    label: "Venice",
-    img: `/templates/venice.png`,
-    defaults: {
-      headingFont: "Ubuntu",
-      paragraphFont: "Ubuntu",
-      palette: "gray",
-    },
-    palettes: ["desert", "gray"],
-    locked: false,
-  },
   madrid: {
     label: "Madrid",
     img: `/templates/madrid.png`,
@@ -1424,19 +1393,6 @@ export const Content = types.model("Content", {
   projects: types.optional(types.array(Project), []),
 });
 
-// const TemplateSettings = types.model("TemplateSettings", {
-//   headingFont: types.string,
-//   paragraphFont: types.string,
-//   palette: types.string,
-// });
-
-// const TemplateSettingsMap = types.model("TemplateSettingsMap", {
-//   madrid: types.optional(TemplateSettings, templates.madrid.defaults),
-//   venice: types.optional(TemplateSettings, templates.venice.defaults),
-//   skrol: types.optional(TemplateSettings, templates.skrol.defaults),
-//   os: types.optional(TemplateSettings, templates.os.defaults),
-// });
-
 const templateModels = {
   os: types.snapshotProcessor(
     types.model("OsSettings", {
@@ -1508,17 +1464,6 @@ const templateModels = {
     ),
     palette: types.optional(types.string, templates.circles.defaults.palette),
   }),
-  venice: types.model("VeniceSettings", {
-    headingFont: types.optional(
-      types.string,
-      templates.venice.defaults.headingFont
-    ),
-    paragraphFont: types.optional(
-      types.string,
-      templates.venice.defaults.paragraphFont
-    ),
-    palette: types.optional(types.string, templates.venice.defaults.palette),
-  }),
   gallery: types.model("GallerySettings", {
     headingFont: types.optional(
       types.string,
@@ -1535,7 +1480,6 @@ const templateModels = {
 const TemplateSettingsMap = types
   .model("TemplateSettingsMap", {
     madrid: types.optional(templateModels.madrid, {}),
-    venice: types.optional(templateModels.venice, {}),
     skrol: types.optional(templateModels.skrol, {}),
     reveal: types.optional(templateModels.reveal, {}),
     circles: types.optional(templateModels.circles, {}),

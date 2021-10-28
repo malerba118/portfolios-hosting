@@ -168,7 +168,7 @@ const LandingPage = () => {
           fontSize=".8rem"
           letterSpacing="1px"
         >
-          Austin Malerba
+          {about.firstName} {about.lastName}
         </Heading>
         <Heading
           pos="absolute"
@@ -182,7 +182,7 @@ const LandingPage = () => {
           fontSize=".8rem"
           letterSpacing="1px"
         >
-          Software Engineer
+          {about.title}
         </Heading>
       </Center>
     </Page>

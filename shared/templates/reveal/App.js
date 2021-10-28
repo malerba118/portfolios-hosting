@@ -11,7 +11,6 @@ import ProjectsPage from "./ProjectsPage";
 import ProjectPage from "./ProjectPage";
 import ContactPage from "./ContactPage";
 import { initGoodies } from "shared/utils";
-import Page from "./Page";
 
 initGoodies();
 

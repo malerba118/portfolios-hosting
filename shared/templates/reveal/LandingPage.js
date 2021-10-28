@@ -1,32 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  Box,
-  Heading,
-  Flex,
-  Text,
-  Center,
-  useBreakpoint,
-  HStack,
-  Stack,
-} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Box, Heading, Center, HStack, Stack } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
-// import { Parallax, ParallaxLayer } from "@react-spring/parallax";
-import ImageReveal from "./ImageReveal";
-import {
-  MotionBox,
-  MotionHeading,
-  MotionFlex,
-  transitions,
-  useAnimation,
-} from "shared/components/animation";
-import Media from "shared/components/Media";
-import Toolbar from "./Toolbar";
+import { transitions } from "shared/components/animation";
 import Link from "shared/components/Link";
-import { useLocation } from "react-router-dom";
-import DateViewer from "shared/components/DateViewer";
 import { usePortfolio } from "shared/components/PortfolioProvider";
-import Parallax from "shared/components/animation/Parallax";
-import ScrollRoute from "./ScrollRoute";
 import Page from "./Page";
 import { variants } from "./styles";
 import MotionImage from "shared/components/MotionImage";

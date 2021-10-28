@@ -13,7 +13,6 @@ import {
   Text,
   FormErrorMessage,
   IconButton,
-  Flex,
 } from "@chakra-ui/react";
 import Link from "shared/components/Link";
 import * as api from "client/api";
@@ -21,10 +20,8 @@ import useAsync from "shared/hooks/useAsync";
 import { useDraftMode } from "shared/components/DraftModeProvider";
 import { IoMdReturnLeft } from "react-icons/io";
 import useContactForm, { validate, isEmpty } from "shared/hooks/useContactForm";
-import Toolbar from "./Toolbar";
 import SocialLinks from "shared/components/SocialLinks";
 import Page from "./Page";
-import { Box3 } from "three";
 import { useHistory } from "react-router-dom";
 
 const ContactPage = ({ subdomain }) => {

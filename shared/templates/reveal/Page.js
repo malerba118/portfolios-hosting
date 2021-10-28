@@ -8,11 +8,8 @@ import {
   HStack,
   Icon,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
 import { MotionBox } from "shared/components/animation";
-import { AnimatePresence } from "framer-motion";
 import { transitions } from "shared/components/animation/chakra";
-import { CgBackspace } from "react-icons/cg";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
 const Page = ({ id, title, onClose, children }) => {

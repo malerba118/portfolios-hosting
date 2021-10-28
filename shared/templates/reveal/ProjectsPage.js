@@ -7,16 +7,13 @@ import {
   HStack,
   Flex,
   Stack,
-  useBreakpoint,
   useEventListener,
 } from "@chakra-ui/react";
 import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
 import MotionImage from "shared/components/MotionImage";
 import ScrollReveal from "shared/components/ScrollReveal";
 import Entrance from "shared/components/Entrance";
-import { MotionBox, transitions } from "shared/components/animation";
 import DateViewer from "shared/components/DateViewer";
-import RichtextViewer from "shared/components/RichtextViewer";
 import { variants } from "./styles";
 import { useHistory } from "react-router-dom";
 

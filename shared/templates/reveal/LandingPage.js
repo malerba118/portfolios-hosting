@@ -9,16 +9,46 @@ import { variants } from "./styles";
 import MotionImage from "shared/components/MotionImage";
 import MediaLogo from "shared/components/MediaLogo";
 import Logo from "shared/components/Logo";
+import { useHistory } from "react-router";
 
 const LandingPage = () => {
   const portfolio = usePortfolio();
+  const history = useHistory();
   let { about, projects } = portfolio.data.content;
   const profileMedia = about.images.items[0];
   const firstProjectMedia = projects?.[0]?.images?.items?.[0];
-  const [activeImage, setActiveImage] = useState({
+  const [hoveredLink, setHoveredLink] = useState("about");
+
+  const images = {
+    about: {
+      src: profileMedia?.processedUrl || profileMedia?.rawUrl,
+      alt: profileMedia?.name,
+    },
+    work: {
+      src: firstProjectMedia?.processedUrl || firstProjectMedia?.rawUrl,
+      alt: firstProjectMedia?.name,
+    },
+    contact: {
+      src: "/templates/reveal/contact.png",
+      alt: "Mobile Phone",
+    },
+    resume: {
+      src: "/templates/reveal/resume.png",
+      alt: "Resume",
+    },
+  };
+
+  const routes = {
+    about: "/about",
+    work: "/work",
+    contact: "/contact",
+    resume: about?.resume?.url,
+  };
+
+  const activeImage = images[hoveredLink] || {
     src: profileMedia?.processedUrl || profileMedia?.rawUrl,
     alt: profileMedia?.name,
-  });
+  };
 
   return (
     <Page>
@@ -31,10 +61,7 @@ const LandingPage = () => {
               showUnderline
               underlineWidth="4px"
               onMouseEnter={() => {
-                setActiveImage({
-                  src: profileMedia?.processedUrl || profileMedia?.rawUrl,
-                  alt: profileMedia?.name,
-                });
+                setHoveredLink("about");
               }}
             >
               <Heading size="3xl" display="inline">
@@ -47,12 +74,7 @@ const LandingPage = () => {
               showUnderline
               underlineWidth="4px"
               onMouseEnter={() => {
-                setActiveImage({
-                  src:
-                    firstProjectMedia?.processedUrl ||
-                    firstProjectMedia?.rawUrl,
-                  alt: firstProjectMedia?.name,
-                });
+                setHoveredLink("work");
               }}
             >
               <Heading size="3xl" w="min-content" display="inline">
@@ -65,10 +87,7 @@ const LandingPage = () => {
               showUnderline
               underlineWidth="4px"
               onMouseEnter={() => {
-                setActiveImage({
-                  src: "/templates/reveal/contact.png",
-                  alt: "Corded Phone",
-                });
+                setHoveredLink("contact");
               }}
             >
               <Heading size="3xl" w="min-content" display="inline">
@@ -83,10 +102,7 @@ const LandingPage = () => {
                 showUnderline
                 underlineWidth="4px"
                 onMouseEnter={() => {
-                  setActiveImage({
-                    src: "/templates/reveal/resume.png",
-                    alt: "Resume",
-                  });
+                  setHoveredLink("resume");
                 }}
               >
                 <Heading size="3xl" display="inline">
@@ -116,6 +132,14 @@ const LandingPage = () => {
                   image: variants.image,
                   container: variants.container,
                 }}
+                onClick={() => {
+                  if (hoveredLink === "resume") {
+                    window.open(routes[hoveredLink], "_blank");
+                  } else if (routes[hoveredLink]) {
+                    history.push(routes[hoveredLink]);
+                  }
+                }}
+                cursor="pointer"
               />
             </AnimatePresence>
           </Box>

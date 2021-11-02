@@ -14,8 +14,7 @@ const EXAMPLE_PORTFOLIOS = {
         about: {
           resume: {
             name: "Sophie GUTIERREZ.pdf",
-            url:
-              "https://firebasestorage.googleapis.com/v0/b/vernos-prod.appspot.com/o/users%2FeqcLh4OerpTBj5s8A2rcNnKGQBf1%2Fpublic%2Fresume-Sophie%20GUTIERREZ.pdf?alt=media&token=79646665-209e-4f86-bbc7-bc27ae39974d",
+            url: "https://firebasestorage.googleapis.com/v0/b/vernos-prod.appspot.com/o/users%2FeqcLh4OerpTBj5s8A2rcNnKGQBf1%2Fpublic%2Fresume-Sophie%20GUTIERREZ.pdf?alt=media&token=79646665-209e-4f86-bbc7-bc27ae39974d",
           },
           summary: "Let me capture your most beautiful moments ",
           firstName: "Sophie",
@@ -887,8 +886,7 @@ const EXAMPLE_PORTFOLIOS = {
             ],
           },
           resume: {
-            url:
-              "https://firebasestorage.googleapis.com/v0/b/vernos-prod.appspot.com/o/users%2Fr6KHmaWW9AR4m0uKRH0fgRnBflp2%2Fpublic%2Fresume-RESUME.pdf?alt=media&token=f7d9e4a5-7256-4054-b65f-5d350a98f969",
+            url: "https://firebasestorage.googleapis.com/v0/b/vernos-prod.appspot.com/o/users%2Fr6KHmaWW9AR4m0uKRH0fgRnBflp2%2Fpublic%2Fresume-RESUME.pdf?alt=media&token=f7d9e4a5-7256-4054-b65f-5d350a98f969",
             name: "RESUME.pdf",
           },
           title: "Intentional Architect",
@@ -997,8 +995,7 @@ const EXAMPLE_PORTFOLIOS = {
         },
         about: {
           resume: {
-            url:
-              "https://firebasestorage.googleapis.com/v0/b/vernos-prod.appspot.com/o/users%2FIBRS8Wlfpxc9tlwjmZhjaryX6AE2%2Fpublic%2Fresume-RESUME.pdf?alt=media&token=55c0646d-bc9e-495e-a5da-dc8dd8d18d1c",
+            url: "https://firebasestorage.googleapis.com/v0/b/vernos-prod.appspot.com/o/users%2FIBRS8Wlfpxc9tlwjmZhjaryX6AE2%2Fpublic%2Fresume-RESUME.pdf?alt=media&token=55c0646d-bc9e-495e-a5da-dc8dd8d18d1c",
             name: "RESUME.pdf",
           },
           description:
@@ -1222,9 +1219,9 @@ export const templates = {
     label: "Circles",
     img: `/templates/circles.png`,
     defaults: {
-      headingFont: "Montserrat",
-      paragraphFont: "Lato",
-      palette: "whiteBlack",
+      headingFont: "IBM Plex Mono",
+      paragraphFont: "IBM Plex Mono",
+      palette: "blackRed",
     },
     palettes: ["blackRed", "purplePink", "blueGreen", "whiteBlack"],
     locked: true,

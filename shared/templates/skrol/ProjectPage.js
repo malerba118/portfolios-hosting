@@ -46,19 +46,23 @@ const keyframes = {
     },
   }),
   description: ({ page, container }) => ({
-    [page.y - container.height]: {
-      opacity: -0.3,
-      y: 150,
+    [page.y - container.height * 0.66]: {
+      opacity: 0,
+      y: 200,
     },
     [page.y]: {
       opacity: 1,
       y: 0,
     },
+    [page.y + page.height]: {
+      opacity: 1,
+      y: -30,
+    },
   }),
   gallery: ({ page, container }) => ({
     [page.y - container.height]: {
       opacity: 0,
-      y: -100,
+      y: 150,
     },
     [page.y]: {
       opacity: 1,
@@ -121,9 +125,13 @@ const ProjectPage = ({ history, match }) => {
               <Box p={4} backgroundColor="secondary.400">
                 <Heading
                   size="4xl"
-                  color="primary.50"
+                  // color="primary.50"
                   textTransform="uppercase"
                   textAlign="center"
+                  color="transparent"
+                  style={{
+                    WebkitTextStroke: "1px var(--chakra-colors-primary-100)",
+                  }}
                 >
                   {project.name}
                 </Heading>
@@ -148,7 +156,7 @@ const ProjectPage = ({ history, match }) => {
         </Parallax.Page>
         <Parallax.Page
           pageId="project-description"
-          p={{ base: 8, md: 24 }}
+          p={{ base: 6, md: 24 }}
           keyframes={keyframes.description}
         >
           <Box m="0 auto" w="100%" maxW="50em">

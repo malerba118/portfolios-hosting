@@ -29,6 +29,7 @@ import { createDefaultNode } from "shared/components/RichtextViewer";
 import Media from "shared/components/Media";
 import { ContactSection } from "./Contact";
 import { initGoodies } from "shared/utils";
+import MediaLogo from "shared/components/MediaLogo";
 
 initGoodies();
 
@@ -50,7 +51,7 @@ const keyframes = {
   about: ({ page }) => ({
     [0]: {
       opacity: -0.15,
-      y: 150,
+      y: 120,
     },
     [page.y]: {
       opacity: 1,
@@ -154,16 +155,20 @@ function App() {
               pos="relative"
               zIndex={1}
               h="150px"
-              px={{ base: 8, md: 24 }}
+              px={{ base: 6, md: 24 }}
               justify="space-between"
               align="center"
             >
               <Link to="/">
-                <Logo
-                  color="secondary.400"
-                  charOne={about.firstName[0]}
-                  charTwo={about.lastName[0]}
-                />
+                {about.logo.items.length ? (
+                  <MediaLogo media={about.logo.items[0]} />
+                ) : (
+                  <Logo
+                    charOne={about.firstName[0]}
+                    charTwo={about.lastName[0]}
+                    color="secondary.400"
+                  />
+                )}
               </Link>
               <HStack spacing={{ base: 4, md: 6 }} color="secondary.400">
                 <Link to="/about" showUnderline color="secondary.400">
@@ -186,7 +191,7 @@ function App() {
             <Center pos="absolute" top="50px" left={0} right={0} bottom={0}>
               <Stack
                 w="100%"
-                px={{ base: 8, md: 24 }}
+                px={{ base: 6, md: 24 }}
                 spacing={{ base: 3, md: 3 }}
               >
                 <Heading maxW="800px" size="3xl" textTransform="uppercase">
@@ -225,7 +230,7 @@ function App() {
             <Center
               flexDirection="column"
               h="100%"
-              px={{ base: 8, md: 24 }}
+              px={{ base: 6, md: 24 }}
               py={{ base: 6, md: 12 }}
               pos="relative"
             >
@@ -268,7 +273,12 @@ function App() {
                 pos="absolute"
                 inset={0}
               >
-                <Center h="100%" p={{ base: 0, md: 24 }} pos="relative">
+                <Center
+                  h="100%"
+                  px={{ base: 0, md: 24 }}
+                  py={{ base: 6, md: 24 }}
+                  pos="relative"
+                >
                   <Box w="100%" h="100%" overflow="hidden">
                     <Parallax.Box keyframes={keyframes.image} h="100%" w="100%">
                       <Media
@@ -291,11 +301,17 @@ function App() {
                   >
                     <Heading
                       p={4}
-                      backgroundColor="secondary.400"
-                      size="3xl"
-                      color="primary.50"
+                      // backgroundColor="secondary.400"
+                      size="4xl"
+                      color="transparent"
                       textTransform="uppercase"
                       textAlign="center"
+                      style={{
+                        WebkitTextStroke:
+                          "1px var(--chakra-colors-secondary-400)",
+                      }}
+                      w="100%"
+                      wordBreak="break-word"
                     >
                       {project.name}
                     </Heading>

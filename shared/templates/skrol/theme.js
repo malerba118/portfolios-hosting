@@ -97,7 +97,7 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
           md: {
             lineHeight: "140%",
             fontSize: {
-              base: "md",
+              base: "lg",
               md: "xl",
             },
             color: "primary.900",
@@ -126,8 +126,8 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
             letterSpacing: ".05em",
 
             fontSize: {
-              base: "2xl",
-              md: "4xl",
+              base: "xl",
+              md: "3xl",
             },
             color: "primary.900",
           },
@@ -136,8 +136,8 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
             lineHeight: "120%",
             letterSpacing: ".05em",
             fontSize: {
-              base: "3xl",
-              md: "5xl",
+              base: "2xl",
+              md: "4xl",
             },
             color: "primary.900",
           },
@@ -146,8 +146,8 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
             lineHeight: "120%",
             letterSpacing: ".05em",
             fontSize: {
-              base: "4xl",
-              md: "6xl",
+              base: "3xl",
+              md: "5xl",
             },
             color: "primary.900",
           },
@@ -185,7 +185,10 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
           xl: {
             lineHeight: "140%",
             color: "primary.700",
-            fontSize: "xl",
+            fontSize: {
+              base: "lg",
+              md: "xl",
+            },
           },
         },
       },

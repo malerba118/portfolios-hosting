@@ -3,34 +3,16 @@ import useFonts from "shared/hooks/useFonts";
 import {
   BrowserRouter as Router,
   useHistory,
-  Route,
-  Switch,
   useLocation,
 } from "react-router-dom";
-import Advertisement from "shared/components/Advertisement";
 import { usePortfolio } from "shared/components/PortfolioProvider";
-import {
-  Box,
-  Heading,
-  Center,
-  Stack,
-  HStack,
-  Button,
-  Flex,
-  useBreakpoint,
-} from "@chakra-ui/react";
-import ArcText from "shared/components/ArcText";
+import { Box, Heading, HStack, Flex, useBreakpoint } from "@chakra-ui/react";
 import Parallax from "shared/components/animation/Parallax";
 import Logo from "shared/components/Logo";
-import RichtextViewer from "./RichtextViewer";
 import Link from "shared/components/Link";
 import ScrollRoute from "./ScrollRoute";
-import ProjectPage from "./ProjectPage";
-import { AnimatePresence } from "framer-motion";
-import { createDefaultNode } from "shared/components/RichtextViewer";
-import Media from "shared/components/Media";
-import MotionImage from "shared/components/MotionImage";
 import CircularCard from "./CircularCard";
+import MediaLogo from "shared/components/MediaLogo";
 
 const keyframes = {
   circleText: ({ page, container }) => ({
@@ -113,11 +95,15 @@ function LandingPage() {
               align="center"
             >
               <Link to="/">
-                <Logo
-                  color="secondary.400"
-                  charOne={about.firstName[0]}
-                  charTwo={about.lastName[0]}
-                />
+                {about.logo.items.length ? (
+                  <MediaLogo media={about.logo.items[0]} />
+                ) : (
+                  <Logo
+                    charOne={about.firstName[0]}
+                    charTwo={about.lastName[0]}
+                    color="secondary.400"
+                  />
+                )}
               </Link>
               <HStack spacing={{ base: 4, md: 6 }} color="secondary.400">
                 <Link to="/about" showUnderline color="secondary.400">

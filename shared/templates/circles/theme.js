@@ -1,4 +1,4 @@
-import { extendTheme } from "@chakra-ui/react";
+import { extendTheme, theme as DEFAULT_THEME } from "@chakra-ui/react";
 import { palettes } from "shared/utils/colors";
 
 export const makeTheme = ({ headingFont, paragraphFont, palette }) =>

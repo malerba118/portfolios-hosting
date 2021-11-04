@@ -3,7 +3,7 @@ import { theme as CHAKRA_THEME } from "@chakra-ui/react";
 import * as ant from "@ant-design/colors";
 
 // Convert ant colors to chakra palette
-const colorsToPalette = (colors) => ({
+export const colorsToPalette = (colors) => ({
   50: colors[0],
   100: colors[1],
   200: colors[2],
@@ -29,7 +29,7 @@ export const invert = (palette) => ({
   900: palette[50],
 });
 
-const generate = (color, { backgroundColor, theme = "light" } = {}) => {
+export const generate = (color, { backgroundColor, theme = "light" } = {}) => {
   const colors = ant.generate(color, {
     theme,
     backgroundColor,
@@ -105,6 +105,24 @@ export const palettes = {
   whiteBlack: {
     primary: white,
     secondary: black,
+  },
+  magentaMagenta: {
+    primary: colorsToPalette(ant.magenta),
+    secondary: generate(colorsToPalette(ant.magenta)[500], {
+      theme: "dark",
+      backgroundColor: "#222222",
+    }),
+  },
+  volcanoVolcano: {
+    primary: colorsToPalette(ant.volcano),
+    secondary: generate(colorsToPalette(ant.volcano)[500], {
+      theme: "dark",
+      backgroundColor: "#222222",
+    }),
+  },
+  grayGreen: {
+    primary: invert(DEFAULT_THEME.colors.gray),
+    secondary: DEFAULT_THEME.colors.green,
   },
 };
 

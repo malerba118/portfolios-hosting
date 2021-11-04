@@ -85,6 +85,7 @@ const DefaultElement = ({ attributes, children, element }) => {
           size="xl"
           {...attributes}
           href={element.url}
+          isExternal
         >
           {children}
         </Link>

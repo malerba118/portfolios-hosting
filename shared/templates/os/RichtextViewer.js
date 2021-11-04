@@ -19,6 +19,7 @@ const Element = ({ attributes, children, element }) => {
           {...attributes}
           href={element.url}
           target="_blank"
+          isExternal
         >
           {children}
         </Link>

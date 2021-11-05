@@ -103,7 +103,7 @@ const apps = {
       return (
         <Box h="100%" overflow="auto">
           <Carousel defaultItems={about.images.items} height="75%" />
-          <Stack p="5%" maxW="760px" m="0 auto">
+          <Stack p="clamp(16px, 5%, 48px)" maxW="760px" m="0 auto">
             <Flex justify="space-between" align="center" flexWrap="wrap">
               <Heading size="xl">
                 {about.firstName} {about.lastName}
@@ -148,7 +148,7 @@ const apps = {
       return (
         <Box h="100%" overflow="auto">
           <Carousel defaultItems={project.images.items} height="75%" />
-          <Stack p="5%">
+          <Stack p="clamp(16px, 5%, 48px)" maxW="760px" m="0 auto">
             <Heading size="xl">{project.name} </Heading>
             {/* <HStack flexWrap="wrap"> */}
             {(project.startDate || project.endDate) && (

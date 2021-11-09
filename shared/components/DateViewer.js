@@ -17,20 +17,37 @@ const months = [
 ];
 
 export const DateViewer = ({ startDate, endDate }) => {
-  const d1 = useMemo(() => startDate && new Date(startDate), [startDate]);
-  const d2 = useMemo(() => endDate && new Date(endDate), [endDate]);
+  const d1 = useMemo(
+    () =>
+      startDate && startDate !== "present" ? new Date(startDate) : startDate,
+    [startDate]
+  );
+  const d2 = useMemo(
+    () => (endDate && endDate !== "present" ? new Date(endDate) : endDate),
+    [endDate]
+  );
 
   return (
     <Box display="inline-block">
       {d1 && (
         <Box display="inline">
-          {months[d1.getMonth()]}, {d1.getFullYear()}
+          {d1 instanceof Date && (
+            <>
+              {months[d1.getMonth()]}, {d1.getFullYear()}
+            </>
+          )}
+          {d1 === "present" && "Present"}
         </Box>
       )}
       {d1 && d2 && <Box display="inline"> - </Box>}
       {d2 && (
         <Box display="inline">
-          {months[d2.getMonth()]}, {d2.getFullYear()}
+          {d2 instanceof Date && (
+            <>
+              {months[d2.getMonth()]}, {d2.getFullYear()}
+            </>
+          )}
+          {d2 === "present" && "Present"}
         </Box>
       )}
     </Box>

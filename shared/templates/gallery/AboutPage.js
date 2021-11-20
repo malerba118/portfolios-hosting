@@ -53,7 +53,7 @@ const AboutPage = ({ about }) => {
             <Heading size="3xl">
               {about.firstName} {about.lastName}
             </Heading>
-            <Heading color="primary.600" size="lg">
+            <Heading color="primary.700" size="lg" opacity={0.72}>
               {about.title}
             </Heading>
             <Box>

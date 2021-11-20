@@ -52,7 +52,7 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
           outline: {
             color: "secondary.400",
             backgroundColor: "primary.50",
-            borderColor: "secondary.400",
+            borderColor: "primary.700",
             _hover: {
               backgroundColor: "primary.100",
             },

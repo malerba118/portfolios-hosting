@@ -118,7 +118,12 @@ const LandingPage = () => {
           <Heading textAlign="center" size="3xl" my={4}>
             Hi, I'm {about.firstName}
           </Heading>
-          <Heading color="primary.600" textAlign="center" size="xl">
+          <Heading
+            color="primary.700"
+            textAlign="center"
+            size="xl"
+            opacity={0.72}
+          >
             {about.summary}
           </Heading>
         </Center>
@@ -147,7 +152,7 @@ const LandingPage = () => {
                 />
                 {/* </Link> */}
                 <Box mt={2}>
-                  <Heading fontSize="md">
+                  <Heading size="sm">
                     <Link
                       fontSize="inherit"
                       w="100%"

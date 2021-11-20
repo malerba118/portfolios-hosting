@@ -28,65 +28,91 @@ export const makeTheme = ({ headingFont, paragraphFont, palette }) =>
       Heading: {
         baseStyle: {
           color: "primary.700",
-          fontSize: "3xl",
         },
         sizes: {
-          xs: {
+          "2xs": {
+            lineHeight: "130%",
+            fontSize: {
+              base: "sm",
+              md: "sm",
+            },
             color: "primary.700",
+          },
+          xs: {
+            lineHeight: "130%",
+            fontSize: {
+              base: "xs",
+              md: "md",
+            },
+            color: "primary.700",
+          },
+          sm: {
+            lineHeight: "130%",
+            fontSize: {
+              base: "sm",
+              md: "lg",
+            },
+            color: "primary.700",
+          },
+          md: {
+            lineHeight: "130%",
             fontSize: {
               base: "md",
               md: "xl",
             },
-          },
-          sm: {
             color: "primary.700",
+          },
+          lg: {
+            lineHeight: "130%",
             fontSize: {
-              base: "lg",
+              base: "xl",
               md: "2xl",
             },
-          },
-          md: {
             color: "primary.700",
+          },
+          xl: {
+            // WebkitTextStroke: "1px currentColor",
+            lineHeight: "130%",
+            letterSpacing: ".05em",
             fontSize: {
               base: "xl",
               md: "3xl",
             },
-          },
-          lg: {
             color: "primary.700",
+          },
+          "2xl": {
+            // WebkitTextStroke: "1px currentColor",
+            lineHeight: "110%",
+            letterSpacing: ".05em",
             fontSize: {
               base: "2xl",
               md: "4xl",
             },
-          },
-          xl: {
             color: "primary.700",
+          },
+          "3xl": {
+            // WebkitTextStroke: "1px currentColor",
+            lineHeight: "110%",
+            letterSpacing: ".05em",
             fontSize: {
               base: "3xl",
               md: "5xl",
             },
-          },
-          "2xl": {
             color: "primary.700",
+          },
+          "4xl": {
+            // WebkitTextStroke: "1px currentColor",
+            lineHeight: "110%",
+            letterSpacing: ".05em",
             fontSize: {
               base: "4xl",
               md: "6xl",
             },
-          },
-          "3xl": {
             color: "primary.700",
-            fontSize: {
-              base: "5xl",
-              md: "7xl",
-            },
           },
-          "4xl": {
-            color: "primary.700",
-            fontSize: {
-              base: "6xl",
-              md: "8xl",
-            },
-          },
+        },
+        defaultProps: {
+          size: "md",
         },
       },
       Text: {

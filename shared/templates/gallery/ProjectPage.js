@@ -125,7 +125,7 @@ const ProjectPage = ({ project }) => {
         >
           <Heading size="3xl">{project.name}</Heading>
           {(project.startDate || project.endDate) && (
-            <Heading color="primary.600" size="lg">
+            <Heading color="primary.700" size="lg" opacity={0.72}>
               <DateViewer
                 startDate={project.startDate}
                 endDate={project.endDate}

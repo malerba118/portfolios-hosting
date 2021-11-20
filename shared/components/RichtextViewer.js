@@ -82,7 +82,8 @@ const DefaultElement = ({ attributes, children, element }) => {
         <Link
           color="primary.500"
           as={"a"}
-          size="xl"
+          // size="xl"
+          fontSize="inherit"
           {...attributes}
           href={element.url}
           isExternal

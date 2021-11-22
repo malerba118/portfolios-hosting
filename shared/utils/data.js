@@ -1228,7 +1228,7 @@ export const templates = {
     defaults: {
       headingFont: "Montserrat",
       paragraphFont: "Lato",
-      palette: "desert",
+      palette: "pink",
     },
     locked: false,
     palettes: [
@@ -1302,7 +1302,7 @@ export const templates = {
       "pink",
       "purple",
     ],
-    locked: false,
+    locked: true,
   },
 };
 

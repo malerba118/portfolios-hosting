@@ -5,7 +5,9 @@ const useData = () => {
 
   useEffect(() => {
     const listener = (event) => {
-      setState(event.data);
+      if (event.data?.sender === "vernos-app") {
+        setState(event.data.payload);
+      }
     };
     window.addEventListener("message", listener);
     return () => {

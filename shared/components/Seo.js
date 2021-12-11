@@ -25,6 +25,9 @@ const Seo = ({ portfolio }) => {
         ],
         site_name: `${about.firstName} ${about.lastName} - ${about.title}`,
       }}
+      twitter={{
+        cardType: "summary_large_image",
+      }}
     />
   );
 };

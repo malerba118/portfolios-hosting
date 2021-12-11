@@ -27,6 +27,7 @@ const Seo = ({ portfolio }) => {
       }}
       twitter={{
         cardType: "summary_large_image",
+        site: "@vernosapp",
       }}
     />
   );

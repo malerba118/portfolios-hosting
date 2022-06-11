@@ -3,7 +3,7 @@ import nookies from "nookies";
 import * as auth from "../server/utils/auth";
 import Database from "server/services/database";
 import * as templates from "shared/templates";
-import { getSubdomain } from "shared/utils/url";
+import { getSubdomain, getDomain } from "shared/utils/url";
 import useData from "shared/hooks/useData";
 import { useRouter } from "next/router";
 import { getPreviewablePortfolio, processPortfolio } from "shared/utils/data";
@@ -32,13 +32,24 @@ export const getServerSideProps = async (ctx) => {
       };
     }
     const db = await Database({ token: null });
-    const subdomain = isLocal
-      ? ctx.query.subdomain
-      : getSubdomain(ctx.req.headers.host);
+    // const subdomain = isLocal
+    //   ? ctx.query.subdomain
+    //   : getSubdomain(ctx.req.headers.host);
+
+    const domain = getDomain(ctx.req.headers.host);
+
     let portfolio;
-    if (subdomain) {
-      portfolio = await db.portfolios.getBySubdomain(subdomain);
+    if (!isLocal && domain !== "vernos.us") {
+      portfolio = await db.portfolios.getByDomain(domain);
+    } else {
+      const subdomain = isLocal
+        ? ctx.query.subdomain
+        : getSubdomain(ctx.req.headers.host);
+      if (subdomain) {
+        portfolio = await db.portfolios.getBySubdomain(subdomain);
+      }
     }
+
     return {
       props: {
         portfolio: processPortfolio(portfolio),

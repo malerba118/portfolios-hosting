@@ -38,6 +38,11 @@ export const getServerSideProps = async (ctx) => {
 
     const domain = getDomain(ctx.req.headers.host);
 
+    console.error({
+      domain,
+      host: ctx.req.headers.host,
+    });
+
     let portfolio;
     if (!isLocal && domain !== "vernos.us") {
       portfolio = await db.portfolios.getByDomain(domain);

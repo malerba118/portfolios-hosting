@@ -50,8 +50,18 @@ export default ({ db, user }) => {
     return toData(portfolioDoc);
   };
 
+  const getByDomain = async (domain) => {
+    let portfoliosSnapshot = await portfoliosCol
+      .where("domain", "==", domain)
+      .get();
+    let portfolioDoc = portfoliosSnapshot.docs[0];
+    assertResourceExists(portfolioDoc);
+    return toData(portfolioDoc);
+  };
+
   return {
     getOrCreate,
     getBySubdomain,
+    getByDomain,
   };
 };
